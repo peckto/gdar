@@ -35,8 +35,8 @@ required development tools
 
 test it
 -------
-create a backup:
-`# dar -R /home/ -c /var/backup/home-$(date "+%Y%m%d")`
+create a backup: <br>
+`# dar -R /home/ -c /var/backup/home-$(date "+%Y%m%d")` <br>
 and brows it with gdar
 
 manual
