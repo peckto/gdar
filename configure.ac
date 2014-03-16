@@ -2,7 +2,7 @@
 # Process this file with autoconf to produce a configure script.
 
 AC_PREREQ([2.69])
-AC_INIT([gdar], [0.9], [peckto@gmx.de])
+AC_INIT([gdar], [0.9], [specht.tobias@gmx.de])
 AM_INIT_AUTOMAKE([-Wall -Werror foreign])
 AC_CONFIG_SRCDIR([src/libgdar.cpp])
 AC_CONFIG_HEADERS([config.h])
