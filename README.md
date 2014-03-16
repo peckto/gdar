@@ -4,6 +4,7 @@ gdar
 A graphical user interface to brows and extract dar archives
 
 The GUI is written in gtkmm, as backend libdar is used.
+
 The state of development is beta, so feel free to report bugs.
 
 prepare when cloning from git
@@ -36,12 +37,12 @@ required development tools
 test it
 -------
 create a backup:
-`# dar -R /home/ -c /var/backup/home-`date "+%Y%m%d"``
+`# dar -R /home/ -c /var/backup/home-\`date "+%Y%m%d"\``
 and brows it with gdar
 
 manual
 ------
-Open a dar archive by clicking the open button.
+Open a dar archive by clicking the open button. 
 Please be patient while the index (catalogue) of the archive is being read.
 The symbol in front of the Name column indicates whether this is a file or a folder.
 By double clicking on a folder you can move into this directory.
