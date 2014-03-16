@@ -8,13 +8,13 @@ The state of development is beta, so feel free to report bugs.
 
 prepare when cloning from git
 -----------------------------
-$ ./autogen.sh
+<$ ./autogen.sh>
 
 build
 -----
-$ ./configure [--enable-libdar64] [--enable-date_s]
-$ make
-# make install
+<$ ./configure [--enable-libdar64] [--enable-date_s]>
+<$ make>
+<# make install>
 
 required development tools
 --------------------------
@@ -34,7 +34,7 @@ required development tools
 test it
 -------
 create a backup:
-# dar -R /home/ -c /var/backup/home-`date "+%Y%m%d"`
+<# dar -R /home/ -c /var/backup/home-`date "+%Y%m%d"`>
 and brows it with gdar
 
 manual
