@@ -1,13 +1,27 @@
-# http://www.gnu.org/software/automake
-
+Makefile
 Makefile.in
-
-# http://www.gnu.org/software/autoconf
-
-/autom4te.cache
+Makefile.in.in
 /aclocal.m4
-/compile
+/autom4te.cache/
+/config.*
 /configure
 /depcomp
 /install-sh
+/libtool
+/ltmain.sh
+/m4/
 /missing
+/stamp-h?
+/po/stamp-it
+.deps/
+.dirstamp
+.libs/
+*.l[ao]
+*~
+*.o
+gdar
+*.gmo
+intltool-extract.in
+intltool-merge.in
+intltool-update.in
+po/POTFILES
