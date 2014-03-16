@@ -1,5 +1,5 @@
 SUBDIRS = src po
-dist_doc_DATA = README
+dist_doc_DATA = README.md
 INTLTOOL_FILES = po/*.po
 		 intltool-extract.in \
                  intltool-merge.in \
