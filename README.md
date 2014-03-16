@@ -16,6 +16,7 @@ build
 $ ./configure [--enable-libdar64] [--enable-date_s]
 $ make
 # make install
+```
 
 required development tools
 --------------------------
