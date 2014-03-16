@@ -28,7 +28,7 @@ int main(int argc, char **argv) {
 
     Gtk::Main kit(argc, argv); 
 
-    bindtextdomain(GETTEXT_PACKAGE, PROGRAMNAME_LOCALEDIR);
+    bindtextdomain(GETTEXT_PACKAGE, GDAR_LOCALEDIR);
     bind_textdomain_codeset(GETTEXT_PACKAGE, "UTF-8");
     textdomain(GETTEXT_PACKAGE);
 
