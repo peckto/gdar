@@ -1,4 +1,4 @@
-/* 
+/*
     gdar - a graphical user interface to brows and extract dar archives
     Copyright (C) 2014  Tobias Specht
 
@@ -18,21 +18,36 @@
     To contact the author: https://gitbub.com/peckto/gdar
 */
 
-#include <iostream>
-#include "mylibdar.hpp"
+#ifndef GDAR_APPLICATION_HPP
+#define GDAR_APPLICATION_HPP
+
+#include <gtkmm.h>
 #include "libgdar.hpp"
-#include "gdar_application.hpp"
 
-using namespace std;
+class GdarApplication: public Gtk::Application {
+protected:
+    GdarApplication();
+public:
+    static Glib::RefPtr<GdarApplication> create();
+    GdarOpenWindow* window;
 
-int main(int argc, char **argv) {
 
-    Glib::RefPtr<GdarApplication> application = GdarApplication::create();
+protected:
+    ~GdarApplication();
+// Overrides of default signal handlers:
+    virtual void on_activate();
+    virtual void on_startup();
 
-    bindtextdomain(GETTEXT_PACKAGE, GDAR_LOCALEDIR);
-    bind_textdomain_codeset(GETTEXT_PACKAGE, "UTF-8");
-    textdomain(GETTEXT_PACKAGE);
+    void on_about_dialog_response(int response_id);
 
-    return application->run(argc, argv);
-}
+private:
+    void create_window();
+    void on_window_hide(Gtk::Window* window);
+    void on_action_quit();
+    void on_action_info();
+
+    Glib::RefPtr<Gtk::IconTheme> myTheme;
+};
+
+#endif
 

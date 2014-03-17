@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: de\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-03-15 17:58+0100\n"
+"POT-Creation-Date: 2014-03-17 16:27+0100\n"
 "PO-Revision-Date: 2014-03-15 17:58+0100\n"
 "Last-Translator: Tobias Specht <specht.tobias@gmx.de>\n"
 "Language-Team: Deutsch\n"
@@ -21,27 +21,28 @@ msgstr ""
 msgid "Extract"
 msgstr "Entpacken"
 
-#: ../src/libgdar.cpp:68 ../src/libgdar.cpp:389
+#: ../src/libgdar.cpp:67 ../src/libgdar.cpp:389
 msgid "Please choose a Dar file to open"
 msgstr "Bitte eine Dar Datei zum öffnen wählen"
 
-#: ../src/libgdar.cpp:92
+#: ../src/libgdar.cpp:91
 msgid "Name"
 msgstr "Name"
 
-#: ../src/libgdar.cpp:100
+#: ../src/libgdar.cpp:99
 msgid "Size"
 msgstr "Größe"
 
-#: ../src/libgdar.cpp:112
+#: ../src/libgdar.cpp:111
 msgid "Changed"
 msgstr "Geändert"
 
-#: ../src/libgdar.cpp:205 ../src/libgdar.cpp:297
+#: ../src/libgdar.cpp:204 ../src/libgdar.cpp:205 ../src/libgdar.cpp:297
+#: ../src/libgdar.cpp:299
 msgid "Folder"
 msgstr "Ordner"
 
-#: ../src/libgdar.cpp:300
+#: ../src/libgdar.cpp:301
 msgid "File"
 msgstr "Datei"
 
@@ -100,3 +101,19 @@ msgstr "Fehlgeschlagene Dateien"
 #: ../src/libgdar.cpp:501
 msgid "Extract successfully"
 msgstr "Entpacken erfolgreich"
+
+#: ../src/gdar_application.cpp:45
+msgid "Info"
+msgstr "Info"
+
+#: ../src/gdar_application.cpp:46
+msgid "Quit"
+msgstr "Beenden"
+
+#: ../src/gdar_application.cpp:81
+msgid "A graphical user interface to brows and extract dar archives."
+msgstr "Eine grafische Oberfläche zum durchsuchen und entpacken von dar Archiven."
+
+#: ../src/gdar_application.cpp:85
+msgid "Gdar on GitHub"
+msgstr "Gdar auf GitHub"

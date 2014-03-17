@@ -59,7 +59,6 @@ GdarOpenWindow::GdarOpenWindow() :
 
     //init Window
     set_title("Gdar");
-    set_default_size(400,550);
     set_icon(myTheme->load_icon("emblem-package",50));
     m_box = Gtk::manage(new Gtk::Box(Gtk::ORIENTATION_VERTICAL,0));
     i_box = Gtk::manage(new Gtk::Box(Gtk::ORIENTATION_HORIZONTAL,0));

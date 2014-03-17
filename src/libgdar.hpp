@@ -43,7 +43,7 @@ public:
     Gtk::TreeModelColumn<bool> file_is_dir;
 };
 
-class GdarOpenWindow : public Gtk::Window {
+class GdarOpenWindow : public Gtk::ApplicationWindow {
 public:
     Glib::RefPtr<Gtk::ListStore> listStore;
     FileColumns cols;
@@ -75,7 +75,6 @@ protected:
     // Icons
     Glib::RefPtr<Gtk::IconTheme> myTheme;
 
-    Glib::RefPtr<Gtk::Settings> gtk_settings;
     //Member widgets
     Gtk::Box *m_box; //main Box
     // Action widgets
@@ -112,11 +111,6 @@ protected:
     Glib::Thread *openThreadPtr;
     // color
     Gdk::Color grey,white;
-    // menu
-    Glib::RefPtr<Gtk::ActionGroup> m_refActionGroup;
-    Glib::RefPtr<Gtk::UIManager> m_refUIManager;
-    Glib::ustring ui_info;
-    Gtk::Widget *pMenubar;
 private:
     libdar::statistics *extract_stats;
     std::string get_treePath();
@@ -131,6 +125,7 @@ private:
     int sort_func(const Gtk::TreeModel::iterator &col1, const Gtk::TreeModel::iterator col2);
     std::string get_human_readable(int size);
     std::string get_readable_date(time_t date);
+    void on_about_dialog();
 }; 
 
 #endif
