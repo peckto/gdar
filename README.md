@@ -26,7 +26,6 @@ required development tools
 * gcc-c++ / g++
 * gtkmm3
 * libdar
-* boost
 * attr  (libattr)
 * gcrypt
 * lzo2

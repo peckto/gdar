@@ -29,7 +29,6 @@ AC_SUBST(GDAR_LOCALEDIR)
 AC_PROG_CXX
 
 # Checks for libraries.
-#AC_CHECK_LIB([boost_regex],[boost::regex_match],[],AC_MSG_ERROR([unable to find boost_regex lib]))
 
 #Checks for pkg moduels
 libdar="libdar"
@@ -38,7 +37,6 @@ PKG_CHECK_MODULES([DAR], [${libdar} >= 5.3.0])
 PKG_CHECK_MODULES([GTKMM], [gtkmm-3.0])
 
 # Checks for header files.
-AC_CHECK_HEADER([boost/regex.hpp],[],[AC_MSG_ERROR([unable to find boost library])])
 AC_CHECK_HEADER([gcrypt.h],[],[AC_MSG_ERROR([unable to find gcrypt header])])
 AC_CHECK_HEADER([bzlib.h],[],[AC_MSG_ERROR([unable to find bzlib header])])
 AC_CHECK_HEADER([lzo/lzo2a.h],[],[AC_MSG_ERROR([unable to find lzo2 header])])
