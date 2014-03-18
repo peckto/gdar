@@ -38,8 +38,16 @@ Glib::RefPtr<GdarApplication> GdarApplication::create() {
 void GdarApplication::on_startup() {
 
     Gtk::Application::on_startup();
-    add_action("quit", sigc::mem_fun(*this, &GdarApplication::on_action_quit) );
-    add_action("info", sigc::mem_fun(*this, &GdarApplication::on_action_info) );
+    // to be backward compatible with glibmm < 2.38
+    Glib::RefPtr<Gio::SimpleAction> action;
+    action = Gio::SimpleAction::create("quit");
+    action->signal_activate().connect( sigc::hide(sigc::mem_fun(*this, &GdarApplication::on_action_quit)));
+    add_action(action);
+    action = Gio::SimpleAction::create("info");
+    action->signal_activate().connect( sigc::hide(sigc::mem_fun(*this, &GdarApplication::on_action_info)));
+    add_action(action);
+//    add_action("quit", sigc::mem_fun(*this, &GdarApplication::on_action_quit) ); // availabe since glibmm 2.38
+//    add_action("info", sigc::mem_fun(*this, &GdarApplication::on_action_info) ); // availabe since glibmm 2.38
 
     Glib::RefPtr<Gio::Menu> app_menu = Gio::Menu::create();
     app_menu->append(_("Info"), "app.info");
