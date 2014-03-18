@@ -38,8 +38,8 @@ You can create a full backup of your home partition with dar by issuning the fol
 `# dar -R /home/ -c /var/backup/home-$(date "+%Y%m%d")` <br>
 In case of recovery just open the dar archive with gdar. <br>
 <br>
-For a detailed documentation about the dar command-line tool visit:
-(http://dar.linux.free.fr/doc/Tutorial.html)
+For a detailed documentation about the dar command-line tool visit: <br>
+http://dar.linux.free.fr/doc/Tutorial.html
 
 manual
 ------
