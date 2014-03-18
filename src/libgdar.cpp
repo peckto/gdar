@@ -233,7 +233,7 @@ std::string GdarOpenWindow::get_human_readable(int size) {
         return "0 bytes";
     }
     std::string readable, t;
-    char c_redable[5];
+    char c_redable[6];
     int len, exp;
     float f_readable;
     len = log10(size)+1;
