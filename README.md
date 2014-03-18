@@ -32,11 +32,14 @@ required development tools
 * bz2 (bzib)
 * libz
 
-test it
--------
-create a backup: <br>
+try it out
+----------
+You can create a full backup of your home partition with dar by issuning the following command:<br>
 `# dar -R /home/ -c /var/backup/home-$(date "+%Y%m%d")` <br>
-and brows it with gdar
+In case of recovery just open the dar archive with gdar. <br>
+<br>
+For a detailed documentation about the dar command-line tool visit:
+(http://dar.linux.free.fr/doc/Tutorial.html)
 
 manual
 ------
