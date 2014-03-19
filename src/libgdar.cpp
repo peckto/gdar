@@ -186,6 +186,8 @@ void GdarOpenWindow::openDar() {
     newDar->open(); 
     extract_stats = new libdar::statistics(true);
     is_open = true;
+    n_entry_path.set_text("");
+    treePath.clear();
     delete c_path;
     delete c_slice; 
 }
