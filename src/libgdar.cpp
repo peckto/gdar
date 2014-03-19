@@ -38,7 +38,7 @@ FileColumns::FileColumns() {
 FileColumns::~FileColumns() {
 }
  
-GdarOpenWindow::GdarOpenWindow() :
+GdarOpenWindow::GdarOpenWindow(GdarApplication *application) :
     img_up(Gtk::Stock::GO_UP, Gtk::ICON_SIZE_BUTTON),
     n_separator(Gtk::ORIENTATION_VERTICAL),
     a_separator1(Gtk::ORIENTATION_VERTICAL),
@@ -54,12 +54,13 @@ GdarOpenWindow::GdarOpenWindow() :
     extractThreadActive = false;
     is_open = false;
     extract_stats = NULL;
-    // Icon
-    myTheme = Gtk::IconTheme::get_default();
+    gdarApp = application;
+    gdarApp->myTheme = Gtk::IconTheme::get_default(); // In older gtkmm versions it seems like 
+						      // the IconTheme can only be fetched inside the Window
 
     //init Window
     set_title("Gdar");
-    set_icon(myTheme->load_icon("emblem-package",50));
+    set_icon(gdarApp->myTheme->load_icon("emblem-package",50));
     m_box = Gtk::manage(new Gtk::Box(Gtk::ORIENTATION_VERTICAL,0));
     i_box = Gtk::manage(new Gtk::Box(Gtk::ORIENTATION_HORIZONTAL,0));
     n_box = Gtk::manage(new Gtk::Box(Gtk::ORIENTATION_HORIZONTAL,0));
@@ -207,12 +208,12 @@ void GdarOpenWindow::populate(std::vector<libdar::list_entry> *children_table) {
         if (it->is_dir()) {
             row[cols.file_type] = _("Folder");
             row[cols.file_size] = _("Folder"); // should be amount of sub inodes
-            row[cols.file_icon] = myTheme->load_icon("folder-symbolic",ICON_SIZE);
+            row[cols.file_icon] = gdarApp->myTheme->load_icon("folder-symbolic",ICON_SIZE);
         } else {
             row[cols.file_type] = "File";
             istringstream(it->get_file_size()) >> size;
             row[cols.file_size] = get_human_readable(size);
-            row[cols.file_icon] = myTheme->load_icon("folder-documents-symbolic",ICON_SIZE);
+            row[cols.file_icon] = gdarApp->myTheme->load_icon("folder-documents-symbolic",ICON_SIZE);
         }
 #ifdef LIBDAR_WITH_DATE_AS_TIME
         row[cols.file_changed] = get_readable_date(it->get_last_change_s());
@@ -299,11 +300,11 @@ void GdarOpenWindow::populate() {
         istringstream(it->size) >> size;
         if (it->is_dir) { 
             row[cols.file_type] = _("Folder");
-            row[cols.file_icon] = myTheme->load_icon("folder-symbolic",ICON_SIZE);
+            row[cols.file_icon] = gdarApp->myTheme->load_icon("folder-symbolic",ICON_SIZE);
             row[cols.file_size] = _("Folder");
         } else {
             row[cols.file_type] = _("File");
-            row[cols.file_icon] = myTheme->load_icon("folder-documents-symbolic",ICON_SIZE);
+            row[cols.file_icon] = gdarApp->myTheme->load_icon("folder-documents-symbolic",ICON_SIZE);
             row[cols.file_size] = get_human_readable(size);
         }
         row[cols.file_changed] = it->date;

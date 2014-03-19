@@ -26,6 +26,7 @@
 #include <math.h> // log10
 #include <string>
 #include "mylibdar.hpp"
+#include "gdar_application.hpp"
 #include "config.h"
 #define ICON_SIZE 18
 
@@ -51,7 +52,7 @@ public:
     std::list<File> listingBuffer;
     Mydar *newDar;
  
-    GdarOpenWindow();
+    GdarOpenWindow(GdarApplication *application);
     ~GdarOpenWindow();
 
     void openDar();
@@ -71,9 +72,6 @@ protected:
     void on_info();
     void on_swh_hide();
     bool filter_func(Gtk::TreeModel::const_iterator it);
-
-    // Icons
-    Glib::RefPtr<Gtk::IconTheme> myTheme;
 
     //Member widgets
     Gtk::Box *m_box; //main Box
@@ -126,6 +124,8 @@ private:
     std::string get_human_readable(int size);
     std::string get_readable_date(time_t date);
     void on_about_dialog();
+
+    GdarApplication *gdarApp;
 }; 
 
 #endif

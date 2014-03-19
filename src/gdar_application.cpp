@@ -25,7 +25,6 @@
 
 GdarApplication::GdarApplication() : Gtk::Application("io.github.peckto.gdar") {
     Glib::set_application_name("Gdar");
-    myTheme = Gtk::IconTheme::get_default();
 }
 
 GdarApplication::~GdarApplication() {
@@ -57,7 +56,7 @@ void GdarApplication::on_startup() {
 }
 
 void GdarApplication::create_window() {
-    window = new GdarOpenWindow();
+    window = new GdarOpenWindow(this);
     window->set_default_size(400, 550);
     add_window(*window);
 

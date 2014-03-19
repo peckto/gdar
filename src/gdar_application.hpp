@@ -22,15 +22,13 @@
 #define GDAR_APPLICATION_HPP
 
 #include <gtkmm.h>
-#include "libgdar.hpp"
 
 class GdarApplication: public Gtk::Application {
 protected:
     GdarApplication();
 public:
     static Glib::RefPtr<GdarApplication> create();
-    GdarOpenWindow* window;
-
+    Glib::RefPtr<Gtk::IconTheme> myTheme;
 
 protected:
     ~GdarApplication();
@@ -46,7 +44,7 @@ private:
     void on_action_quit();
     void on_action_info();
 
-    Glib::RefPtr<Gtk::IconTheme> myTheme;
+    Gtk::ApplicationWindow *window;
 };
 
 #endif
