@@ -150,8 +150,10 @@ GdarOpenWindow::GdarOpenWindow() :
     n_box->pack_start(n_entry_path);
 
     // Action widgets
+#ifdef SET_ALWAYS_SHOW_IMAGE
     a_open.set_always_show_image(true);
     a_info.set_always_show_image(true);
+#endif
     a_info.set_image(a_info_img);
     a_box->pack_start(a_open);
     a_box->pack_start(a_separator1);

@@ -56,6 +56,11 @@ AS_VERSION_COMPARE([`pkg-config --modversion ${libdar}`],[5.4.0],
 	AC_DEFINE([GET_CHILDREN_IN_TABLE],[1],[GET_CHILDREN_IN_TABLE]),
 	[]
 )
+AS_VERSION_COMPARE([`pkg-config --modversion gtkmm-3.0`],[3.6.0],
+	[],
+	AC_DEFINE([SET_ALWAYS_SHOW_IMAGE],[1],[SET_ALWAYS_SHOW_IMAGE]),
+	AC_DEFINE([SET_ALWAYS_SHOW_IMAGE],[1],[SET_ALWAYS_SHOW_IMAGE])
+)
 
 # Checks for typedefs, structures, and compiler characteristics.
 AC_CHECK_HEADER_STDBOOL
