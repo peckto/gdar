@@ -80,17 +80,18 @@ GdarOpenWindow::GdarOpenWindow(GdarApplication *application) :
     int column_count;
     Gtk::TreeViewColumn *column;
     Gtk::CellRendererText *coloureCell;
-    Gtk::TreeModelColumn< Glib::RefPtr<Gdk::Pixbuf> > *columnIcon;
 //    grey.set_rgb(0xffff,0xffff,0x0000);
     grey.set_grey_p(0.7);
     white.set_grey_p(1);
-    // icon
-    columnIcon = new Gtk::TreeModelColumn< Glib::RefPtr<Gdk::Pixbuf> >;
     // Name
     coloureCell = new Gtk::CellRendererText;
+    Gtk::CellRendererPixbuf iconCell;
     column = new Gtk::TreeViewColumn();
     column->set_title(_("Name"));
-    column->pack_start(cols.file_icon,false); // create a cell for the icon in the Name column
+//    column->pack_start(cols.file_icon,false); // create a cell for the icon in the Name column
+    column->pack_start(iconCell,false);
+    column->add_attribute(iconCell.property_pixbuf(), cols.file_icon);
+    column->add_attribute(iconCell.property_cell_background_gdk(), cols.file_colour);
     column->pack_end(*coloureCell); // create the cell for content of the Name column
     column->add_attribute(coloureCell->property_text(), cols.file_name);
     column->add_attribute(coloureCell->property_background_gdk(), cols.file_colour);
