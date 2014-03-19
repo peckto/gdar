@@ -23,7 +23,7 @@
 #include "gdar_application.hpp"
 #include "libgdar.hpp"
 
-GdarApplication::GdarApplication() {
+GdarApplication::GdarApplication() : Gtk::Application("io.github.peckto.gdar") {
     Glib::set_application_name("Gdar");
     myTheme = Gtk::IconTheme::get_default();
 }
