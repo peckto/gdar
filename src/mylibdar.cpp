@@ -229,6 +229,7 @@ int Mydar::extract(const char *dir, const char *dest,libdar::statistics *stats) 
 }
 
 int Mydar::count_files_in_dir(const char *dir) {
+   return 0;
 }
 
 /* load statistics of an already open archive */
