@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: de\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-03-17 16:27+0100\n"
+"POT-Creation-Date: 2014-03-22 15:04+0100\n"
 "PO-Revision-Date: 2014-03-15 17:58+0100\n"
 "Last-Translator: Tobias Specht <specht.tobias@gmx.de>\n"
 "Language-Team: Deutsch\n"
@@ -17,11 +17,11 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../src/libgdar.cpp:47
+#: ../src/libgdar.cpp:48
 msgid "Extract"
 msgstr "Entpacken"
 
-#: ../src/libgdar.cpp:67 ../src/libgdar.cpp:389
+#: ../src/libgdar.cpp:69 ../src/libgdar.cpp:396
 msgid "Please choose a Dar file to open"
 msgstr "Bitte eine Dar Datei zum öffnen wählen"
 
@@ -29,91 +29,111 @@ msgstr "Bitte eine Dar Datei zum öffnen wählen"
 msgid "Name"
 msgstr "Name"
 
-#: ../src/libgdar.cpp:99
+#: ../src/libgdar.cpp:102
 msgid "Size"
 msgstr "Größe"
 
-#: ../src/libgdar.cpp:111
+#: ../src/libgdar.cpp:114
 msgid "Changed"
 msgstr "Geändert"
 
-#: ../src/libgdar.cpp:204 ../src/libgdar.cpp:205 ../src/libgdar.cpp:297
-#: ../src/libgdar.cpp:299
+#: ../src/libgdar.cpp:211 ../src/libgdar.cpp:212 ../src/libgdar.cpp:304
+#: ../src/libgdar.cpp:306
 msgid "Folder"
 msgstr "Ordner"
 
-#: ../src/libgdar.cpp:301
+#: ../src/libgdar.cpp:308
 msgid "File"
 msgstr "Datei"
 
-#: ../src/libgdar.cpp:348
+#: ../src/libgdar.cpp:355
 msgid "Reading catalogue"
 msgstr "Lese Catalogue"
 
-#: ../src/libgdar.cpp:352 ../src/libgdar.cpp:449
+#: ../src/libgdar.cpp:359 ../src/libgdar.cpp:456
 msgid "Ready"
 msgstr "Fertig"
 
-#: ../src/libgdar.cpp:395
+#: ../src/libgdar.cpp:402
 msgid "Dar files"
 msgstr "Dar Datein"
 
-#: ../src/libgdar.cpp:415
+#: ../src/libgdar.cpp:422
 msgid "Extracting is still running"
 msgstr "Entpacken läuft noch"
 
-#: ../src/libgdar.cpp:416
+#: ../src/libgdar.cpp:423
 msgid "Error"
 msgstr "Fehler"
 
-#: ../src/libgdar.cpp:420
+#: ../src/libgdar.cpp:427
 msgid "Please choole a destination folder"
 msgstr "Bitte einen Ziel Ordner wählen"
 
-#: ../src/libgdar.cpp:424
+#: ../src/libgdar.cpp:431
 msgid "OK"
 msgstr "OK"
 
-#: ../src/libgdar.cpp:446
+#: ../src/libgdar.cpp:453
 msgid "Extracting files"
 msgstr "Entpacke Dateien"
 
-#: ../src/libgdar.cpp:456
+#: ../src/libgdar.cpp:463
 msgid "Treated files"
 msgstr "Verarbeitete Dateien"
 
 #. Gtk::Label t2( _("Hard links"),Gtk::ALIGN_END,Gtk::ALIGN_START);
-#: ../src/libgdar.cpp:459
+#: ../src/libgdar.cpp:466
 msgid "Skipped files"
 msgstr "Übersprungene Dateien"
 
-#: ../src/libgdar.cpp:460
+#: ../src/libgdar.cpp:467
 msgid "Ignored files"
 msgstr "Ignorierte Dateien"
 
 #. Gtk::Label t5( _("tooold"),Gtk::ALIGN_END,Gtk::ALIGN_START);
-#: ../src/libgdar.cpp:462
+#: ../src/libgdar.cpp:469
 msgid "Errored files"
 msgstr "Fehlgeschlagene Dateien"
 
 #. table.attach(l7,2,3,6,7);
 #. table.attach(l8,2,3,8,9);
-#: ../src/libgdar.cpp:501
+#: ../src/libgdar.cpp:508
 msgid "Extract successfully"
 msgstr "Entpacken erfolgreich"
 
-#: ../src/gdar_application.cpp:45
+#: ../src/libgdar.cpp:520
+msgid "Total numer of inodes"
+msgstr "Gesamte Anzahl von Inodes"
+
+#: ../src/libgdar.cpp:521
+msgid "Number of directories"
+msgstr "Anzahl von Ordnern"
+
+#: ../src/libgdar.cpp:522
+msgid "Number of files"
+msgstr "Anzahl von Dateien"
+
+#: ../src/libgdar.cpp:523
+msgid "Saved inodes in this backup"
+msgstr "Gespeicherte Inodes in diesem Backup"
+
+#: ../src/libgdar.cpp:525
+msgid "About "
+msgstr "Über "
+
+#: ../src/gdar_application.cpp:52
 msgid "Info"
 msgstr "Info"
 
-#: ../src/gdar_application.cpp:46
+#: ../src/gdar_application.cpp:53
 msgid "Quit"
 msgstr "Beenden"
 
-#: ../src/gdar_application.cpp:81
+#: ../src/gdar_application.cpp:87
 msgid "A graphical user interface to brows and extract dar archives."
 msgstr "Eine grafische Oberfläche zum durchsuchen und entpacken von dar Archiven."
 
-#: ../src/gdar_application.cpp:85
+#: ../src/gdar_application.cpp:91
 msgid "Gdar on GitHub"
 msgstr "Gdar auf GitHub"

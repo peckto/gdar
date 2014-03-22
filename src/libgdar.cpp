@@ -483,7 +483,16 @@ void GdarOpenWindow::on_info() {
     if ( not is_open )
         return;
 //    m_spinner.start();
-    newDar->get_stats();
+    std::map<std::string, std::string> stats;
+    libdar::entree_stats my_stats = newDar->my_arch->get_stats();
+    stats[_("Total numer of inodes")] = libdar::deci(my_stats.total).human();
+    stats[_("Number of directories")] = libdar::deci(my_stats.num_d).human();
+    stats[_("Number of files")] = libdar::deci(my_stats.num_f).human();
+    stats[_("Saved inodes in this backup")] = libdar::deci(my_stats.saved).human();
+
+    TableDialog dlg("",stats);
+    dlg.set_title(_("About ") + slice);
+    dlg.run();
 //    cout << newDar->stats_total << endl;
 //    m_spinner.stop();
 }
