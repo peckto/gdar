@@ -15,6 +15,7 @@ build
 $ ./configure [--enable-libdar64] [--enable-date_s]
 $ make
 # make install
+# gtk-update-icon-cache /usr/share/icons/hicolor
 
 required development tools
 --------------------------
