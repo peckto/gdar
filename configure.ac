@@ -3,7 +3,7 @@
 
 AC_PREREQ([2.69])
 AC_INIT([gdar], [0.9], [specht.tobias@gmx.de])
-AM_INIT_AUTOMAKE([-Wall -Werror foreign])
+AM_INIT_AUTOMAKE([-Wall -Werror])
 AC_CONFIG_SRCDIR([src/libgdar.cpp])
 AC_CONFIG_HEADERS([config.h])
 AC_LANG([C++])
