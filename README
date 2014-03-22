@@ -24,7 +24,7 @@ required development tools
 * make
 * gcc-c++ / g++
 * gtkmm3
-* libdar
+* libdar >= 2.4.8
 * attr  (libattr)
 * gcrypt
 * lzo2
