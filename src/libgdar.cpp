@@ -20,6 +20,7 @@
 
 
 #include <iostream>
+#include <iomanip>
 #include <glibmm/i18n.h>
 #include "libgdar.hpp"
 #include "mylibdar.hpp"
@@ -459,53 +460,22 @@ void GdarOpenWindow::extractThread() {
 }
 
 void GdarOpenWindow::on_extract_finish() {
-    Gtk::Label t1( _("Treated files"),Gtk::ALIGN_END,Gtk::ALIGN_START);
-    t1.set_size_request(150,-1);
-//    Gtk::Label t2( _("Hard links"),Gtk::ALIGN_END,Gtk::ALIGN_START);
-    Gtk::Label t3( _("Skipped files"),Gtk::ALIGN_END,Gtk::ALIGN_START);
-    Gtk::Label t4( _("Ignored files"),Gtk::ALIGN_END,Gtk::ALIGN_START);
-//    Gtk::Label t5( _("tooold"),Gtk::ALIGN_END,Gtk::ALIGN_START);
-    Gtk::Label t6( _("Errored files"),Gtk::ALIGN_END,Gtk::ALIGN_START);
-//    Gtk::Label t7( _("ea_treated"),Gtk::ALIGN_END,Gtk::ALIGN_START);
-//    Gtk::Label t8( _("Processed bytes"),Gtk::ALIGN_END,Gtk::ALIGN_START);
-    Gtk::Label tt("\t");
-    Gtk::Label l1(libdar::deci(extract_stats->get_treated()).human(),Gtk::ALIGN_START,Gtk::ALIGN_START);
-    l1.set_size_request(40,-1);
-//    Gtk::Label l2(libdar::deci(extract_stats->get_hard_links()).human(),Gtk::ALIGN_START,Gtk::ALIGN_START);
-    Gtk::Label l3(libdar::deci(extract_stats->get_skipped()).human(),Gtk::ALIGN_START,Gtk::ALIGN_START);
-    Gtk::Label l4(libdar::deci(extract_stats->get_ignored()).human(),Gtk::ALIGN_START,Gtk::ALIGN_START);
-//    Gtk::Label l5(libdar::deci(extract_stats->get_tooold()).human(),Gtk::ALIGN_START,Gtk::ALIGN_START);
-    Gtk::Label l6(libdar::deci(extract_stats->get_errored()).human(),Gtk::ALIGN_START,Gtk::ALIGN_START);
-//    Gtk::Label l7(libdar::deci(extract_stats->get_ea_treated()).human(),Gtk::ALIGN_START,Gtk::ALIGN_START);
-//    Gtk::Label l8(libdar::deci(extract_stats->get_byte_amount()).human(),Gtk::ALIGN_START,Gtk::ALIGN_START);
-    Gtk::Table table(8,3,false);
-    Gtk::Box *box;
+    std::map<std::string, std::string> stats;
+
+    stats[_("Treated files")] = libdar::deci(extract_stats->get_treated()).human();
+//    stats[_("Hard links")] = libdar::deci(extract_stats->get_hard_links()).human();
+    stats[_("Skipped files")] = libdar::deci(extract_stats->get_skipped()).human();
+    stats[_("Ignored files")] = libdar::deci(extract_stats->get_ignored()).human();
+//    stats[_("tooold")] = libdar::deci(extract_stats->get_tooold()).human();
+    stats[_("Errored files")] = libdar::deci(extract_stats->get_errored()).human();
+//    stats[_("ea_treated")] = libdar::deci(extract_stats->get_ea_treated()).human();
+//    stats[_("Processed bytes")] = libdar::deci(extract_stats->get_byte_amount()).human();
 
     string msg = ext_src;
     msg += " => ";
     msg += ext_dest;
-    Gtk::MessageDialog dlg(msg, false, Gtk::MESSAGE_INFO, Gtk::BUTTONS_OK, true );
-    box = dlg.get_content_area();
-    box->add(table);
-    table.attach(t1,0,1,0,1);
-//    table.attach(t2,0,1,1,2);
-    table.attach(t3,0,1,2,3);
-    table.attach(t4,0,1,3,4);
-//    table.attach(t5,0,1,4,5);
-    table.attach(t6,0,1,5,6);
-//    table.attach(t7,0,1,6,7);
-//    table.attach(t8,0,1,8,9);
-    table.attach(tt,1,2,0,1);
-    table.attach(l1,2,3,0,1);
-//    table.attach(l2,2,3,1,2);
-    table.attach(l3,2,3,2,3);
-    table.attach(l4,2,3,3,4);
-//    table.attach(l5,2,3,4,5);
-    table.attach(l6,2,3,5,6);
-//    table.attach(l7,2,3,6,7);
-//    table.attach(l8,2,3,8,9);
+    TableDialog dlg(msg,stats);
     dlg.set_title(_("Extract successfully"));
-    box->show_all();
     dlg.run();
 }
 
@@ -531,5 +501,39 @@ bool GdarOpenWindow::filter_func(Gtk::TreeModel::const_iterator it) {
     if (value[0] == '.')
         return false;
     return true;
+}
+
+TableDialog::TableDialog(Glib::ustring msg, std::map<std::string, std::string> &cont) :
+    Gtk::MessageDialog(msg, false, Gtk::MESSAGE_INFO, Gtk::BUTTONS_OK, true ),
+    table(cont.size(),3,false),
+    tt("\t")
+{
+    box = get_content_area();
+    box->add(table);
+    std::map<std::string, std::string>::iterator it;
+    Gtk::Label *first, *second;
+    int i = 0;
+    for (it=cont.begin(); it!=cont.end(); it++) {
+        first = new Gtk::Label(it->first,Gtk::ALIGN_END,Gtk::ALIGN_START);
+        second = new Gtk::Label(it->second,Gtk::ALIGN_START,Gtk::ALIGN_START);
+        labels[first] = second;
+        table.attach(*first,0,1,i,i+1);
+        table.attach(*second,2,3,i,i+1);
+//        first->set_size_request(200,-1);
+//        second->set_size_request(40,-1);
+        i++;
+    }
+    table.attach(tt,1,2,0,1);
+    box->show_all();
+}
+
+TableDialog::~TableDialog() {
+    labelMap::iterator it;
+    for (it=labels.begin();it!=labels.end();it++) {
+        if (it->first != NULL)
+            delete it->first;
+        if (it->second != NULL)
+            delete it->second;
+    }
 }
 
