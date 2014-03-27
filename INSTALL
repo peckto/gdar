@@ -12,9 +12,7 @@ openSUSE
                  libgcrypt-devel lzo-devel zlib-devel libdar-devel gnome-icon-theme-symbolic
 
 Ubuntu
-! Please note that the amd64 package of libdar has a bug and will cause the build to fail.
-! Please build libdar from source.
-# apt-get install make gcc g++ libgtkmm-3.0-dev libgcrypt11-dev libtool intltool libattr1-dev \
+# apt-get install make gcc g++ libgtkmm-3.0-dev libgcrypt11-dev libtool intltool libattr1-dev libdar-dev \
                   libbz2-1.0 libbz2-dev libbz2-ocaml libbz2-ocaml-dev liblzo2-dev gnome-icon-theme-symbolic
 
 Debian
