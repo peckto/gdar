@@ -22,10 +22,10 @@
 #ifndef MYLIBDAR_HPP
 #define MYLIBDAR_HPP
 
+#include "config.h"
 #include <dar/libdar.hpp>
 #include <dar/deci.hpp>
 #include <libintl.h>
-#include "config.h"
 
 class File {
 public:
