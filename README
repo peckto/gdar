@@ -54,7 +54,6 @@ The info button (light bulb) gives you a brief overview of the archive.
 known bugs
 ----------
 * when running in a KDE environment the icons in the TreeView widget are hardly visible because of a gray background
-* building against libdar64 v5.3.0 (dar-2.4.8) fails, please use libdar in 32Bit mode
 
 todo
 ----
