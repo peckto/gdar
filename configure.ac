@@ -35,7 +35,7 @@ libdar="libdar"
 AC_ARG_ENABLE([libdar64],[  --enable-libdar64 	link against libdar64],[libdar="libdar64"],[libdar="libdar"])
 if test "$libdar" == "libdar64"
 then
-  AC_DEFINE([LIBDAR_MODE],[64],[LIBDAR_MODE])]
+  AC_DEFINE([LIBDAR_MODE],[64],[LIBDAR_MODE])
 fi
 PKG_CHECK_MODULES([DAR], [${libdar} >= 5.3.0])
 PKG_CHECK_MODULES([GTKMM], [gtkmm-3.0])
