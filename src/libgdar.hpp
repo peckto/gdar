@@ -25,10 +25,16 @@
 #include <gtkmm.h>
 #include <math.h> // log10
 #include <string>
+#include <queue>
 #include "mylibdar.hpp"
 #include "gdar_application.hpp"
 #include "config.h"
 #define ICON_SIZE 18
+
+struct ErrorMsg {
+    Glib::ustring msg;
+    Glib::ustring source;
+};
 
 class FileColumns : public Gtk::TreeModel::ColumnRecord {
 public:
@@ -55,7 +61,7 @@ public:
     GdarOpenWindow(GdarApplication *application);
     ~GdarOpenWindow();
 
-    void openDar();
+    bool openDar();
     void openDarThread();
     void populate();
 #ifdef GET_CHILDREN_IN_TABLE

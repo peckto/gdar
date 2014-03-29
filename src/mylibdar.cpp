@@ -49,49 +49,28 @@ int Mydar::init() {
     libdar::U_16 excode;
     std::string msg;
 
-    libdar::get_version_noexcept(maj, med, min, excode, msg);
-
-    if(excode != LIBDAR_NOEXCEPT) {
-        std::cout << msg << endl;
-        return 1;
-    }
+    libdar::get_version(maj, med, min);
 
     if(maj != LIBDAR_COMPILE_TIME_MAJOR || med < libdar::LIBDAR_COMPILE_TIME_MEDIUM) {
-        std::cout << "we are linking against wrong libdar" << std::endl;
-        return 1;
+        throw libdar::Erange("initialization", "we are linking against a wrong libdar"); 
     }
     return 0;
 }
 
 int Mydar::open() {
-    my_arch = libdar::open_archive_noexcept(dialog,path,slice, "dar", archive_options_read(), exception, except_msg); 
+    my_arch = new libdar::archive(dialog,path,slice, "dar", archive_options_read()); 
 
-    if(exception != LIBDAR_NOEXCEPT) {
-        std::cout << "an error occurred: " << except_msg << std::endl;
-        return 1;
-    }
 //    my_arch->init_catalogue(dialog); // not avalible in libdar v5.3.2
     return 0;
 }
 
-int Mydar::list() {
-    op_listing_noexcept(dialog_custom_listing,my_arch,
-        archive_options_listing(),
-        exception,
-        except_msg);
-    if(exception != LIBDAR_NOEXCEPT) {
-        std::cout << "an error occurred: " << except_msg << endl;
-        return 1;
-    }
+/*int Mydar::list() {
+    my_arch->op_listing(dialog_custom_listing, archive_options_listing());
     return 0;
-}
+}*/
 
 int Mydar::list_children(const char *dir) {
-    get_children_of_noexcept(dialog_custom_listing, my_arch, dir, exception, except_msg);
-    if(exception != LIBDAR_NOEXCEPT) {
-        std::cout << "an error occurred: " << except_msg << endl;
-        return 1;
-    }
+    my_arch->get_children_of(dialog_custom_listing, dir);
     return 0;
 }
 
@@ -109,13 +88,8 @@ int Mydar::extract(const char *dir, const char *dest,libdar::statistics *stats) 
     libdar::archive_options_extract options;
     options.set_subtree(libdar::simple_path_mask(dir2, true));
     options.set_display_skipped(true);
-    libdar::op_extract_noexcept(dialog,my_arch,dest,options,stats,exception, except_msg);
+    my_arch->op_extract(dialog,dest,options,stats);
     
-    if (exception != LIBDAR_NOEXCEPT) {
-        std::cout << "an error occourred: " << except_msg << endl;
-        return 1;
-    }
-
     return 0;
 }
 
@@ -138,23 +112,15 @@ bool Mydar::test() {
     if (my_statistic != NULL) {
         delete my_statistic;
     }
-    libdar::statistics test_stats = libdar::op_test_noexcept(dialog, my_arch, test_options, NULL, 
-        exception, except_msg);
-    if (exception != LIBDAR_NOEXCEPT) {
-        std::cout << "an error occurred: " << except_msg << std::endl;
-        return false;
-    }
+    libdar::statistics test_stats = my_arch->op_test(dialog, test_options, NULL);
+
     return true;
 }
 
 #ifdef GET_CHILDREN_IN_TABLE
 std::vector<libdar::list_entry> Mydar::get_children_in_table(const std::string &dir) const {
     std::vector<libdar::list_entry> children_table;
-    try {
     children_table = my_arch->get_children_in_table(dir);
-    } catch (libdar::Egeneric &e) {
-        std::cout << "exception get_children_in_table:" <<e.get_message() << std::endl;
-    }
     return children_table;
 }
 #endif

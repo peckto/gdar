@@ -47,7 +47,7 @@ public:
     // open dar archive
     int open();
     // list archive content
-    int list();
+//    int list();
     // list only children of parent dir
     int list_children(const char *dir);
 #ifdef GET_CHILDREN_IN_TABLE

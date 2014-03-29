@@ -174,7 +174,7 @@ GdarOpenWindow::~GdarOpenWindow() {
         delete extract_stats;
 }
 
-void GdarOpenWindow::openDar() {
+bool GdarOpenWindow::openDar() {
     char *c_path, *c_slice;
 
     if (newDar != NULL) {
@@ -186,15 +186,24 @@ void GdarOpenWindow::openDar() {
     strcpy(c_path,path.c_str());
     strcpy(c_slice,slice.c_str()); 
     newDar = new Mydar(c_path,c_slice);
-    newDar->init();
-    newDar->setListingBuffer(&listingBuffer);
-    newDar->open(); 
+    try {
+        newDar->init();
+        newDar->setListingBuffer(&listingBuffer);
+        newDar->open(); 
+    } catch (libdar::Egeneric &e) {
+        cout << "libdar::Egeneric exception in: " << e.get_source() << endl;
+        std::cout << e.get_message() << std::endl;
+        delete c_path;
+        delete c_slice;
+        return false;
+    }
     extract_stats = new libdar::statistics(true);
     is_open = true;
     n_entry_path.set_text("");
     treePath.clear();
     delete c_path;
     delete c_slice; 
+    return true;
 }
 
 #ifdef GET_CHILDREN_IN_TABLE
@@ -326,14 +335,20 @@ string GdarOpenWindow::get_treePath() {
 
 void GdarOpenWindow::list_children() {
     string s_treePath = get_treePath();
+    try {
 #ifdef GET_CHILDREN_IN_TABLE
-    std::vector<libdar::list_entry> children_table = newDar->get_children_in_table(s_treePath);
-    populate(&children_table);
+        std::vector<libdar::list_entry> children_table = newDar->get_children_in_table(s_treePath);
+        populate(&children_table);
 #else
-    listingBuffer.clear();
-    newDar->list_children(s_treePath.c_str());
-    populate();
+        listingBuffer.clear();
+        newDar->list_children(s_treePath.c_str());
+        populate();
 #endif
+    } catch (libdar::Egeneric &e) {
+        cout << "libdar::Egeneric exception in: " << e.get_source() << endl;
+        std::cout << e.get_message() << std::endl;
+        return;
+    }
     n_entry_path.set_text(s_treePath);
 }
 
@@ -354,8 +369,8 @@ void GdarOpenWindow::on_active_row(const Gtk::TreeModel::Path& path, Gtk::TreeVi
 void GdarOpenWindow::openDarThread() {
     m_statusbar.push(_("Reading catalogue"));
     m_spinner.start();
-    openDar();
-    list_children_disp();
+    if ( openDar() )
+        list_children_disp();
     m_statusbar.push(_("Ready"));
     m_spinner.stop();
 }
@@ -452,7 +467,13 @@ void GdarOpenWindow::extractThread() {
     extractThreadActive = true;
     m_statusbar.push(_("Extracting files"));
     m_spinner.start();
-    newDar->extract(ext_src.c_str(),ext_dest.c_str(),extract_stats);
+    try {
+        newDar->extract(ext_src.c_str(),ext_dest.c_str(),extract_stats);
+    } catch (libdar::Egeneric &e) {
+        cout << "libdar::Egeneric exception in: " << e.get_source() << endl;
+        std::cout << e.get_message() << std::endl;
+        return;
+    }
     m_statusbar.push(_("Ready"));
     m_spinner.stop();
     extract_finish_disp();
