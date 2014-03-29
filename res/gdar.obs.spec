@@ -8,7 +8,11 @@ License:	GPL-3.0+
 URL:		https://github.com/peckto/gdar
 Source0:	%{name}-%{version}.tar.gz
 
-BuildRequires:	intltool, make, gcc-c++, gtkmm3-devel, libattr-devel, libgcrypt-devel, lzo-devel, zlib-devel, libdar-devel
+%if %{defined suse_version}
+BuildRequires:	intltool, make, gcc-c++, gtkmm3-devel, libattr-devel, libgcrypt-devel, lzo-devel, zlib-devel, libdar-devel, update-desktop-files
+%else
+BuildRequires:  intltool, make, gcc-c++, gtkmm30-devel, libattr-devel, libgcrypt-devel, lzo-devel, bzip2-devel, zlib-devel, libdar-devel
+%endif
 #Requires:	gtkmm3, libattr, libgcrypt, lzo, zlib, libdar
 
 %description
@@ -26,7 +30,9 @@ make %{?_smp_mflags}
 
 %install
 make install DESTDIR=%{buildroot}
-%suse_update_desktop_file gdar
+%if %{defined suse_version}
+%suse_update_desktop_file %{name}
+%endif
 %find_lang %{name}
 
 %files
@@ -41,6 +47,6 @@ make install DESTDIR=%{buildroot}
 
 
 %changelog
-* Thu Mar 20 2014 Tobias Specht <specht.tobias@gmx.de> - 0.9-1
+* Sat Mar 22 2014 Tobias Specht <specht.tobias@gmx.de> - 0.9-1
 - Initial creation
 
