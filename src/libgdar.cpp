@@ -77,6 +77,7 @@ GdarOpenWindow::GdarOpenWindow(GdarApplication *application) :
 
     list_children_disp.connect(sigc::mem_fun(*this,&GdarOpenWindow::list_children));
     extract_finish_disp.connect(sigc::mem_fun(*this,&GdarOpenWindow::on_extract_finish));
+    show_error_dialog_disp.connect(sigc::mem_fun(*this,&GdarOpenWindow::show_error_dialog));
 
     int column_count;
     Gtk::TreeViewColumn *column;
@@ -191,8 +192,12 @@ bool GdarOpenWindow::openDar() {
         newDar->setListingBuffer(&listingBuffer);
         newDar->open(); 
     } catch (libdar::Egeneric &e) {
-        cout << "libdar::Egeneric exception in: " << e.get_source() << endl;
-        std::cout << e.get_message() << std::endl;
+        {
+            Glib::Mutex::Lock lock(errorMutex);
+            ErrorMsg emsg(e);
+            errorPipe.push(emsg);
+            show_error_dialog_disp();
+        }
         delete c_path;
         delete c_slice;
         return false;
@@ -345,8 +350,12 @@ void GdarOpenWindow::list_children() {
         populate();
 #endif
     } catch (libdar::Egeneric &e) {
-        cout << "libdar::Egeneric exception in: " << e.get_source() << endl;
-        std::cout << e.get_message() << std::endl;
+        {
+            Glib::Mutex::Lock lock(errorMutex);
+            ErrorMsg emsg(e);
+            errorPipe.push(emsg);
+            show_error_dialog_disp();
+        }
         return;
     }
     n_entry_path.set_text(s_treePath);
@@ -470,8 +479,12 @@ void GdarOpenWindow::extractThread() {
     try {
         newDar->extract(ext_src.c_str(),ext_dest.c_str(),extract_stats);
     } catch (libdar::Egeneric &e) {
-        cout << "libdar::Egeneric exception in: " << e.get_source() << endl;
-        std::cout << e.get_message() << std::endl;
+        {
+            Glib::Mutex::Lock lock(errorMutex);
+            ErrorMsg emsg(e);
+            errorPipe.push(emsg);
+            show_error_dialog_disp();
+        }
         return;
     }
     m_statusbar.push(_("Ready"));
@@ -565,5 +578,29 @@ TableDialog::~TableDialog() {
         if (it->second != NULL)
             delete it->second;
     }
+}
+
+void GdarOpenWindow::show_error_dialog() {
+    Glib::ustring msg, source;
+    {
+        Glib::Mutex::Lock lock(errorMutex);
+        ErrorMsg e = errorPipe.front();
+        msg = e.msg;
+        source = e.source;
+        errorPipe.pop();
+    }
+    Gtk::MessageDialog dlg(msg,false,Gtk::MESSAGE_INFO, Gtk::BUTTONS_OK, true);
+    dlg.set_title(source);
+    dlg.run();
+}
+
+
+ErrorMsg::ErrorMsg(Glib::ustring msg, Glib::ustring source) {
+    this->msg = msg;
+    this->source = source;
+}
+ErrorMsg::ErrorMsg(libdar::Egeneric &e) {
+    msg = e.get_message();
+    source = e.get_source();
 }
 

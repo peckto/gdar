@@ -31,7 +31,10 @@
 #include "config.h"
 #define ICON_SIZE 18
 
-struct ErrorMsg {
+class ErrorMsg {
+public:
+    ErrorMsg(Glib::ustring msg, Glib::ustring source);
+    ErrorMsg(libdar::Egeneric &e);
     Glib::ustring msg;
     Glib::ustring source;
 };
@@ -132,6 +135,10 @@ private:
     void on_about_dialog();
 
     GdarApplication *gdarApp;
+    void show_error_dialog();
+    Glib::Mutex errorMutex;
+    std::queue<ErrorMsg> errorPipe;
+    Glib::Dispatcher show_error_dialog_disp;
 }; 
 
 class TableDialog : public Gtk::MessageDialog {
