@@ -49,22 +49,36 @@ AC_CHECK_HEADER([zlib.h],[],[AC_MSG_ERROR([unable to find zlib header])])
 
 # check special libdar funtion
 AC_ARG_ENABLE([date_s],[  --enable-date_s 	use date_s feature of libdar, only available in current git master],
-	[AC_DEFINE([GET_CHILDREN_IN_TABLE],[1],[GET_CHILDREN_IN_TABLE])])
+	[libdar_with_date_as_time="yes"]
+)
 AS_VERSION_COMPARE([`pkg-config --modversion ${libdar}`],[5.5.0],
-	[],
-	AC_DEFINE([LIBDAR_WITH_DATE_AS_TIME],[1],[LIBDAR_WITH_DATE_AS_TIME]),
-	AC_DEFINE([LIBDAR_WITH_DATE_AS_TIME],[1],[LIBDAR_WITH_DATE_AS_TIME])
+	[libdar_with_date_as_time="no"],
+	[libdar_with_date_as_time="yes"],
+	[libdar_with_date_as_time="yes"]
 )
 AS_VERSION_COMPARE([`pkg-config --modversion ${libdar}`],[5.4.0],
-	[],
-	AC_DEFINE([GET_CHILDREN_IN_TABLE],[1],[GET_CHILDREN_IN_TABLE]),
-	[]
+	[get_children_in_table="no"],
+	[get_children_in_table="yes"],
+	[get_children_in_table="yes"]
 )
 AS_VERSION_COMPARE([`pkg-config --modversion gtkmm-3.0`],[3.6.0],
-	[],
-	AC_DEFINE([SET_ALWAYS_SHOW_IMAGE],[1],[SET_ALWAYS_SHOW_IMAGE]),
-	AC_DEFINE([SET_ALWAYS_SHOW_IMAGE],[1],[SET_ALWAYS_SHOW_IMAGE])
+	[set_always_show_image="no"],
+	[set_always_show_image="yes"],
+	[set_always_show_image="yes"]
 )
+
+if test "$libdar_with_date_as_time" = "yes"
+then
+    AC_DEFINE([LIBDAR_WITH_DATE_AS_TIME],[1],[LIBDAR_WITH_DATE_AS_TIME])
+fi
+if test "$get_children_in_table" = "yes"
+then
+    AC_DEFINE([GET_CHILDREN_IN_TABLE],[1],[GET_CHILDREN_IN_TABLE])
+fi
+if test "$set_always_show_image" = "yes"
+then
+    AC_DEFINE([SET_ALWAYS_SHOW_IMAGE],[1],[SET_ALWAYS_SHOW_IMAGE])
+fi
 
 # Checks for typedefs, structures, and compiler characteristics.
 AC_CHECK_HEADER_STDBOOL
@@ -79,3 +93,9 @@ AC_CONFIG_FILES([Makefile
 		])
 
 AC_OUTPUT
+
+echo
+echo "Enabled features:"
+echo "    libdar children in table: $get_children_in_table"
+echo "    libdar support date_s: $libdar_with_date_as_time"
+echo "    gtk always show image: $set_always_show_image"
