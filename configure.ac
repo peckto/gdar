@@ -50,7 +50,7 @@ AC_CHECK_HEADER([zlib.h],[],[AC_MSG_ERROR([unable to find zlib header])])
 # check special libdar funtion
 AS_VERSION_COMPARE([`pkg-config --modversion ${libdar}`],[5.5.0],
 	[libdar_with_date_as_time="no"],
-	[libdar_with_date_as_time="yes"],
+	[libdar_with_date_as_time="no"],
 	[libdar_with_date_as_time="yes"]
 )
 AS_VERSION_COMPARE([`pkg-config --modversion ${libdar}`],[5.4.0],
