@@ -27,6 +27,7 @@
 #include <dar/deci.hpp>
 #include <libintl.h>
 #include "myuser_interaction.hpp"
+#include "enc_dialog.hpp"
 
 class Mydar {
 public:
@@ -39,13 +40,18 @@ public:
     std::string path;
     std::string slice;
 
+    // encyption
+    void set_crypto_size(int size);
+    void set_crypto_pass(Glib::ustring pass);
+    void set_crypto_algo(libdar::crypto_algo algo);
+
     Mydar();
     Mydar(std::string path, std::string slice);
     ~Mydar();
     // init libdar
     int init();
     // open dar archive
-    int open();
+    int open(std::string path, std::string slice);
     // list archive content
 //    int list();
     // list only children of parent dir
@@ -62,6 +68,10 @@ public:
 private:
 //    std::string get_slice(std::string path);
     libdar::statistics *my_statistic;
+    // security
+    int block_size;
+    Glib::ustring pass;
+    libdar::crypto_algo crypt_algo;
 };
 
 #endif

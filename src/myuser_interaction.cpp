@@ -59,7 +59,7 @@ std::string Dialog::get_string(const std::string & message, bool echo) {
 
 libdar::secu_string Dialog::get_secu_string(const std::string &message, bool echo) {
     cout << "get_secu_string: " << message << endl;
-    return secu_string("test",4);
+    return secu_string("Start#123",9);
 }
 
 void Dialog::warning_callback(const std::string &x, void *context) {

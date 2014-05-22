@@ -72,6 +72,7 @@ public:
 #endif
     void on_active_row(const Gtk::TreeModel::Path& path, Gtk::TreeViewColumn* column);
     void list_children();
+
 protected:
     //Signal handlers
     void on_exit_click();
@@ -139,6 +140,7 @@ private:
     Glib::Mutex errorMutex;
     std::queue<ErrorMsg> errorPipe;
     Glib::Dispatcher show_error_dialog_disp;
+
 }; 
 
 class TableDialog : public Gtk::MessageDialog {

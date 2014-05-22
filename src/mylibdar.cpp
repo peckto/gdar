@@ -27,8 +27,9 @@ using namespace std;
 using namespace libdar;
 
 Mydar::Mydar() {
+    crypt_algo = libdar::crypto_none;
 }
-Mydar::Mydar(std::string path, std::string slice) {
+Mydar::Mydar(std::string path, std::string slice) : Mydar() {
     this->path = path;
     this->slice = slice;
 }
@@ -57,8 +58,19 @@ int Mydar::init() {
     return 0;
 }
 
-int Mydar::open() {
-    my_arch = new libdar::archive(dialog,path,slice, "dar", archive_options_read()); 
+int Mydar::open(std::string path, std::string slice) {
+    this->path = path;
+    this->slice = slice;
+
+    libdar::archive_options_read read_options;
+    if (crypt_algo != libdar::crypto_none ) {
+        read_options.set_crypto_size(block_size);
+        read_options.set_crypto_pass(libdar::secu_string(pass.c_str(),pass.length()));
+        read_options.set_crypto_algo(crypt_algo);
+    }
+
+
+    my_arch = new libdar::archive(dialog,path,slice, "dar", read_options); 
 
 //    my_arch->init_catalogue(dialog); // not avalible in libdar v5.3.2
     return 0;
@@ -124,4 +136,16 @@ std::vector<libdar::list_entry> Mydar::get_children_in_table(const std::string &
     return children_table;
 }
 #endif
+
+void Mydar::set_crypto_size(int size) {
+    block_size = size;
+}
+
+void Mydar::set_crypto_pass(Glib::ustring pass) {
+    this->pass = pass;
+}
+
+void Mydar::set_crypto_algo(libdar::crypto_algo algo) {
+    crypt_algo = algo;
+}
 

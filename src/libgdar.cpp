@@ -24,6 +24,7 @@
 #include <glibmm/i18n.h>
 #include "libgdar.hpp"
 #include "mylibdar.hpp"
+#include "enc_dialog.hpp"
 
 using namespace std;
 
@@ -176,21 +177,10 @@ GdarOpenWindow::~GdarOpenWindow() {
 }
 
 bool GdarOpenWindow::openDar() {
-    char *c_path, *c_slice;
-
-    if (newDar != NULL) {
-        delete newDar;
-    }
-
-    c_path = new char [path.length()+1];
-    c_slice = new char [slice.length()+1];
-    strcpy(c_path,path.c_str());
-    strcpy(c_slice,slice.c_str()); 
-    newDar = new Mydar(c_path,c_slice);
     try {
         newDar->init();
         newDar->setListingBuffer(&listingBuffer);
-        newDar->open(); 
+        newDar->open(path,slice); 
     } catch (libdar::Egeneric &e) {
         {
             Glib::Mutex::Lock lock(errorMutex);
@@ -198,16 +188,12 @@ bool GdarOpenWindow::openDar() {
             errorPipe.push(emsg);
             show_error_dialog_disp();
         }
-        delete c_path;
-        delete c_slice;
         return false;
     }
     extract_stats = new libdar::statistics(true);
     is_open = true;
     n_entry_path.set_text("");
     treePath.clear();
-    delete c_path;
-    delete c_slice; 
     return true;
 }
 
@@ -421,6 +407,12 @@ void GdarOpenWindow::on_button_open() {
     dialog.set_transient_for(*this);
     dialog.add_button(Gtk::Stock::CANCEL, Gtk::RESPONSE_CANCEL);
     dialog.add_button(Gtk::Stock::OPEN, Gtk::RESPONSE_OK);
+    Gtk::CheckButton enc_check;
+    Gtk::ButtonBox *action_aria;
+    enc_check.set_label(_("Backup is encrypted"));
+    enc_check.show();
+    action_aria = dialog.get_action_area();
+    action_aria->pack_end(enc_check);
 
     Glib::RefPtr<Gtk::FileFilter> filter = Gtk::FileFilter::create();
     filter->set_name(_("Dar files"));
@@ -428,7 +420,23 @@ void GdarOpenWindow::on_button_open() {
     dialog.add_filter(filter);
 
     int result = dialog.run();
+    dialog.hide();
     if (result == Gtk::RESPONSE_OK) {
+        if (newDar != NULL) {
+            delete newDar;
+        }
+        newDar = new Mydar();
+
+        if ( enc_check.get_active() ) {
+            EncSettings encSettins(*this);
+            result = encSettins.run();
+            if (result != Gtk::RESPONSE_OK) {
+                return;
+            }
+            newDar->set_crypto_size(encSettins.get_block_size());
+            newDar->set_crypto_pass(encSettins.get_pass());
+            newDar->set_crypto_algo(encSettins.get_crypt_algo());
+        }
         string filename = dialog.get_filename();
         int i = filename.find_last_of("/");
         path = filename.substr(0,i);
