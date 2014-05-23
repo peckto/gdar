@@ -133,7 +133,7 @@ msgid "Quit"
 msgstr "Beenden"
 
 #: ../src/gdar_application.cpp:87
-msgid "A graphical user interface to brows and extract dar archives."
+msgid "A graphical user interface to browse and extract dar archives."
 msgstr "Eine grafische Oberfläche zum durchsuchen und entpacken von dar Archiven."
 
 #: ../src/gdar_application.cpp:91

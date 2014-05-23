@@ -1,7 +1,7 @@
 gdar 
 ====
 
-A graphical user interface to brows and extract dar archives
+A graphical user interface to browse and extract dar archives
 
 The GUI is written in gtkmm, as backend libdar is used.
 The state of development is beta, so feel free to report bugs.

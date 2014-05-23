@@ -1,5 +1,5 @@
 /*
-    gdar - a graphical user interface to brows and extract dar archives
+    gdar - a graphical user interface to browse and extract dar archives
     Copyright (C) 2014  Tobias Specht
 
     This program is free software: you can redistribute it and/or modify

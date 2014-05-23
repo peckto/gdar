@@ -1,5 +1,5 @@
 /*
-    gdar - a graphical user interface to brows and extract dar archives
+    gdar - a graphical user interface to browse and extract dar archives
     Copyright (C) 2014  Tobias Specht
 
     This program is free software: you can redistribute it and/or modify
@@ -84,7 +84,7 @@ void GdarApplication::on_action_info() {
     aboutDialog.set_program_name("Gdar");
     aboutDialog.set_version(VERSION);
     aboutDialog.set_copyright("Tobias Specht");
-    aboutDialog.set_comments(_("A graphical user interface to brows and extract dar archives."));
+    aboutDialog.set_comments(_("A graphical user interface to browse and extract dar archives."));
     aboutDialog.set_license_type(Gtk::LICENSE_GPL_3_0);
 
     aboutDialog.set_website("https://www.github.com/peckto/gdar");

@@ -1,7 +1,7 @@
 Name:		gdar
 Version:	0.9
 Release:	1%{?dist}
-Summary:	A graphical user interface to brows and extract dar archives
+Summary:	A graphical user interface to browse and extract dar archives
 
 Group:		Applications/Archiving
 License:	GPL-3.0+
@@ -16,7 +16,7 @@ BuildRequires:  intltool, make, gcc-c++, gtkmm30-devel, libattr-devel, libgcrypt
 #Requires:	gtkmm3, libattr, libgcrypt, lzo, zlib, libdar
 
 %description
-A graphical user interface to brows and extract dar archives.
+A graphical user interface to browse and extract dar archives.
 
 
 %prep
