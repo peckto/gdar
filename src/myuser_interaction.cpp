@@ -54,12 +54,12 @@ void Dialog::warning(const std::string & message) {
 
 std::string Dialog::get_string(const std::string & message, bool echo) {
     cout << "get_string: " << message << endl;
-    return "test";
+    return "";
 }
 
 libdar::secu_string Dialog::get_secu_string(const std::string &message, bool echo) {
     cout << "get_secu_string: " << message << endl;
-    return secu_string("Start#123",9);
+    return secu_string("",0);
 }
 
 void Dialog::warning_callback(const std::string &x, void *context) {
@@ -73,12 +73,12 @@ bool Dialog::answer_callback(const std::string &x, void *context) {
 
 string Dialog::string_callback(const std::string &x, bool echo, void *context) {
     cout << "string_callback: " << x << endl;
-    return string("test");
+    return string("");
 }
 
 secu_string Dialog::sec_string_callback(const std::string &x, bool echo, void *context) {
     cout << "string_callback: " << x << endl;
-    return secu_string("test",5);
+    return secu_string("",0);
 }
 
 void Dialog_custom_listing::listing(const std::string & flag,

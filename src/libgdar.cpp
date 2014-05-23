@@ -169,9 +169,21 @@ GdarOpenWindow::GdarOpenWindow(GdarApplication *application) :
     a_box->pack_start(sw_hide);
 
     show_all_children();
+
+    // init libdar
+    libdar::U_I maj, med, min;
+    libdar::get_version(maj, med, min);
+
+    if(maj != libdar::LIBDAR_COMPILE_TIME_MAJOR || med < libdar::LIBDAR_COMPILE_TIME_MEDIUM) {
+        std::cout << "we are linking against a wrong libdar" << std::endl;
+        Gtk::Main::quit();
+    }
+
 }
 
 GdarOpenWindow::~GdarOpenWindow() { 
+    libdar::close_and_clean();
+
     if ( extract_stats != NULL )
         delete extract_stats;
 }

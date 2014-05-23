@@ -38,7 +38,7 @@ Mydar::~Mydar() {
     if (my_statistic != NULL) {
         delete my_statistic;
     }
-    libdar::close_and_clean();
+//    libdar::close_and_clean();
 }
 
 int Mydar::init() {
@@ -46,15 +46,15 @@ int Mydar::init() {
     dialog_custom_listing = Dialog_custom_listing();
     my_statistic = NULL;
     stats_total = "";
-    libdar::U_I maj, med, min;
+//    libdar::U_I maj, med, min;
     libdar::U_16 excode;
     std::string msg;
 
-    libdar::get_version(maj, med, min);
+/*    libdar::get_version(maj, med, min);
 
     if(maj != LIBDAR_COMPILE_TIME_MAJOR || med < libdar::LIBDAR_COMPILE_TIME_MEDIUM) {
         throw libdar::Erange("initialization", "we are linking against a wrong libdar"); 
-    }
+    }*/
     return 0;
 }
 

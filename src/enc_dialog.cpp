@@ -41,7 +41,6 @@ EncSettings::EncSettings(Gtk::Window &parent) :
 
     b_box.pack_start(b_lable);
     b_box.pack_start(b_spinb);
-//    b_spinb.set_digits(DEFAULT_BLOCK_SIZE);
 
     p_entry.set_visibility(false);
     c_grid.attach(blowfish_check,0,0,1,1);
