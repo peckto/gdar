@@ -178,7 +178,7 @@ GdarOpenWindow::GdarOpenWindow(GdarApplication *application) :
         std::cout << "we are linking against a wrong libdar" << std::endl;
         Gtk::Main::quit();
     }
-
+    read_options = NULL;
 }
 
 GdarOpenWindow::~GdarOpenWindow() { 
@@ -192,7 +192,7 @@ bool GdarOpenWindow::openDar() {
     try {
         newDar->init();
         newDar->setListingBuffer(&listingBuffer);
-        newDar->open(path,slice); 
+        newDar->open(path,slice,read_options); 
     } catch (libdar::Egeneric &e) {
         {
             Glib::Mutex::Lock lock(errorMutex);
@@ -441,9 +441,9 @@ void GdarOpenWindow::on_button_open() {
                 return;
             }
             create_mydar();
-            newDar->set_crypto_size(encSettins.get_block_size());
-            newDar->set_crypto_pass(encSettins.get_pass());
-            newDar->set_crypto_algo(encSettins.get_crypt_algo());
+            read_options->set_crypto_size(encSettins.get_block_size());
+            read_options->set_crypto_pass(encSettins.get_pass());
+            read_options->set_crypto_algo(encSettins.get_crypt_algo());
         } else
             create_mydar();
 
@@ -462,6 +462,10 @@ void GdarOpenWindow::create_mydar() {
     if (newDar != NULL) {
         delete newDar;
     }
+    if (read_options != NULL) {
+        delete read_options;
+    }
+    read_options = new libdar::archive_options_read;
     newDar = new Mydar();
     n_entry_path.set_text("");
     treePath.clear();

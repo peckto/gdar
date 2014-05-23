@@ -40,18 +40,13 @@ public:
     std::string path;
     std::string slice;
 
-    // encyption
-    void set_crypto_size(int size);
-    void set_crypto_pass(Glib::ustring pass);
-    void set_crypto_algo(libdar::crypto_algo algo);
-
     Mydar();
     Mydar(std::string path, std::string slice);
     ~Mydar();
     // init libdar
     int init();
     // open dar archive
-    int open(std::string path, std::string slice);
+    int open(std::string path, std::string slice, libdar::archive_options_read *read_options);
     // list archive content
 //    int list();
     // list only children of parent dir

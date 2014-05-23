@@ -141,6 +141,8 @@ private:
     std::queue<ErrorMsg> errorPipe;
     Glib::Dispatcher show_error_dialog_disp;
     void create_mydar();
+
+    libdar::archive_options_read *read_options;
 }; 
 
 class TableDialog : public Gtk::MessageDialog {

@@ -57,8 +57,8 @@ EncSettings::EncSettings(Gtk::Window &parent) :
    show_all_children();
 }
 
-Glib::ustring EncSettings::get_pass() {
-    return p_entry.get_text();
+libdar::secu_string EncSettings::get_pass() {
+    return libdar::secu_string(p_entry.get_text().c_str(),p_entry.get_text().length());
 }
 
 int EncSettings::get_block_size() {

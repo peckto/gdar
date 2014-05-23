@@ -30,7 +30,7 @@
 class EncSettings : public Gtk::Dialog {
 public:
     EncSettings(Gtk::Window &parent);
-    Glib::ustring get_pass();
+    libdar::secu_string get_pass();
     int get_block_size();
     libdar::crypto_algo get_crypt_algo();
 
