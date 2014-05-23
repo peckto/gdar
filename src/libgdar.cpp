@@ -374,8 +374,10 @@ void GdarOpenWindow::on_active_row(const Gtk::TreeModel::Path& path, Gtk::TreeVi
 void GdarOpenWindow::openDarThread() {
     m_statusbar.push(_("Reading catalogue"));
     m_spinner.start();
-    if ( openDar() )
+    if ( openDar() ) {
         list_children_disp();
+        set_title(slice);
+    }
     m_statusbar.push(_("Ready"));
     m_spinner.stop();
 }
@@ -451,7 +453,6 @@ void GdarOpenWindow::on_button_open() {
         slice = filename.substr(i+1,filename.length());
         i = slice.find_first_of(".");
         slice = slice.substr(0,i);
-        set_title(slice);
         // start thread
         openThreadPtr = Glib::Thread::create(sigc::mem_fun(*this,&GdarOpenWindow::openDarThread),true);
     }
@@ -466,6 +467,7 @@ void GdarOpenWindow::create_mydar() {
     treePath.clear();
     listStore->clear();
     is_open = false;
+    set_title("Gdar");
 }
 
 void GdarOpenWindow::on_extract() {
