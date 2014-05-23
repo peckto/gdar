@@ -141,7 +141,7 @@ msgid "Gdar on GitHub"
 msgstr "Gdar auf GitHub"
 
 #: ../src/enc_dialog.cpp:24
-msgid "Encrytion settigns"
+msgid "Encryption settings"
 msgstr "Verschlüsselungseinstellungen"
 
 #: ../src/enc_dialog.cpp:24

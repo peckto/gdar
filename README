@@ -43,6 +43,8 @@ http://dar.linux.free.fr/doc/Tutorial.html
 manual
 ------
 Open a dar archive by clicking the open button.
+When the archive is encrypted please activate the checkbox.
+Afterwards enter the password and choose the chipher options.
 Please be patient while the index (catalogue) of the archive is being read.
 The symbol in front of the Name column indicates whether this is a file or a folder.
 By double clicking on a folder you can move into this directory.
@@ -57,5 +59,4 @@ known bugs
 
 todo
 ----
-* support encrypted archives
 * support editing the path in the Entry widget

@@ -21,7 +21,7 @@
 #include "enc_dialog.hpp"
 
 EncSettings::EncSettings(Gtk::Window &parent) : 
-    Gtk::Dialog(_("Encrytion settigns"), parent), p_lable(_("Password: ")),
+    Gtk::Dialog(_("Encryption settings"), parent), p_lable(_("Password: ")),
     c_lable(_("Encryption algorithm")), b_lable(_("Block size in bytes")),
     blowfish_check(algo_group,"Blowfish"),aes_check(algo_group,"AES 256"),twofish_check(algo_group,"Twofish 256"),
     serpent_check(algo_group,"Serpent 256"),camellia_check(algo_group,"Camellia 256"),
