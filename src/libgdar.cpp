@@ -204,8 +204,6 @@ bool GdarOpenWindow::openDar() {
     }
     extract_stats = new libdar::statistics(true);
     is_open = true;
-    n_entry_path.set_text("");
-    treePath.clear();
     return true;
 }
 
@@ -434,21 +432,19 @@ void GdarOpenWindow::on_button_open() {
     int result = dialog.run();
     dialog.hide();
     if (result == Gtk::RESPONSE_OK) {
-        if (newDar != NULL) {
-            delete newDar;
-        }
-        newDar = new Mydar();
-
         if ( enc_check.get_active() ) {
             EncSettings encSettins(*this);
             result = encSettins.run();
             if (result != Gtk::RESPONSE_OK) {
                 return;
             }
+            create_mydar();
             newDar->set_crypto_size(encSettins.get_block_size());
             newDar->set_crypto_pass(encSettins.get_pass());
             newDar->set_crypto_algo(encSettins.get_crypt_algo());
-        }
+        } else
+            create_mydar();
+
         string filename = dialog.get_filename();
         int i = filename.find_last_of("/");
         path = filename.substr(0,i);
@@ -461,6 +457,17 @@ void GdarOpenWindow::on_button_open() {
     }
 }
 
+void GdarOpenWindow::create_mydar() {
+    if (newDar != NULL) {
+        delete newDar;
+    }
+    newDar = new Mydar();
+    n_entry_path.set_text("");
+    treePath.clear();
+    listStore->clear();
+    is_open = false;
+}
+
 void GdarOpenWindow::on_extract() {
     if (extractThreadActive) {
         Gtk::MessageDialog dlg(_("Extracting is still running"), false, Gtk::MESSAGE_INFO, Gtk::BUTTONS_OK, true );
@@ -468,13 +475,13 @@ void GdarOpenWindow::on_extract() {
         dlg.run();
         return;
     }
+    if (not is_open) return;
     Gtk::FileChooserDialog dialog(_("Please choole a destination folder"), Gtk::FILE_CHOOSER_ACTION_SELECT_FOLDER);
     dialog.set_transient_for(*this);
 
     dialog.add_button(Gtk::Stock::CANCEL, Gtk::RESPONSE_CANCEL);
     dialog.add_button(_("OK"), Gtk::RESPONSE_OK);
 
-    if (not is_open) return;
     string s_treePath = get_treePath();
     string file_name;
     Glib::RefPtr<Gtk::TreeView::Selection> selection = treeView.get_selection();

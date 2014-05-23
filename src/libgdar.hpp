@@ -140,7 +140,7 @@ private:
     Glib::Mutex errorMutex;
     std::queue<ErrorMsg> errorPipe;
     Glib::Dispatcher show_error_dialog_disp;
-
+    void create_mydar();
 }; 
 
 class TableDialog : public Gtk::MessageDialog {
