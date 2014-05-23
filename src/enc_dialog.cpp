@@ -43,6 +43,7 @@ EncSettings::EncSettings(Gtk::Window &parent) :
     b_box.pack_start(b_spinb);
 
     p_entry.set_visibility(false);
+    p_entry.signal_activate().connect(sigc::bind<int>(sigc::mem_fun(*this, &EncSettings::response), Gtk::RESPONSE_OK));
     c_grid.attach(blowfish_check,0,0,1,1);
     c_grid.attach(aes_check,0,1,1,1);
     c_grid.attach(twofish_check,0,2,1,1);
