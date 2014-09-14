@@ -451,7 +451,10 @@ void GdarOpenWindow::on_button_open() {
         int i = filename.find_last_of("/");
         path = filename.substr(0,i);
         slice = filename.substr(i+1,filename.length());
-        i = slice.find_first_of(".");
+        // archive name like: <name>.<slice>.dar (home-2014-09-14.1.dar)
+        // be aware of dots occurring inside name!
+        i = slice.find_last_of(".");
+        i = slice.find_last_of(".", i-1);
         slice = slice.substr(0,i);
         // start thread
         openThreadPtr = Glib::Thread::create(sigc::mem_fun(*this,&GdarOpenWindow::openDarThread),true);
