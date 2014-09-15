@@ -23,19 +23,26 @@
 #include "gdar_application.hpp"
 #include "libgdar.hpp"
 
-GdarApplication::GdarApplication() : Gtk::Application("io.github.peckto.gdar") {
+GdarApplication::GdarApplication(int argc, char *argv[]) : 
+Gtk::Application(argc, argv, "io.github.peckto.gdar", Gio::APPLICATION_HANDLES_OPEN) {
     Glib::set_application_name("Gdar");
+//    signal_open().connect(sigc::ptr_fun(&GdarApplication::on_open));
 }
 
 GdarApplication::~GdarApplication() {
 }
 
-Glib::RefPtr<GdarApplication> GdarApplication::create() {
-    return Glib::RefPtr<GdarApplication>( new GdarApplication() );
+Glib::RefPtr<GdarApplication> GdarApplication::create(int argc, char *argv[]) {
+    return Glib::RefPtr<GdarApplication>( new GdarApplication(argc, argv) );
+}
+
+void GdarApplication::on_open(const Gio::Application::type_vec_files &files, const Glib::ustring& hint) {
+    std::string filename = files[0]->get_path();
+    create_window((char *)filename.c_str());
+    Gtk::Application::on_open(files, hint);
 }
 
 void GdarApplication::on_startup() {
-
     Gtk::Application::on_startup();
     // to be backward compatible with glibmm < 2.38
     Glib::RefPtr<Gio::SimpleAction> action;
@@ -63,6 +70,12 @@ void GdarApplication::create_window() {
     window->signal_hide().connect(sigc::bind<Gtk::Window*>(sigc::mem_fun(*this, &GdarApplication::on_window_hide), window));
 
     window->show();
+}
+
+void GdarApplication::create_window(char *path) {
+    create_window();
+    std::string filename(path);
+    dynamic_cast<GdarOpenWindow*>(window)->open(filename, NULL);
 }
 
 void GdarApplication::on_window_hide(Gtk::Window* window) {

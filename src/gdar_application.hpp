@@ -25,9 +25,9 @@
 
 class GdarApplication: public Gtk::Application {
 protected:
-    GdarApplication();
+    GdarApplication(int argc, char *argv[]);
 public:
-    static Glib::RefPtr<GdarApplication> create();
+    static Glib::RefPtr<GdarApplication> create(int argc, char *argv[]);
     Glib::RefPtr<Gtk::IconTheme> myTheme;
 
 protected:
@@ -35,11 +35,13 @@ protected:
 // Overrides of default signal handlers:
     virtual void on_activate();
     virtual void on_startup();
+    virtual void on_open(const Gio::Application::type_vec_files &files, const Glib::ustring& hint);
 
     void on_about_dialog_response(int response_id);
 
 private:
     void create_window();
+    void create_window(char *path);
     void on_window_hide(Gtk::Window* window);
     void on_action_quit();
     void on_action_info();

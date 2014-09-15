@@ -20,14 +20,14 @@
 
 #include <iostream>
 #include "mylibdar.hpp"
-#include "libgdar.hpp"
 #include "gdar_application.hpp"
+#include "libgdar.hpp"
 
 using namespace std;
 
 int main(int argc, char **argv) {
 
-    Glib::RefPtr<GdarApplication> application = GdarApplication::create();
+    Glib::RefPtr<GdarApplication> application = GdarApplication::create(argc, argv);
 
     bindtextdomain(GETTEXT_PACKAGE, GDAR_LOCALEDIR);
     bind_textdomain_codeset(GETTEXT_PACKAGE, "UTF-8");

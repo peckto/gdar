@@ -413,7 +413,7 @@ int GdarOpenWindow::sort_func(const Gtk::TreeModel::iterator &itr1, const Gtk::T
         return 1;
 }
 
-/* FileChooserDialog -> on_button_open() -> openDarThread() -> openDar() */
+/* FileChooserDialog -> on_button_open() -> open() -> openDarThread() -> openDar() */
 void GdarOpenWindow::on_button_open() {
     Gtk::FileChooserDialog dialog(_("Please choose a Dar file to open"), Gtk::FILE_CHOOSER_ACTION_OPEN);
     dialog.set_transient_for(*this);
@@ -434,31 +434,37 @@ void GdarOpenWindow::on_button_open() {
     int result = dialog.run();
     dialog.hide();
     if (result == Gtk::RESPONSE_OK) {
+        string filename = dialog.get_filename();
         if ( enc_check.get_active() ) {
             EncSettings encSettins(*this);
             result = encSettins.run();
             if (result != Gtk::RESPONSE_OK) {
                 return;
             }
-            create_mydar();
-            read_options->set_crypto_size(encSettins.get_block_size());
-            read_options->set_crypto_pass(encSettins.get_pass());
-            read_options->set_crypto_algo(encSettins.get_crypt_algo());
+            open(filename, &encSettins);
         } else
-            create_mydar();
-
-        string filename = dialog.get_filename();
-        int i = filename.find_last_of("/");
-        path = filename.substr(0,i);
-        slice = filename.substr(i+1,filename.length());
-        // archive name like: <name>.<slice>.dar (home-2014-09-14.1.dar)
-        // be aware of dots occurring inside name!
-        i = slice.find_last_of(".");
-        i = slice.find_last_of(".", i-1);
-        slice = slice.substr(0,i);
-        // start thread
-        openThreadPtr = Glib::Thread::create(sigc::mem_fun(*this,&GdarOpenWindow::openDarThread),true);
+            open(filename, NULL);
     }
+}
+
+void GdarOpenWindow::open(string &filename, EncSettings *encSettins) {
+    create_mydar();
+    if (encSettins != NULL ) {
+        read_options->set_crypto_size(encSettins->get_block_size());
+        read_options->set_crypto_pass(encSettins->get_pass());
+        read_options->set_crypto_algo(encSettins->get_crypt_algo());
+    }
+
+    int i = filename.find_last_of("/");
+    path = filename.substr(0,i);
+    slice = filename.substr(i+1,filename.length());
+    // archive name like: <name>.<slice>.dar (home-2014-09-14.1.dar)
+    // be aware of dots occurring inside name!
+    i = slice.find_last_of(".");
+    i = slice.find_last_of(".", i-1);
+    slice = slice.substr(0,i);
+    // start thread
+    openThreadPtr = Glib::Thread::create(sigc::mem_fun(*this,&GdarOpenWindow::openDarThread),true);
 }
 
 void GdarOpenWindow::create_mydar() {
