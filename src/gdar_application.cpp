@@ -15,7 +15,7 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-    To contact the author: https://gitbub.com/peckto/gdar
+    To contact the author: https://github.com/peckto/gdar
 */
 
 #include <iostream>
@@ -24,7 +24,7 @@
 #include "libgdar.hpp"
 
 GdarApplication::GdarApplication(int argc, char *argv[]) : 
-Gtk::Application(argc, argv, "io.github.peckto.gdar", Gio::APPLICATION_HANDLES_OPEN) {
+Gtk::Application(argc, argv, "de.peckto.gdar", Gio::APPLICATION_HANDLES_OPEN) {
     Glib::set_application_name("Gdar");
 //    signal_open().connect(sigc::ptr_fun(&GdarApplication::on_open));
 }
@@ -100,7 +100,7 @@ void GdarApplication::on_action_info() {
     aboutDialog.set_comments(_("A graphical user interface to browse and extract dar archives."));
     aboutDialog.set_license_type(Gtk::LICENSE_GPL_3_0);
 
-    aboutDialog.set_website("https://www.github.com/peckto/gdar");
+    aboutDialog.set_website("http://peckto.de/gdar");
     aboutDialog.set_website_label(_("Gdar on GitHub"));
 
     std::vector<Glib::ustring> list_authors;
