@@ -137,8 +137,8 @@ msgid "A graphical user interface to browse and extract dar archives."
 msgstr "Eine grafische Oberfläche zum durchsuchen und entpacken von dar Archiven."
 
 #: ../src/gdar_application.cpp:91
-msgid "Gdar on GitHub"
-msgstr "Gdar auf GitHub"
+msgid "Gdar Homepage"
+msgstr "Gdar Homepage"
 
 #: ../src/enc_dialog.cpp:24
 msgid "Encryption settings"
