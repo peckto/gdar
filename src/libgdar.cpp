@@ -75,8 +75,9 @@ GdarOpenWindow::GdarOpenWindow(GdarApplication *application) :
     a_extract.signal_clicked().connect(sigc::mem_fun(*this, &GdarOpenWindow::on_extract));
     a_info.signal_clicked().connect(sigc::mem_fun(*this, &GdarOpenWindow::on_info));
     sw_hide.property_active().signal_changed().connect(sigc::mem_fun(*this, &GdarOpenWindow::on_swh_hide));
+    n_entry_path.signal_activate().connect(sigc::mem_fun(*this, &GdarOpenWindow::on_entry_path_activate));
 
-    list_children_disp.connect(sigc::mem_fun(*this,&GdarOpenWindow::list_children));
+    list_children_disp.connect(sigc::mem_fun(*this,&GdarOpenWindow::list_children_v));
     extract_finish_disp.connect(sigc::mem_fun(*this,&GdarOpenWindow::on_extract_finish));
     show_error_dialog_disp.connect(sigc::mem_fun(*this,&GdarOpenWindow::show_error_dialog));
 
@@ -334,7 +335,11 @@ string GdarOpenWindow::get_treePath() {
     return s_treePath;
 }
 
-void GdarOpenWindow::list_children() {
+void GdarOpenWindow::list_children_v() {
+    list_children();
+}
+
+int GdarOpenWindow::list_children() {
     string s_treePath = get_treePath();
     try {
 #ifdef GET_CHILDREN_IN_TABLE
@@ -352,9 +357,11 @@ void GdarOpenWindow::list_children() {
             errorPipe.push(emsg);
             show_error_dialog_disp();
         }
-        return;
+        return -1;
     }
     n_entry_path.set_text(s_treePath);
+    n_entry_path.set_position(s_treePath.size());
+    return 0;
 }
 
 void GdarOpenWindow::on_active_row(const Gtk::TreeModel::Path& path, Gtk::TreeViewColumn* column) {
@@ -636,6 +643,68 @@ void GdarOpenWindow::show_error_dialog() {
     dlg.run();
 }
 
+int GdarOpenWindow::remove_tail_slash(std::string *path) {
+    int i = 0;
+    while ((*path)[path->size()] == '/') {
+        i++;
+        *path = path->substr(0,path->size()-2);
+    }
+    return i;
+}
+
+int GdarOpenWindow::remove_head_slash(std::string *path) {
+    int i = 0;
+    while ((*path)[0] == '/') {
+        i++;
+        *path = path->substr(1,path->size()-1);
+    }
+    return i;
+}
+
+std::string GdarOpenWindow::remove_rouble_slash(const std::string &path) {
+    char buf[path.size()+1];
+    int i=0;
+    for (string::const_iterator it=path.begin();it!=path.end();it++) {
+        if (i>0) {
+            if (buf[i-1] == '/' and *it == '/') {
+                continue;
+            }
+        }
+        buf[i] = *it;
+        i++;
+    }
+    buf[i] = '\0';
+    return string(buf);
+}
+
+void GdarOpenWindow::on_entry_path_activate() {
+    if ( not is_open )
+        return;
+    string path = n_entry_path.get_text();
+    list<string> old_path = treePath;
+    size_t end;
+    size_t start = 0;
+    treePath.clear();
+    string tmp;
+    path = remove_rouble_slash(path);
+    remove_tail_slash(&path);
+    remove_head_slash(&path);
+    end = path.find("/");
+    while (end != string::npos) {
+        tmp = path.substr(start, end-start);
+        end++; // skip '/' at the and of path
+        start = end;
+        treePath.push_back(tmp);
+        end = path.find("/", end);
+    }
+    if (start != path.size()) {
+        treePath.push_back(path.substr(start));
+    }
+    if (list_children() == -1) {
+        treePath = old_path;
+        list_children();
+    }
+}
 
 ErrorMsg::ErrorMsg(Glib::ustring msg, Glib::ustring source) {
     this->msg = msg;

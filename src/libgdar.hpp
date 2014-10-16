@@ -72,7 +72,8 @@ public:
     void populate(std::vector<libdar::list_entry> *children_table);
 #endif
     void on_active_row(const Gtk::TreeModel::Path& path, Gtk::TreeViewColumn* column);
-    void list_children();
+    void list_children_v();
+    int list_children();
 
 protected:
     //Signal handlers
@@ -83,6 +84,7 @@ protected:
     void on_info();
     void on_swh_hide();
     bool filter_func(Gtk::TreeModel::const_iterator it);
+    void on_entry_path_activate();
 
     //Member widgets
     Gtk::Box *m_box; //main Box
@@ -135,6 +137,9 @@ private:
     std::string get_human_readable(int size);
     std::string get_readable_date(time_t date);
     void on_about_dialog();
+    int remove_tail_slash(std::string *path);
+    int remove_head_slash(std::string *path);
+    std::string remove_rouble_slash(const std::string &path);
 
     GdarApplication *gdarApp;
     void show_error_dialog();
