@@ -2,9 +2,7 @@ Required development packages on various systems
 ================================================
 
 Fedora
-! Please note that the libdar-devel package does currently not contain the pkg-config file, 
-! which is required by configure. Please build libdar from source.
-# yum install intltool make gcc-c++ gtkmm30-devel libattr-devel \
+# yum install intltool make gcc-c++ gtkmm30-devel libattr-devel libdar-devel \
               libgcrypt-devel lzo-devel bzip2-devel zlib-devel gnome-icon-theme-symbolic
 
 openSUSE
@@ -16,7 +14,7 @@ Ubuntu
                   libbz2-1.0 libbz2-dev libbz2-ocaml libbz2-ocaml-dev liblzo2-dev gnome-icon-theme-symbolic
 
 Debian
-! Please note that currently the libdar package in the reposity is to old to build gdar.
+! Please note that currently the libdar package in the reposity is too old to build gdar.
 ! Please build libdar from source.
 # apt-get install make gcc g++ libgtkmm-3.0-dev libgcrypt11-dev libtool intltool libattr1-dev \
                   libbz2-1.0 libbz2-dev libbz2-ocaml libbz2-ocaml-dev liblzo2-dev gnome-icon-theme-symbolic

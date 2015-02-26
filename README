@@ -14,7 +14,7 @@ $ ./autogen.sh
 
 build
 -----
-$ ./configure [--enable-libdar64] [--enable-date_s]
+$ ./configure [--enable-libdar64]
 $ make
 # make install
 # gtk-update-icon-cache /usr/share/icons/hicolor
@@ -51,14 +51,10 @@ Please be patient while the index (catalogue) of the archive is being read.
 The symbol in front of the Name column indicates whether this is a file or a folder.
 By double clicking on a folder you can move into this directory.
 By clicking the Up button you can change into the parent directory.
-Use the switch to display hidden files.
+You can also edit the path in the entry widget. Use the switch to display hidden files.
 To extract a file or folder select it and click the button Extract and choose a destination.
 The info button (light bulb) gives you a brief overview of the archive.
 
 known bugs
 ----------
 * when running in a KDE environment the icons in the TreeView widget are hardly visible because of a gray background
-
-todo
-----
-* support editing the path in the Entry widget
