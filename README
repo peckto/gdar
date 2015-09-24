@@ -1,24 +1,25 @@
-gdar 
+Gdar 
 ====
 
-A graphical user interface to browse and extract dar archives
+A graphical user interface for Linux to browse and extract dar archives
 
-The GUI is written in gtkmm, as backend libdar is used.
+The GUI is written in gtkmm, as backend libdar is used. 
+You can use Gdar not only on Gnome desktop but also on KDE or any other Linux desktop environment.
 You can find more information at: 
 http://peckto.de/gdar/
 
-prepare when cloning from git
+Prepare when cloning from git
 -----------------------------
 $ ./autogen.sh
 
-build
+Build
 -----
 $ ./configure [--enable-libdar64]
 $ make
 # make install
 # gtk-update-icon-cache /usr/share/icons/hicolor
 
-required development tools
+Required development tools
 --------------------------
 * intltool
 * autoconf
@@ -32,7 +33,7 @@ required development tools
 * bz2 (bzib)
 * libz
 
-try it out
+Example
 ----------
 You can create a full backup of your home partition with dar by issuning the following command:
 # dar -R /home/ -c /var/backup/home-$(date "+%Y%m%d")
@@ -41,7 +42,7 @@ In case of recovery just open the dar archive with gdar.
 For a detailed documentation about the dar command-line tool visit:
 http://dar.linux.free.fr/doc/Tutorial.html
 
-manual
+Manual
 ------
 Open a dar archive by clicking the open button.
 When the archive is encrypted please activate the checkbox.
@@ -54,6 +55,6 @@ You can also edit the path in the entry widget. Use the switch to display hidden
 To extract a file or folder select it and click the button Extract and choose a destination.
 The info button (light bulb) gives you a brief overview of the archive.
 
-known bugs
+Known bugs
 ----------
 * when running in a KDE environment the icons in the TreeView widget are hardly visible because of a gray background
