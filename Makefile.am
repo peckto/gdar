@@ -7,6 +7,8 @@ desktop_DATA = res/gdar.desktop
 icondir = $(datadir)/icons/hicolor/256x256/apps
 icon_DATA = res/gdar.png
 
+ACLOCAL_AMFLAGS = ${ACLOCAL_FLAGS} -I m4 # fix problem with AX_CXX_COMPILE_STDCXX_11 macro
+
 INTLTOOL_FILES = po/*.po
 		 intltool-extract.in \
                  intltool-merge.in \
