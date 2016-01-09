@@ -9,7 +9,7 @@ Makefile.in.in
 /install-sh
 /libtool
 /ltmain.sh
-/m4/
+/m4/intltool.m4
 /missing
 /stamp-h?
 /po/stamp-it
@@ -25,3 +25,4 @@ intltool-extract.in
 intltool-merge.in
 intltool-update.in
 po/POTFILES
+compile
