@@ -3,7 +3,7 @@
 
 AC_PREREQ([2.69])
 AC_CONFIG_MACRO_DIR([m4])
-AC_INIT([gdar], [1.0], [specht.tobias@gmx.de])
+AC_INIT([gdar], [1.1], [specht.tobias@gmx.de])
 AM_INIT_AUTOMAKE([-Wall -Werror])
 AC_CONFIG_SRCDIR([src/libgdar.cpp])
 AC_CONFIG_HEADERS([config.h])

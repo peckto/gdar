@@ -1,6 +1,6 @@
 /* 
     gdar - a graphical user interface to browse and extract dar archives
-    Copyright (C) 2014  Tobias Specht
+    Copyright (C) 2017  Tobias Specht
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -68,6 +68,12 @@ GdarOpenWindow::GdarOpenWindow(GdarApplication *application) :
     n_box = Gtk::manage(new Gtk::Box(Gtk::ORIENTATION_HORIZONTAL,0));
     a_box = Gtk::manage(new Gtk::Box(Gtk::ORIENTATION_HORIZONTAL,0));
     m_statusbar.push(_("Please choose a Dar file to open"));
+
+    a_open.set_tooltip_text(_("Open archive"));
+    sw_hide.set_tooltip_text(_("Show hidden files"));
+    a_info.set_tooltip_text(_("Show information about archive"));
+    a_extract.set_tooltip_text(_("Extract selected file or folder"));
+    n_button_up.set_tooltip_text(_("Change to parent directory"));
 
     treeView.signal_row_activated().connect(sigc::mem_fun(*this,&GdarOpenWindow::on_active_row));
     n_button_up.signal_clicked().connect(sigc::mem_fun(*this, &GdarOpenWindow::on_button_up));
