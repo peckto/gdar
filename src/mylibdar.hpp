@@ -22,12 +22,16 @@
 #ifndef MYLIBDAR_HPP
 #define MYLIBDAR_HPP
 
-#include "config.h"
 #include <dar/libdar.hpp>
 #include <dar/deci.hpp>
 #include <libintl.h>
 #include "myuser_interaction.hpp"
 #include "enc_dialog.hpp"
+#include "window.hpp"
+#include "config.h"
+
+#define DEFAULT_CRYPTO_SIZE 10240
+
 
 class Mydar {
 public:
@@ -40,8 +44,8 @@ public:
     std::string path;
     std::string slice;
 
-    Mydar();
-    Mydar(std::string path, std::string slice);
+    Mydar(Window *parentWindow);
+    Mydar(Window *parentWindow, std::string path, std::string slice);
     ~Mydar();
     // init libdar
     int init();
@@ -67,6 +71,7 @@ private:
     int block_size;
     Glib::ustring pass;
     libdar::crypto_algo crypt_algo;
+    Window *parentWindow;
 };
 
 #endif

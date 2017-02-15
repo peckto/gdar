@@ -19,30 +19,12 @@
 
 */
 
+#include <glibmm/threads.h>
 #include "myuser_interaction.hpp"
 
 using namespace std;
 using namespace libdar;
 
-File::File(const std::string & flag,
-         const std::string & perm,
-         const std::string & uid,
-         const std::string & gid,
-         const std::string & size,
-         const std::string & date,
-         const std::string & filename,
-         bool is_dir,
-         bool has_children) {
-    this->flag = flag;
-    this->perm = perm;
-    this->uid = uid;
-    this->gid = gid;
-    this->size = size;
-    this->date = date;
-    this->filename = filename;
-    this->is_dir = is_dir;
-    this->has_children = has_children;
-}
 
 void Dialog::pause(const std::string & message) {
     cout << "pause: " << message << endl;
@@ -58,8 +40,14 @@ std::string Dialog::get_string(const std::string & message, bool echo) {
 }
 
 libdar::secu_string Dialog::get_secu_string(const std::string &message, bool echo) {
-    cout << "get_secu_string: " << message << endl;
-    return secu_string("",0);
+    //cout << "get_secu_string: " << message << endl;
+    parentWindow->dialog_mutex.lock();
+    parentWindow->show_pwd_dialog_disp();
+    {
+    Glib::Threads::Mutex::Lock lock(parentWindow->dialog_mutex);
+    }
+    libdar::secu_string s(parentWindow->dialog_secu_string.c_str(),parentWindow->dialog_secu_string.length());
+    return s;
 }
 
 void Dialog::warning_callback(const std::string &x, void *context) {
@@ -95,11 +83,12 @@ void Dialog_custom_listing::listing(const std::string & flag,
     }
 }
 
-Dialog::Dialog() {
+Dialog::Dialog(Window *parentWindow) {
     listingBuffer = 0;
+    this->parentWindow = parentWindow;
 }
 
-Dialog_custom_listing::Dialog_custom_listing() {
+Dialog_custom_listing::Dialog_custom_listing(Window *parentWindow) : Dialog(parentWindow) {
     listingBuffer = 0;
     set_use_listing(true);
 }

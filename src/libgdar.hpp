@@ -27,8 +27,13 @@
 #include <string>
 #include <queue>
 #include "mylibdar.hpp"
+#include "pwd_dialog.hpp"
 #include "gdar_application.hpp"
+#include "file.hpp"
+#include "mylibdar.hpp"
+#include "window.hpp"
 #include "config.h"
+
 #define ICON_SIZE 18
 
 class ErrorMsg {
@@ -53,9 +58,8 @@ public:
     Gtk::TreeModelColumn<bool> file_is_dir;
 };
 
-class GdarOpenWindow : public Gtk::ApplicationWindow {
+class GdarOpenWindow : public Window {
 public:
-    Glib::RefPtr<Gtk::ListStore> listStore;
     FileColumns cols;
 
     std::list<File> listingBuffer;
@@ -75,6 +79,8 @@ public:
     void list_children_v();
     int list_children();
 
+    GdarApplication *gdarApp;
+
 protected:
     //Signal handlers
     void on_exit_click();
@@ -85,54 +91,12 @@ protected:
     void on_swh_hide();
     bool filter_func(Gtk::TreeModel::const_iterator it);
     void on_entry_path_activate();
+    void on_extract_finish();
 
-    //Member widgets
-    Gtk::Box *m_box; //main Box
-    // Action widgets
-    Gtk::Box *a_box;
-    Gtk::Button a_open;
-    Gtk::Button a_extract;
-    Gtk::Separator a_separator1;
-    Gtk::Separator a_separator2;
-    Gtk::Separator a_separator3;
-    Gtk::Button a_info;
-    Gtk::Image a_info_img;
-    Gtk::Switch sw_hide;
-    // Main widgets
-    Gtk::VBox topBox;
-    Gtk::Box *n_box; //navigation Box
-    Gtk::ScrolledWindow scrollWindow;
-    Glib::RefPtr<Gtk::Adjustment>  scrollAdjust;
-    double lastScroll;
-    Gtk::TreeView treeView;
-    Glib::RefPtr<Gtk::TreeModelSort> filterSort;
-    Glib::RefPtr<Gtk::TreeModelFilter> filter;
-    // navigation widgets
-    Gtk::Button n_button_up;
-    Gtk::Image img_up;
-    Gtk::Entry n_entry_path;
-    // Info widgets
-    Gtk::Box *i_box; //info Box
-    Gtk::Statusbar m_statusbar;
-    Gtk::Spinner m_spinner;
-    Gtk::Separator n_separator;
-    // Threading
-    Glib::Dispatcher list_children_disp;
-    Glib::Dispatcher extract_finish_disp;
-    Glib::Thread *openThreadPtr;
-    // color
-    Gdk::Color grey,white;
-private:
-    libdar::statistics *extract_stats;
     std::string get_treePath();
     bool openTreadActive;
     bool extractThreadActive;
     void extractThread();
-    void on_extract_finish();
-    bool is_open;
-    std::string path,slice;
-    std::string ext_src, ext_dest;
-    std::list<std::string> treePath;
     int sort_func(const Gtk::TreeModel::iterator &col1, const Gtk::TreeModel::iterator col2);
     std::string get_human_readable(int size);
     std::string get_readable_date(time_t date);
@@ -141,12 +105,16 @@ private:
     int remove_head_slash(std::string *path);
     std::string remove_rouble_slash(const std::string &path);
 
-    GdarApplication *gdarApp;
     void show_error_dialog();
     Glib::Mutex errorMutex;
-    std::queue<ErrorMsg> errorPipe;
     Glib::Dispatcher show_error_dialog_disp;
     void create_mydar();
+
+private:
+    libdar::statistics *extract_stats;
+    bool is_open;
+
+    std::queue<ErrorMsg> errorPipe;
 
     libdar::archive_options_read *read_options;
 }; 

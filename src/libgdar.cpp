@@ -21,7 +21,6 @@
 
 #include <iostream>
 #include <iomanip>
-#include <glibmm/i18n.h>
 #include "libgdar.hpp"
 #include "mylibdar.hpp"
 #include "enc_dialog.hpp"
@@ -40,16 +39,7 @@ FileColumns::FileColumns() {
 FileColumns::~FileColumns() {
 }
  
-GdarOpenWindow::GdarOpenWindow(GdarApplication *application) :
-    img_up(Gtk::Stock::GO_UP, Gtk::ICON_SIZE_BUTTON),
-    n_separator(Gtk::ORIENTATION_VERTICAL),
-    a_separator1(Gtk::ORIENTATION_VERTICAL),
-    a_separator2(Gtk::ORIENTATION_VERTICAL),
-    a_separator3(Gtk::ORIENTATION_VERTICAL),
-    a_extract(_("Extract")),
-    a_open(Gtk::Stock::OPEN),
-    grey(),white(),
-    a_info_img(Gtk::Stock::INFO, Gtk::ICON_SIZE_BUTTON)
+GdarOpenWindow::GdarOpenWindow(GdarApplication *application) : Window()
 {
     newDar = NULL;
     openTreadActive = false;
@@ -85,6 +75,7 @@ GdarOpenWindow::GdarOpenWindow(GdarApplication *application) :
 
     list_children_disp.connect(sigc::mem_fun(*this,&GdarOpenWindow::list_children_v));
     extract_finish_disp.connect(sigc::mem_fun(*this,&GdarOpenWindow::on_extract_finish));
+    show_pwd_dialog_disp.connect(sigc::mem_fun(*this,&GdarOpenWindow::on_show_pwd_dialog));
     show_error_dialog_disp.connect(sigc::mem_fun(*this,&GdarOpenWindow::show_error_dialog));
 
     int column_count;
@@ -182,7 +173,7 @@ GdarOpenWindow::GdarOpenWindow(GdarApplication *application) :
     libdar::get_version(maj, med, min);
 
     if(maj != libdar::LIBDAR_COMPILE_TIME_MAJOR || med < libdar::LIBDAR_COMPILE_TIME_MEDIUM) {
-        std::cout << "we are linking against a wrong libdar" << std::endl;
+        std::cout << "we are linking against a wrong libdar" << std::endl; // TODO dialog
         Gtk::Main::quit();
     }
     read_options = NULL;
@@ -462,10 +453,18 @@ void GdarOpenWindow::on_button_open() {
 
 void GdarOpenWindow::open(string &filename, EncSettings *encSettins) {
     create_mydar();
+    libdar::secu_string tmp_pass;
+    libdar::U_32 crypto_size = DEFAULT_CRYPTO_SIZE;
+
     if (encSettins != NULL ) {
         read_options->set_crypto_size(encSettins->get_block_size());
         read_options->set_crypto_pass(encSettins->get_pass());
         read_options->set_crypto_algo(encSettins->get_crypt_algo());
+    } else {
+    //    read_options->set_crypto_algo(libdar::crypto_none);
+//	read_options->set_crypto_pass(tmp_pass);
+ //       read_options->set_crypto_size(crypto_size);
+
     }
 
     int i = filename.find_last_of("/");
@@ -488,7 +487,7 @@ void GdarOpenWindow::create_mydar() {
         delete read_options;
     }
     read_options = new libdar::archive_options_read;
-    newDar = new Mydar();
+    newDar = new Mydar(this);
     n_entry_path.set_text("");
     treePath.clear();
     listStore->clear();
@@ -644,7 +643,7 @@ void GdarOpenWindow::show_error_dialog() {
         source = e.source;
         errorPipe.pop();
     }
-    Gtk::MessageDialog dlg(msg,false,Gtk::MESSAGE_INFO, Gtk::BUTTONS_OK, true);
+    Gtk::MessageDialog dlg(*this, msg,false,Gtk::MESSAGE_INFO, Gtk::BUTTONS_OK, true);
     dlg.set_title(source);
     dlg.run();
 }

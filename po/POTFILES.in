@@ -2,3 +2,5 @@ src/libgdar.cpp
 src/gdar.cpp
 src/gdar_application.cpp
 src/enc_dialog.cpp
+src/pwd_dialog.cpp
+src/window.cpp

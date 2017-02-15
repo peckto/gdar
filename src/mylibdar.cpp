@@ -26,10 +26,10 @@
 using namespace std;
 using namespace libdar;
 
-Mydar::Mydar() {
+Mydar::Mydar(Window *parentWindow): dialog(parentWindow) , dialog_custom_listing(parentWindow) {
     crypt_algo = libdar::crypto_none;
 }
-Mydar::Mydar(std::string path, std::string slice) : Mydar() {
+Mydar::Mydar(Window *parentWindow, std::string path, std::string slice) : Mydar(parentWindow) {
     this->path = path;
     this->slice = slice;
 }
@@ -42,8 +42,8 @@ Mydar::~Mydar() {
 }
 
 int Mydar::init() {
-    dialog = Dialog();
-    dialog_custom_listing = Dialog_custom_listing();
+    //dialog = Dialog(parentWindow);
+    //dialog_custom_listing = Dialog_custom_listing();
     my_statistic = NULL;
     stats_total = "";
 //    libdar::U_I maj, med, min;
