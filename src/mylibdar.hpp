@@ -22,7 +22,11 @@
 #ifndef MYLIBDAR_HPP
 #define MYLIBDAR_HPP
 
+#ifdef LIBDAR5
+#include <dar/libdar5.hpp>
+#else
 #include <dar/libdar.hpp>
+#endif
 #include <dar/deci.hpp>
 #include <libintl.h>
 #include "myuser_interaction.hpp"

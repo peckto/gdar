@@ -23,7 +23,12 @@
 
 #include <gtkmm.h>
 #include <glibmm/i18n.h>
+#ifdef LIBDAR5
+#include <dar/libdar5.hpp>
+#else
 #include <dar/libdar.hpp>
+#endif
+
 
 class PwdSettings : public Gtk::Dialog {
 public:

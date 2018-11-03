@@ -25,7 +25,11 @@
 #include "config.h"
 #include "window.hpp"
 #include "file.hpp"
+#ifdef LIBDAR5
+#include <dar/libdar5.hpp>
+#else
 #include <dar/libdar.hpp>
+#endif
 #include <iostream>
 
 

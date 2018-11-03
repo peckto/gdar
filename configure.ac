@@ -60,6 +60,12 @@ AS_VERSION_COMPARE([`pkg-config --modversion ${libdar}`],[5.4.0],
 	[get_children_in_table="yes"],
 	[get_children_in_table="yes"]
 )
+AS_VERSION_COMPARE([`pkg-config --modversion ${libdar}`],[6.0.0],
+        [use_libdar_api5="yes"],
+        [use_libdar_api5="no"],
+        [use_libdar_api5="no"]
+)
+
 AS_VERSION_COMPARE([`pkg-config --modversion gtkmm-3.0`],[3.6.0],
 	[set_always_show_image="no"],
 	[set_always_show_image="yes"],
@@ -78,6 +84,11 @@ if test "$set_always_show_image" = "yes"
 then
     AC_DEFINE([SET_ALWAYS_SHOW_IMAGE],[1],[SET_ALWAYS_SHOW_IMAGE])
 fi
+if test "$use_libdar_api5" = "yes"
+then
+    AC_DEFINE([LIBDAR5],[1],[LIBDAR5])
+fi
+
 
 # Checks for typedefs, structures, and compiler characteristics.
 AC_CHECK_HEADER_STDBOOL
@@ -97,4 +108,5 @@ echo
 echo "Enabled features:"
 echo "    libdar children in table: $get_children_in_table"
 echo "    libdar support date_s: $libdar_with_date_as_time"
+echo "    use libdar API v5: $use_libdar_api5"
 echo "    gtk always show image: $set_always_show_image"
