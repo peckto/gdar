@@ -27,6 +27,7 @@
 #include "file.hpp"
 #ifdef LIBDAR5
 #include <dar/libdar5.hpp>
+namespace libdar = libdar5;
 #else
 #include <dar/libdar.hpp>
 #endif
