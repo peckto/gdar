@@ -22,11 +22,11 @@
 #ifndef WINDOW_HPP
 #define WINDOW_HPP
 
+#include "config.h"
 #include <glibmm/i18n.h>
 #include <gtkmm.h>
 #include <string>
 #include "pwd_dialog.hpp"
-#include "config.h"
 
 
 class Window : public Gtk::ApplicationWindow {

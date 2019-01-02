@@ -22,6 +22,7 @@
 #ifndef LIBGDAR_HPP
 #define LIBGDAR_HPP
 
+#include "config.h"
 #include <gtkmm.h>
 #include <math.h> // log10
 #include <string>
@@ -32,7 +33,6 @@
 #include "file.hpp"
 #include "mylibdar.hpp"
 #include "window.hpp"
-#include "config.h"
 
 #define ICON_SIZE 18
 

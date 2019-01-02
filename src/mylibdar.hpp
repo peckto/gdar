@@ -22,6 +22,7 @@
 #ifndef MYLIBDAR_HPP
 #define MYLIBDAR_HPP
 
+#include "config.h"
 #ifdef LIBDAR5
 #include <dar/libdar5.hpp>
 namespace libdar = libdar5;
@@ -33,7 +34,6 @@ namespace libdar = libdar5;
 #include "myuser_interaction.hpp"
 #include "enc_dialog.hpp"
 #include "window.hpp"
-#include "config.h"
 
 #define DEFAULT_CRYPTO_SIZE 10240
 
