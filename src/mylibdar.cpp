@@ -92,8 +92,8 @@ int Mydar::extract(const char *dir, const char *dest,libdar5::statistics *stats)
     libdar5::archive_options_extract options;
     options.set_subtree(libdar5::simple_path_mask(dir2, true));
     options.set_display_skipped(true);
-    my_arch->op_extract(dialog,dest,options,stats);
-    
+    my_arch->op_extract(dialog,std::string(dest),options,stats);
+
     return 0;
 }
 
