@@ -25,6 +25,8 @@
 
 #include <gtkmm.h>
 #include <glibmm/i18n.h>
+
+#include "config.h"
 #ifdef LIBDAR5
 #include <dar/libdar5.hpp>
 #else
