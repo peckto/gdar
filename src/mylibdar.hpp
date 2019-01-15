@@ -40,10 +40,10 @@ namespace libdar = libdar5;
 
 class Mydar {
 public:
-    libdar::archive *my_arch;
+    libdar5::archive *my_arch;
     Dialog dialog;
     Dialog_custom_listing dialog_custom_listing;
-    libdar::U_16 exception;
+    libdar5::U_16 exception;
     std::string except_msg;
     std::string stats_total;
     std::string path;
@@ -55,15 +55,15 @@ public:
     // init libdar
     int init();
     // open dar archive
-    int open(std::string path, std::string slice, libdar::archive_options_read *read_options);
+    int open(std::string path, std::string slice, libdar5::archive_options_read *read_options);
     // list archive content
 //    int list();
     // list only children of parent dir
     int list_children(const char *dir);
 #ifdef GET_CHILDREN_IN_TABLE
-    std::vector<libdar::list_entry> get_children_in_table ( const std::string & dir) const;
+    std::vector<libdar5::list_entry> get_children_in_table ( const std::string & dir) const;
 #endif
-    int extract(const char *dir,const char *dest,libdar::statistics *stats);
+    int extract(const char *dir,const char *dest,libdar5::statistics *stats);
     int count_files_in_dir(const char *dir);
     void get_stats();
     bool test();
@@ -71,11 +71,11 @@ public:
     void setListingBuffer(std::list<File> *buffer);
 private:
 //    std::string get_slice(std::string path);
-    libdar::statistics *my_statistic;
+    libdar5::statistics *my_statistic;
     // security
     int block_size;
     Glib::ustring pass;
-    libdar::crypto_algo crypt_algo;
+    libdar5::crypto_algo crypt_algo;
     Window *parentWindow;
 };
 

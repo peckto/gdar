@@ -35,9 +35,9 @@ namespace libdar = libdar5;
 class EncSettings : public Gtk::Dialog {
 public:
     EncSettings(Gtk::Window &parent);
-    libdar::secu_string get_pass();
+    libdar5::secu_string get_pass();
     int get_block_size();
-    libdar::crypto_algo get_crypt_algo();
+    libdar5::crypto_algo get_crypt_algo();
 
 private:
     Gtk::Box *cont_box;

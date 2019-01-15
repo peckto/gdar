@@ -57,25 +57,25 @@ EncSettings::EncSettings(Gtk::Window &parent) :
    show_all_children();
 }
 
-libdar::secu_string EncSettings::get_pass() {
-    return libdar::secu_string(p_entry.get_text().c_str(),p_entry.get_text().length());
+libdar5::secu_string EncSettings::get_pass() {
+    return libdar5::secu_string(p_entry.get_text().c_str(),p_entry.get_text().length());
 }
 
 int EncSettings::get_block_size() {
     return (int)b_spinb.get_value();
 }
 
-libdar::crypto_algo EncSettings::get_crypt_algo() {
+libdar5::crypto_algo EncSettings::get_crypt_algo() {
     if (blowfish_check.get_active())
-        return libdar::crypto_blowfish;
+        return libdar5::crypto_blowfish;
     if (aes_check.get_active())
-        return libdar::crypto_aes256 ;
+        return libdar5::crypto_aes256 ;
     if (twofish_check.get_active())
-        return libdar::crypto_twofish256;
+        return libdar5::crypto_twofish256;
     if (serpent_check.get_active())
-        return libdar::crypto_serpent256;
+        return libdar5::crypto_serpent256;
     if (camellia_check.get_active())
-        return libdar::crypto_camellia256;
-    return libdar::crypto_none;
+        return libdar5::crypto_camellia256;
+    return libdar5::crypto_none;
 }
 

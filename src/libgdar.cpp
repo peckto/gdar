@@ -169,10 +169,10 @@ GdarOpenWindow::GdarOpenWindow(GdarApplication *application) : Window()
     show_all_children();
 
     // init libdar
-    libdar::U_I maj, med, min;
-    libdar::get_version(maj, med, min);
+    libdar5::U_I maj, med, min;
+    libdar5::get_version(maj, med, min);
 
-    if(maj != libdar::LIBDAR_COMPILE_TIME_MAJOR || med < libdar::LIBDAR_COMPILE_TIME_MEDIUM) {
+    if(maj != libdar5::LIBDAR_COMPILE_TIME_MAJOR || med < libdar5::LIBDAR_COMPILE_TIME_MEDIUM) {
         std::cout << "we are linking against a wrong libdar" << std::endl; // TODO dialog
         Gtk::Main::quit();
     }
@@ -180,7 +180,7 @@ GdarOpenWindow::GdarOpenWindow(GdarApplication *application) : Window()
 }
 
 GdarOpenWindow::~GdarOpenWindow() { 
-    libdar::close_and_clean();
+    libdar5::close_and_clean();
 
     if ( extract_stats != NULL )
         delete extract_stats;
@@ -191,7 +191,7 @@ bool GdarOpenWindow::openDar() {
         newDar->init();
         newDar->setListingBuffer(&listingBuffer);
         newDar->open(path,slice,read_options); 
-    } catch (libdar::Egeneric &e) {
+    } catch (libdar5::Egeneric &e) {
         {
             Glib::Mutex::Lock lock(errorMutex);
             ErrorMsg emsg(e);
@@ -200,17 +200,17 @@ bool GdarOpenWindow::openDar() {
         }
         return false;
     }
-    extract_stats = new libdar::statistics(true);
+    extract_stats = new libdar5::statistics(true);
     is_open = true;
     return true;
 }
 
 #ifdef GET_CHILDREN_IN_TABLE
-void GdarOpenWindow::populate(std::vector<libdar::list_entry> *children_table) {
+void GdarOpenWindow::populate(std::vector<libdar5::list_entry> *children_table) {
     Gtk::TreeModel::Row row;
     listStore->clear();
     int size;
-    for (std::vector<libdar::list_entry>::iterator it = children_table->begin();it != children_table->end();it++) {
+    for (std::vector<libdar5::list_entry>::iterator it = children_table->begin();it != children_table->end();it++) {
         row = *(listStore->append());
         row[cols.file_name] = it->get_name();
         row[cols.file_is_dir] = it->is_dir();
@@ -340,14 +340,14 @@ int GdarOpenWindow::list_children() {
     string s_treePath = get_treePath();
     try {
 #ifdef GET_CHILDREN_IN_TABLE
-        std::vector<libdar::list_entry> children_table = newDar->get_children_in_table(s_treePath);
+        std::vector<libdar5::list_entry> children_table = newDar->get_children_in_table(s_treePath);
         populate(&children_table);
 #else
         listingBuffer.clear();
         newDar->list_children(s_treePath.c_str());
         populate();
 #endif
-    } catch (libdar::Egeneric &e) {
+    } catch (libdar5::Egeneric &e) {
         {
             Glib::Mutex::Lock lock(errorMutex);
             ErrorMsg emsg(e);
@@ -453,15 +453,15 @@ void GdarOpenWindow::on_button_open() {
 
 void GdarOpenWindow::open(string &filename, EncSettings *encSettins) {
     create_mydar();
-    libdar::secu_string tmp_pass;
-    libdar::U_32 crypto_size = DEFAULT_CRYPTO_SIZE;
+    libdar5::secu_string tmp_pass;
+    libdar5::U_32 crypto_size = DEFAULT_CRYPTO_SIZE;
 
     if (encSettins != NULL ) {
         read_options->set_crypto_size(encSettins->get_block_size());
         read_options->set_crypto_pass(encSettins->get_pass());
         read_options->set_crypto_algo(encSettins->get_crypt_algo());
     } else {
-    //    read_options->set_crypto_algo(libdar::crypto_none);
+    //    read_options->set_crypto_algo(libdar5::crypto_none);
 //	read_options->set_crypto_pass(tmp_pass);
  //       read_options->set_crypto_size(crypto_size);
 
@@ -486,7 +486,7 @@ void GdarOpenWindow::create_mydar() {
     if (read_options != NULL) {
         delete read_options;
     }
-    read_options = new libdar::archive_options_read;
+    read_options = new libdar5::archive_options_read;
     newDar = new Mydar(this);
     n_entry_path.set_text("");
     treePath.clear();
@@ -532,7 +532,7 @@ void GdarOpenWindow::extractThread() {
     m_spinner.start();
     try {
         newDar->extract(ext_src.c_str(),ext_dest.c_str(),extract_stats);
-    } catch (libdar::Egeneric &e) {
+    } catch (libdar5::Egeneric &e) {
         {
             Glib::Mutex::Lock lock(errorMutex);
             ErrorMsg emsg(e);
@@ -550,14 +550,14 @@ void GdarOpenWindow::extractThread() {
 void GdarOpenWindow::on_extract_finish() {
     std::map<std::string, std::string> stats;
 
-    stats[_("Treated files")] = libdar::deci(extract_stats->get_treated()).human();
-//    stats[_("Hard links")] = libdar::deci(extract_stats->get_hard_links()).human();
-    stats[_("Skipped files")] = libdar::deci(extract_stats->get_skipped()).human();
-    stats[_("Ignored files")] = libdar::deci(extract_stats->get_ignored()).human();
-//    stats[_("tooold")] = libdar::deci(extract_stats->get_tooold()).human();
-    stats[_("Errored files")] = libdar::deci(extract_stats->get_errored()).human();
-//    stats[_("ea_treated")] = libdar::deci(extract_stats->get_ea_treated()).human();
-//    stats[_("Processed bytes")] = libdar::deci(extract_stats->get_byte_amount()).human();
+    stats[_("Treated files")] = libdar5::deci(extract_stats->get_treated()).human();
+//    stats[_("Hard links")] = libdar5::deci(extract_stats->get_hard_links()).human();
+    stats[_("Skipped files")] = libdar5::deci(extract_stats->get_skipped()).human();
+    stats[_("Ignored files")] = libdar5::deci(extract_stats->get_ignored()).human();
+//    stats[_("tooold")] = libdar5::deci(extract_stats->get_tooold()).human();
+    stats[_("Errored files")] = libdar5::deci(extract_stats->get_errored()).human();
+//    stats[_("ea_treated")] = libdar5::deci(extract_stats->get_ea_treated()).human();
+//    stats[_("Processed bytes")] = libdar5::deci(extract_stats->get_byte_amount()).human();
 
     string msg = ext_src;
     msg += " => ";
@@ -572,11 +572,11 @@ void GdarOpenWindow::on_info() {
         return;
 //    m_spinner.start();
     std::map<std::string, std::string> stats;
-    libdar::entree_stats my_stats = newDar->my_arch->get_stats();
-    stats[_("Total numer of inodes")] = libdar::deci(my_stats.total).human();
-    stats[_("Number of directories")] = libdar::deci(my_stats.num_d).human();
-    stats[_("Number of files")] = libdar::deci(my_stats.num_f).human();
-    stats[_("Saved inodes in this backup")] = libdar::deci(my_stats.saved).human();
+    libdar5::entree_stats my_stats = newDar->my_arch->get_stats();
+    stats[_("Total numer of inodes")] = libdar5::deci(my_stats.total).human();
+    stats[_("Number of directories")] = libdar5::deci(my_stats.num_d).human();
+    stats[_("Number of files")] = libdar5::deci(my_stats.num_f).human();
+    stats[_("Saved inodes in this backup")] = libdar5::deci(my_stats.saved).human();
 
     TableDialog dlg("",stats);
     dlg.set_title(_("About ") + slice);
@@ -715,7 +715,7 @@ ErrorMsg::ErrorMsg(Glib::ustring msg, Glib::ustring source) {
     this->msg = msg;
     this->source = source;
 }
-ErrorMsg::ErrorMsg(libdar::Egeneric &e) {
+ErrorMsg::ErrorMsg(libdar5::Egeneric &e) {
     msg = e.get_message();
     source = e.get_source();
 }

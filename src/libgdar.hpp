@@ -39,7 +39,7 @@
 class ErrorMsg {
 public:
     ErrorMsg(Glib::ustring msg, Glib::ustring source);
-    ErrorMsg(libdar::Egeneric &e);
+    ErrorMsg(libdar5::Egeneric &e);
     Glib::ustring msg;
     Glib::ustring source;
 };
@@ -73,7 +73,7 @@ public:
     void openDarThread();
     void populate();
 #ifdef GET_CHILDREN_IN_TABLE
-    void populate(std::vector<libdar::list_entry> *children_table);
+    void populate(std::vector<libdar5::list_entry> *children_table);
 #endif
     void on_active_row(const Gtk::TreeModel::Path& path, Gtk::TreeViewColumn* column);
     void list_children_v();
@@ -111,12 +111,12 @@ protected:
     void create_mydar();
 
 private:
-    libdar::statistics *extract_stats;
+    libdar5::statistics *extract_stats;
     bool is_open;
 
     std::queue<ErrorMsg> errorPipe;
 
-    libdar::archive_options_read *read_options;
+    libdar5::archive_options_read *read_options;
 }; 
 
 class TableDialog : public Gtk::MessageDialog {

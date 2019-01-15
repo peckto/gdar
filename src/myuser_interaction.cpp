@@ -39,14 +39,14 @@ std::string Dialog::get_string(const std::string & message, bool echo) {
     return "";
 }
 
-libdar::secu_string Dialog::get_secu_string(const std::string &message, bool echo) {
+libdar5::secu_string Dialog::get_secu_string(const std::string &message, bool echo) {
     //cout << "get_secu_string: " << message << endl;
     parentWindow->dialog_mutex.lock();
     parentWindow->show_pwd_dialog_disp();
     {
     Glib::Threads::Mutex::Lock lock(parentWindow->dialog_mutex);
     }
-    libdar::secu_string s(parentWindow->dialog_secu_string.c_str(),parentWindow->dialog_secu_string.length());
+    libdar5::secu_string s(parentWindow->dialog_secu_string.c_str(),parentWindow->dialog_secu_string.length());
     return s;
 }
 
