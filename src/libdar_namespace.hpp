@@ -16,41 +16,21 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
     To contact the author: https://github.com/peckto/gdar
+
 */
 
-#ifndef ENC_DIALOG_HPP
-#define ENC_DIALOG_HPP
-
-#define DEFAULT_BLOCK_SIZE 10240
-
-#include <gtkmm.h>
-#include <glibmm/i18n.h>
+#ifndef LIBDAR_NAMESPACE_HPP
+#define LIBDAR_NAMESPACE_HPP
 
 #include "config.h"
-#include "libdar_namespace.hpp"
 
-class EncSettings : public Gtk::Dialog {
-public:
-    EncSettings(Gtk::Window &parent);
-    LIBDAR::secu_string get_pass();
-    int get_block_size();
-    LIBDAR::crypto_algo get_crypt_algo();
+#ifdef LIBDAR5
+#include <dar/libdar5.hpp>
+#define LIBDAR libdar5
+#else
+#include <dar/libdar.hpp>
+#define LIBDAR libdar
+#endif
 
-private:
-    Gtk::Box *cont_box;
-    Gtk::Box m_box, b_box, p_box;
 
-    Gtk::Label p_lable, c_lable, b_lable;
-
-    Gtk::Grid c_grid;
-    Gtk::Entry p_entry;
-    Gtk::SpinButton b_spinb;
-
-    Gtk::RadioButtonGroup algo_group;
-    Gtk::RadioButton blowfish_check, aes_check, twofish_check, serpent_check, camellia_check;
-
-    Gtk::Button ok_button, c_button;
-
-};
-
-#endif // ENC_DIALOG_HPP
+#endif

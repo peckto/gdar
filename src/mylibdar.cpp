@@ -27,7 +27,7 @@ using namespace std;
 using namespace libdar;
 
 Mydar::Mydar(Window *parentWindow): dialog(parentWindow) , dialog_custom_listing(parentWindow) {
-    crypt_algo = libdar5::crypto_none;
+    crypt_algo = LIBDAR::crypto_none;
 }
 Mydar::Mydar(Window *parentWindow, std::string path, std::string slice) : Mydar(parentWindow) {
     this->path = path;
@@ -38,7 +38,7 @@ Mydar::~Mydar() {
     if (my_statistic != NULL) {
         delete my_statistic;
     }
-//    libdar5::close_and_clean();
+//    LIBDAR::close_and_clean();
 }
 
 int Mydar::init() {
@@ -46,23 +46,23 @@ int Mydar::init() {
     //dialog_custom_listing = Dialog_custom_listing();
     my_statistic = NULL;
     stats_total = "";
-//    libdar5::U_I maj, med, min;
-    libdar5::U_16 excode;
+//    LIBDAR::U_I maj, med, min;
+    LIBDAR::U_16 excode;
     std::string msg;
 
-/*    libdar5::get_version(maj, med, min);
+/*    LIBDAR::get_version(maj, med, min);
 
-    if(maj != LIBDAR_COMPILE_TIME_MAJOR || med < libdar5::LIBDAR_COMPILE_TIME_MEDIUM) {
-        throw libdar5::Erange("initialization", "we are linking against a wrong libdar"); 
+    if(maj != LIBDAR_COMPILE_TIME_MAJOR || med < LIBDAR::LIBDAR_COMPILE_TIME_MEDIUM) {
+        throw LIBDAR::Erange("initialization", "we are linking against a wrong libdar"); 
     }*/
     return 0;
 }
 
-int Mydar::open(std::string path, std::string slice, libdar5::archive_options_read *read_options) {
+int Mydar::open(std::string path, std::string slice, LIBDAR::archive_options_read *read_options) {
     this->path = path;
     this->slice = slice;
 
-    my_arch = new libdar5::archive(dialog,path,slice, "dar", *read_options); 
+    my_arch = new LIBDAR::archive(dialog,path,slice, "dar", *read_options); 
 
 //    my_arch->init_catalogue(dialog); // not avalible in libdar v5.3.2
     return 0;
@@ -82,15 +82,15 @@ void Mydar::setListingBuffer(std::list<File> *buffer) {
     dialog_custom_listing.setListingBuffer(buffer);
 }
 
-int Mydar::extract(const char *dir, const char *dest,libdar5::statistics *stats) {
+int Mydar::extract(const char *dir, const char *dest,LIBDAR::statistics *stats) {
     string dir2 = dest;
     dir2 +=dir; // libdar expects the full path to where the dir will be extracted
     if (my_statistic != NULL) {
         delete my_statistic;
     }
 
-    libdar5::archive_options_extract options;
-    options.set_subtree(libdar5::simple_path_mask(dir2, true));
+    LIBDAR::archive_options_extract options;
+    options.set_subtree(LIBDAR::simple_path_mask(dir2, true));
     options.set_display_skipped(true);
     my_arch->op_extract(dialog,std::string(dest),options,stats);
 
@@ -103,27 +103,27 @@ int Mydar::count_files_in_dir(const char *dir) {
 
 /* load statistics of an already open archive */
 void Mydar::get_stats() {
-    libdar5::entree_stats my_stats = my_arch->get_stats();
-//    std::cout << "[+] total: " << libdar5::deci(my_stats.total).human() << std::endl;
+    LIBDAR::entree_stats my_stats = my_arch->get_stats();
+//    std::cout << "[+] total: " << LIBDAR::deci(my_stats.total).human() << std::endl;
 }
 
 /* 
  * test an already open archive
  */
 bool Mydar::test() {
-    libdar5::archive_options_test test_options;
-//    libdar5::statistics test_stats;
+    LIBDAR::archive_options_test test_options;
+//    LIBDAR::statistics test_stats;
     if (my_statistic != NULL) {
         delete my_statistic;
     }
-    libdar5::statistics test_stats = my_arch->op_test(dialog, test_options, NULL);
+    LIBDAR::statistics test_stats = my_arch->op_test(dialog, test_options, NULL);
 
     return true;
 }
 
 #ifdef GET_CHILDREN_IN_TABLE
-std::vector<libdar5::list_entry> Mydar::get_children_in_table(const std::string &dir) const {
-    std::vector<libdar5::list_entry> children_table;
+std::vector<LIBDAR::list_entry> Mydar::get_children_in_table(const std::string &dir) const {
+    std::vector<LIBDAR::list_entry> children_table;
     children_table = my_arch->get_children_in_table(dir);
     return children_table;
 }
@@ -138,7 +138,7 @@ void Mydar::set_crypto_pass(Glib::ustring pass) {
     this->pass = pass;
 }
 
-void Mydar::set_crypto_algo(libdar5::crypto_algo algo) {
+void Mydar::set_crypto_algo(LIBDAR::crypto_algo algo) {
     crypt_algo = algo;
 }
 
