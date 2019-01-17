@@ -25,26 +25,21 @@
 #include "config.h"
 #include "window.hpp"
 #include "file.hpp"
-#ifdef LIBDAR5
-#include <dar/libdar5.hpp>
-namespace libdar = libdar5;
-#else
-#include <dar/libdar.hpp>
-#endif
+#include "libdar_namespace.hpp"
 #include <iostream>
 
 
-class Dialog : public libdar::user_interaction {
+class Dialog : public LIBDAR::user_interaction {
 public:
     std::list<File> *listingBuffer;
     void pause(const std::string & message);
     void warning(const std::string & message);
     std::string get_string(const std::string & message, bool echo);
-    libdar::secu_string get_secu_string(const std::string &message, bool echo);
+    LIBDAR::secu_string get_secu_string(const std::string &message, bool echo);
     void warning_callback(const std::string &x, void *context);
     bool answer_callback(const std::string &x, void *context);
     std::string string_callback(const std::string &x, bool echo, void *context);
-    libdar::secu_string sec_string_callback(const std::string &x, bool echo, void *context);
+    LIBDAR::secu_string sec_string_callback(const std::string &x, bool echo, void *context);
     Dialog(Window *parentWindow);
     ~Dialog();
     Dialog *clone() const;

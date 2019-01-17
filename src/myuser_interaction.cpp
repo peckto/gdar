@@ -23,7 +23,7 @@
 #include "myuser_interaction.hpp"
 
 using namespace std;
-using namespace libdar;
+using namespace LIBDAR;
 
 
 void Dialog::pause(const std::string & message) {
@@ -39,14 +39,14 @@ std::string Dialog::get_string(const std::string & message, bool echo) {
     return "";
 }
 
-libdar::secu_string Dialog::get_secu_string(const std::string &message, bool echo) {
+LIBDAR::secu_string Dialog::get_secu_string(const std::string &message, bool echo) {
     //cout << "get_secu_string: " << message << endl;
     parentWindow->dialog_mutex.lock();
     parentWindow->show_pwd_dialog_disp();
     {
     Glib::Threads::Mutex::Lock lock(parentWindow->dialog_mutex);
     }
-    libdar::secu_string s(parentWindow->dialog_secu_string.c_str(),parentWindow->dialog_secu_string.length());
+    LIBDAR::secu_string s(parentWindow->dialog_secu_string.c_str(),parentWindow->dialog_secu_string.length());
     return s;
 }
 

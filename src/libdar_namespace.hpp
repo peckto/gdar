@@ -16,34 +16,21 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
     To contact the author: https://github.com/peckto/gdar
+
 */
 
-#ifndef PWD_DIALOG_HPP
-#define PWD_DIALOG_HPP
+#ifndef LIBDAR_NAMESPACE_HPP
+#define LIBDAR_NAMESPACE_HPP
 
-#include <gtkmm.h>
-#include <glibmm/i18n.h>
+#include "config.h"
+
 #ifdef LIBDAR5
 #include <dar/libdar5.hpp>
+#define LIBDAR libdar5
 #else
 #include <dar/libdar.hpp>
+#define LIBDAR libdar
 #endif
 
 
-class PwdSettings : public Gtk::Dialog {
-public:
-    PwdSettings(Gtk::Window &parent);
-    Glib::ustring get_pass();
-
-private:
-    Gtk::Box *cont_box;
-    Gtk::Box box;
-
-    Gtk::Label p_lable;
-
-    Gtk::Entry p_entry;
-    Gtk::Button ok_button, c_button;
-
-};
-
-#endif // PWD_DIALOG_HPP
+#endif
