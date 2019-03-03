@@ -1,0 +1,186 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-02-28 04:11+0000\n"
+"PO-Revision-Date: 2019-02-28 04:23+0000\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.8.12\n"
+"Last-Translator: OIS <mistresssilvara@hotmail.com>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: ie\n"
+
+#: ../src/libgdar.cpp:60 ../src/libgdar.cpp:422
+msgid "Please choose a Dar file to open"
+msgstr "Ples selecter li file Dar a aperter"
+
+#: ../src/libgdar.cpp:62
+msgid "Open archive"
+msgstr "Aperter un archive"
+
+#: ../src/libgdar.cpp:63
+msgid "Show hidden files"
+msgstr "Revelar celat files"
+
+#: ../src/libgdar.cpp:64
+msgid "Show information about archive"
+msgstr "Monstrar information pri li archive"
+
+#: ../src/libgdar.cpp:65
+msgid "Extract selected file or folder"
+msgstr "Extraer li selectet file o fólder"
+
+#: ../src/libgdar.cpp:66
+msgid "Change to parent directory"
+msgstr "Ear al superiori fólder"
+
+#: ../src/libgdar.cpp:91
+msgid "Name"
+msgstr "Nómine"
+
+#: ../src/libgdar.cpp:102
+msgid "Size"
+msgstr "Grandore"
+
+#: ../src/libgdar.cpp:114
+msgid "Changed"
+msgstr "Modificat"
+
+#: ../src/libgdar.cpp:219 ../src/libgdar.cpp:220 ../src/libgdar.cpp:312
+#: ../src/libgdar.cpp:314
+msgid "Folder"
+msgstr "Fólder"
+
+#: ../src/libgdar.cpp:316
+msgid "File"
+msgstr "File"
+
+#: ../src/libgdar.cpp:379
+msgid "Reading catalogue"
+msgstr "Letion del catalog"
+
+#: ../src/libgdar.cpp:385 ../src/libgdar.cpp:544
+msgid "Ready"
+msgstr "Finit"
+
+#: ../src/libgdar.cpp:428
+msgid "Backup is encrypted"
+msgstr "Archive es ciffrat"
+
+#: ../src/libgdar.cpp:434
+msgid "Dar files"
+msgstr "Files Dar"
+
+#: ../src/libgdar.cpp:500
+msgid "Extracting is still running"
+msgstr "Extration es ancor in curse"
+
+#: ../src/libgdar.cpp:501
+msgid "Error"
+msgstr "Errore"
+
+#: ../src/libgdar.cpp:506
+msgid "Please choole a destination folder"
+msgstr "Ples selecter li fólder de destination"
+
+#: ../src/libgdar.cpp:510
+msgid "OK"
+msgstr "OK"
+
+#: ../src/libgdar.cpp:531
+msgid "Extracting files"
+msgstr "Extraente files"
+
+#: ../src/libgdar.cpp:553
+msgid "Treated files"
+msgstr "Processat files"
+
+#. stats[_("Hard links")] = LIBDAR::deci(extract_stats->get_hard_links()).human();
+#: ../src/libgdar.cpp:555
+msgid "Skipped files"
+msgstr "Omisset files"
+
+#: ../src/libgdar.cpp:556
+msgid "Ignored files"
+msgstr "Ignorat files"
+
+#. stats[_("tooold")] = LIBDAR::deci(extract_stats->get_tooold()).human();
+#: ../src/libgdar.cpp:558
+msgid "Errored files"
+msgstr "Files con errores"
+
+#: ../src/libgdar.cpp:566
+msgid "Extract successfully"
+msgstr "Extration successat"
+
+#: ../src/libgdar.cpp:576
+msgid "Total numer of inodes"
+msgstr "Total de inodes"
+
+#: ../src/libgdar.cpp:577
+msgid "Number of directories"
+msgstr "Númere de fólderes"
+
+#: ../src/libgdar.cpp:578
+msgid "Number of files"
+msgstr "Númere de files"
+
+#: ../src/libgdar.cpp:579
+msgid "Saved inodes in this backup"
+msgstr "Inodes in ti ci archive"
+
+#: ../src/libgdar.cpp:582
+msgid "About "
+msgstr "Pri "
+
+#: ../src/gdar_application.cpp:59
+msgid "Info"
+msgstr "Info"
+
+#: ../src/gdar_application.cpp:60
+msgid "Quit"
+msgstr "Surtir"
+
+#: ../src/gdar_application.cpp:100
+msgid "A graphical user interface to browse and extract dar archives."
+msgstr "Un grafic interfacie por navigar e extraher archives dar."
+
+#: ../src/gdar_application.cpp:104
+msgid "Gdar Homepage"
+msgstr "Hem-págine de Gdar"
+
+#: ../src/enc_dialog.cpp:24
+msgid "Encryption settings"
+msgstr "Ciffration"
+
+#: ../src/enc_dialog.cpp:24
+msgid "Password: "
+msgstr "Contrasigne:"
+
+#: ../src/enc_dialog.cpp:25
+msgid "Encryption algorithm"
+msgstr "Algoritme de ciffration"
+
+#: ../src/enc_dialog.cpp:25
+msgid "Block size in bytes"
+msgstr "Grandore de bloc in octetes"
+
+#: ../src/pwd_dialog.cpp:24
+msgid "Password"
+msgstr "Contrasigne"
+
+#: ../src/pwd_dialog.cpp:25
+msgid "Please enter password for archive:"
+msgstr "Ples intrar li contrasigne:"
+
+#: ../src/window.cpp:33
+msgid "Extract"
+msgstr "Extraer"
