@@ -6,7 +6,7 @@ A graphical user interface for Linux to browse and extract dar archives
 The GUI is written in gtkmm, as backend libdar is used. 
 You can use Gdar not only on Gnome desktop but also on KDE or any other Linux desktop environment.
 You can find more information at: 
-http://peckto.de/gdar/
+http://www.peckto.de/gdar
 
 Prepare when cloning from git
 -----------------------------

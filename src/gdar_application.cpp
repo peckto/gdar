@@ -97,7 +97,7 @@ void GdarApplication::on_action_info() {
     aboutDialog.set_comments(_("A graphical user interface to browse and extract dar archives."));
     aboutDialog.set_license_type(Gtk::LICENSE_GPL_3_0);
 
-    aboutDialog.set_website("http://peckto.de/gdar");
+    aboutDialog.set_website("http://www.peckto.de/gdar");
     aboutDialog.set_website_label(_("Gdar Homepage"));
 
     std::vector<Glib::ustring> list_authors;
