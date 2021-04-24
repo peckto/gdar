@@ -2,16 +2,16 @@ Required development packages on various systems
 ================================================
 
 Fedora
-# yum install intltool make gcc-c++ gtkmm30-devel libattr-devel libdar-devel \
-              libgcrypt-devel lzo-devel bzip2-devel zlib-devel gnome-icon-theme-symbolic
+# dnf install intltool make gcc-c++ gtkmm30-devel libattr-devel libdar-devel \
+              libgcrypt-devel lzo-devel bzip2-devel zlib-devel
 
 openSUSE
 # zypper install intltool make gcc-c++ gtkmm3-devel libattr-devel \
                  libgcrypt-devel lzo-devel zlib-devel libdar-devel gnome-icon-theme-symbolic
 
 Ubuntu
-# apt-get install make gcc g++ libgtkmm-3.0-dev libgcrypt11-dev libtool intltool libattr1-dev libdar-dev \
-                  libbz2-1.0 libbz2-dev libbz2-ocaml libbz2-ocaml-dev liblzo2-dev gnome-icon-theme-symbolic
+# apt-get install make gcc g++ libgtkmm-3.0-dev libgcrypt20-dev libtool intltool libattr1-dev libdar-dev \
+                  libbz2-1.0 libbz2-dev libbz2-ocaml libbz2-ocaml-dev liblzo2-dev gnome-icon-theme-symbolic libgpgme-dev
 
 Debian
 ! Please note that currently the libdar package in the reposity is too old to build gdar.
