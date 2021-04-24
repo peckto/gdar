@@ -1,7 +1,7 @@
 # german translations
-# Copyright (C) 2017
+# Copyright (C) 2021
 # This file is distributed under the same license as the PACKAGE package.
-# Tobias Specht <specht.tobias@gmx.de>, 2017
+# Tobias Specht <specht.tobias@gmx.de>, 2021
 #
 #, fuzzy
 msgid ""

@@ -1,6 +1,6 @@
 /* 
     gdar - a graphical user interface to browse and extract dar archives
-    Copyright (C) 2017  Tobias Specht
+    Copyright (C) 2021  Tobias Specht
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
