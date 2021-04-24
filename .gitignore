@@ -26,3 +26,4 @@ intltool-merge.in
 intltool-update.in
 po/POTFILES
 compile
+*.autosave
