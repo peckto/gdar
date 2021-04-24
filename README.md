@@ -12,14 +12,18 @@ http://www.peckto.de/gdar
 
 Prepare when cloning from git
 -----------------------------
+```
 $ ./autogen.sh
+```
 
 Build
 -----
+```
 $ ./configure [--enable-libdar64]
 $ make
 # make install
 # gtk-update-icon-cache /usr/share/icons/hicolor
+```
 
 Required development tools
 --------------------------
@@ -38,7 +42,9 @@ Required development tools
 Example
 ----------
 You can create a full backup of your home partition with dar by issuning the following command:
+```
 # dar -R /home/ -c /var/backup/home-$(date "+%Y%m%d")
+```
 In case of recovery just open the dar archive with gdar.
 
 For a detailed documentation about the dar command-line tool visit:
