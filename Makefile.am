@@ -1,5 +1,5 @@
 SUBDIRS = src po
-dist_doc_DATA = README
+dist_doc_DATA = README.md
 
 desktopdir = $(datadir)/applications
 desktop_DATA = res/gdar.desktop

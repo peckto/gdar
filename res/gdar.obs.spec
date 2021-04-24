@@ -38,7 +38,7 @@ make install DESTDIR=%{buildroot}
 %files
 %defattr(-,root,root)
 %{_bindir}/%{name}
-%{_defaultdocdir}/packages/%{name}/README
+%{_defaultdocdir}/packages/%{name}/README.md
 %{_datadir}/locale/de/LC_MESSAGES/%{name}.mo
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/icons/hicolor/256x256/apps/%{name}.png
