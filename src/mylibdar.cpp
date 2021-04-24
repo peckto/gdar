@@ -83,12 +83,8 @@ int Mydar::extract(const char *dir, const char *dest,LIBDAR::statistics *stats) 
 }
 
 int Mydar::count_files_in_dir(const char *dir) {
+    (void)dir;
    return 0;
-}
-
-/* load statistics of an already open archive */
-void Mydar::get_stats() {
-    LIBDAR::entree_stats my_stats = my_arch->get_stats();
 }
 
 /* 

@@ -345,6 +345,8 @@ int GdarOpenWindow::list_children() {
 }
 
 void GdarOpenWindow::on_active_row(const Gtk::TreeModel::Path& path, Gtk::TreeViewColumn* column) {
+    (void)path;
+    (void)column;
     string parent;
     lastScroll = scrollAdjust->get_value();
     Glib::RefPtr<Gtk::TreeView::Selection> selection = treeView.get_selection();

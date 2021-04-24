@@ -35,11 +35,14 @@ void Dialog::warning(const std::string & message) {
 }
 
 std::string Dialog::get_string(const std::string & message, bool echo) {
+    (void)echo;
     cout << "get_string: " << message << endl;
     return "";
 }
 
 LIBDAR::secu_string Dialog::get_secu_string(const std::string &message, bool echo) {
+    (void)message;
+    (void)echo;
     //cout << "get_secu_string: " << message << endl;
     parentWindow->dialog_mutex.lock();
     parentWindow->show_pwd_dialog_disp();
@@ -51,20 +54,26 @@ LIBDAR::secu_string Dialog::get_secu_string(const std::string &message, bool ech
 }
 
 void Dialog::warning_callback(const std::string &x, void *context) {
+    (void)context;
     cout << "WARNING: " << x << endl;
 }
 
 bool Dialog::answer_callback(const std::string &x, void *context) {
+    (void)context;
     cout << "ANSWER: " << x << endl;
     return false;
 }
 
 string Dialog::string_callback(const std::string &x, bool echo, void *context) {
+    (void)echo;
+    (void)context;
     cout << "string_callback: " << x << endl;
     return string("");
 }
 
 secu_string Dialog::sec_string_callback(const std::string &x, bool echo, void *context) {
+    (void)echo;
+    (void)context;
     cout << "string_callback: " << x << endl;
     return secu_string("",0);
 }
@@ -115,6 +124,7 @@ Dialog_custom_listing *Dialog_custom_listing::clone() const
 }
 
 void Dialog::inherited_warning(const string& message) {
+    (void)message;
 //    cout << "inherited_warning: " << message << endl;
 }
 
