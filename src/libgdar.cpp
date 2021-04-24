@@ -95,14 +95,12 @@ GdarOpenWindow::GdarOpenWindow(GdarApplication *application) : Window()
     column->add_attribute(iconCell.property_cell_background_gdk(), cols.file_colour);
     column->pack_end(*coloureCell); // create the cell for content of the Name column
     column->add_attribute(coloureCell->property_text(), cols.file_name);
-    column->add_attribute(coloureCell->property_background_gdk(), cols.file_colour);
     treeView.append_column(*column);
     // Size
     coloureCell = new Gtk::CellRendererText;
     column_count = treeView.append_column(_("Size"), *coloureCell);
     column = treeView.get_column(column_count -1);
     column->add_attribute(coloureCell->property_text(), cols.file_size);
-    column->add_attribute(coloureCell->property_background_gdk(), cols.file_colour);
 /*    // Type
     coloureCell = new Gtk::CellRendererText;
     column_count = treeView.append_column("Type", *coloureCell);
@@ -114,7 +112,6 @@ GdarOpenWindow::GdarOpenWindow(GdarApplication *application) : Window()
     column_count = treeView.append_column(_("Changed"), *coloureCell);
     column = treeView.get_column(column_count -1);
     column->add_attribute(coloureCell->property_text(), cols.file_changed);
-    column->add_attribute(coloureCell->property_background_gdk(), cols.file_colour);
     // layout
     Gtk::TreeViewColumn *firstCol = treeView.get_column(0);
 //    firstCol->set_sizing(Gtk::TREE_VIEW_COLUMN_GROW_ONLY);
@@ -230,11 +227,6 @@ void GdarOpenWindow::populate(std::vector<LIBDAR::list_entry> *children_table) {
 #else
         row[cols.file_changed] = it->get_last_change();
 #endif
-        if (it->has_data_present_in_the_archive()) {
-            row[cols.file_colour] = white;
-        } else {
-            row[cols.file_colour] = grey;
-        }
     }
     treeView.columns_autosize();
 }
