@@ -1,6 +1,8 @@
 Gdar 
 ====
 
+![GitHub Workflow Status](https://img.shields.io/github/workflow/status/peckto/gdar/cpp)
+
 A graphical user interface for Linux to browse and extract dar archives
 
 The GUI is written in gtkmm, as backend libdar is used. 
