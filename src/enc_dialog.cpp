@@ -21,12 +21,19 @@
 #include "enc_dialog.hpp"
 
 EncSettings::EncSettings(Gtk::Window &parent) : 
-    Gtk::Dialog(_("Encryption settings"), parent), p_lable(_("Password: ")),
-    c_lable(_("Encryption algorithm")), b_lable(_("Block size in bytes")),
-    blowfish_check(algo_group,"Blowfish"),aes_check(algo_group,"AES 256"),twofish_check(algo_group,"Twofish 256"),
-    serpent_check(algo_group,"Serpent 256"),camellia_check(algo_group,"Camellia 256"),
-    m_box(Gtk::ORIENTATION_VERTICAL,0),b_spinb(Gtk::Adjustment::create(DEFAULT_BLOCK_SIZE,1,100000,1,0)),
-    p_box(Gtk::ORIENTATION_HORIZONTAL,0),b_box(Gtk::ORIENTATION_HORIZONTAL,0) 
+    Gtk::Dialog(_("Encryption settings"), parent),
+    m_box(Gtk::ORIENTATION_VERTICAL,0),
+    b_box(Gtk::ORIENTATION_HORIZONTAL,0),
+    p_box(Gtk::ORIENTATION_HORIZONTAL,0),
+    p_lable(_("Password: ")),
+    c_lable(_("Encryption algorithm")),
+    b_lable(_("Block size in bytes")),
+    b_spinb(Gtk::Adjustment::create(DEFAULT_BLOCK_SIZE,1,100000,1,0)),
+    blowfish_check(algo_group,"Blowfish"),
+    aes_check(algo_group,"AES 256"),
+    twofish_check(algo_group,"Twofish 256"),
+    serpent_check(algo_group,"Serpent 256"),
+    camellia_check(algo_group,"Camellia 256")
 {
     cont_box = get_content_area();
     cont_box->pack_start(m_box);

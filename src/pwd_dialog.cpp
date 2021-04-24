@@ -21,9 +21,9 @@
 #include "pwd_dialog.hpp"
 
 PwdSettings::PwdSettings(Gtk::Window &parent) : 
-    Gtk::Dialog(_("Password"), parent), 
-    p_lable(_("Please enter password for archive:")),
-    box(Gtk::ORIENTATION_VERTICAL,0)
+    Gtk::Dialog(_("Password"), parent),
+    box(Gtk::ORIENTATION_VERTICAL,0),
+    p_lable(_("Please enter password for archive:"))
 {
     cont_box = get_content_area();
     cont_box->pack_start(box);

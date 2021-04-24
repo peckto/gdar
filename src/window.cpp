@@ -25,15 +25,16 @@
 
 
 Window::Window() :
-    img_up(Gtk::Stock::GO_UP, Gtk::ICON_SIZE_BUTTON),
-    n_separator(Gtk::ORIENTATION_VERTICAL),
+    a_open(Gtk::Stock::OPEN),
+    a_extract(_("Extract")),
     a_separator1(Gtk::ORIENTATION_VERTICAL),
     a_separator2(Gtk::ORIENTATION_VERTICAL),
     a_separator3(Gtk::ORIENTATION_VERTICAL),
-    a_extract(_("Extract")),
-    a_open(Gtk::Stock::OPEN),
-    grey(),white(),
-    a_info_img(Gtk::Stock::INFO, Gtk::ICON_SIZE_BUTTON)
+    a_info_img(Gtk::Stock::INFO, Gtk::ICON_SIZE_BUTTON),
+    img_up(Gtk::Stock::GO_UP, Gtk::ICON_SIZE_BUTTON),
+    n_separator(Gtk::ORIENTATION_VERTICAL),
+    grey(),
+    white()
 {
 }
 
