@@ -51,8 +51,6 @@ public:
     int init();
     // open dar archive
     int open(std::string path, std::string slice, LIBDAR::archive_options_read *read_options);
-    // list archive content
-//    int list();
     // list only children of parent dir
     int list_children(const char *dir);
 #ifdef GET_CHILDREN_IN_TABLE
@@ -65,7 +63,6 @@ public:
 
     void setListingBuffer(std::list<File> *buffer);
 private:
-//    std::string get_slice(std::string path);
     LIBDAR::statistics *my_statistic;
     // security
     int block_size;

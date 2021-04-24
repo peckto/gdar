@@ -26,7 +26,6 @@
 GdarApplication::GdarApplication(int argc, char *argv[]) : 
 Gtk::Application(argc, argv, "de.peckto.gdar", Gio::APPLICATION_HANDLES_OPEN) {
     Glib::set_application_name("Gdar");
-//    signal_open().connect(sigc::ptr_fun(&GdarApplication::on_open));
 }
 
 GdarApplication::~GdarApplication() {
@@ -52,8 +51,6 @@ void GdarApplication::on_startup() {
     action = Gio::SimpleAction::create("info");
     action->signal_activate().connect( sigc::hide(sigc::mem_fun(*this, &GdarApplication::on_action_info)));
     add_action(action);
-//    add_action("quit", sigc::mem_fun(*this, &GdarApplication::on_action_quit) ); // availabe since glibmm 2.38
-//    add_action("info", sigc::mem_fun(*this, &GdarApplication::on_action_info) ); // availabe since glibmm 2.38
 
     Glib::RefPtr<Gio::Menu> app_menu = Gio::Menu::create();
     app_menu->append(_("Info"), "app.info");

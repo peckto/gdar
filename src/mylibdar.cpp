@@ -42,19 +42,10 @@ Mydar::~Mydar() {
 }
 
 int Mydar::init() {
-    //dialog = Dialog(parentWindow);
-    //dialog_custom_listing = Dialog_custom_listing();
     my_statistic = NULL;
     stats_total = "";
-//    LIBDAR::U_I maj, med, min;
-    LIBDAR::U_16 excode;
     std::string msg;
 
-/*    LIBDAR::get_version(maj, med, min);
-
-    if(maj != LIBDAR_COMPILE_TIME_MAJOR || med < LIBDAR::LIBDAR_COMPILE_TIME_MEDIUM) {
-        throw LIBDAR::Erange("initialization", "we are linking against a wrong libdar"); 
-    }*/
     return 0;
 }
 
@@ -64,14 +55,8 @@ int Mydar::open(std::string path, std::string slice, LIBDAR::archive_options_rea
 
     my_arch = new LIBDAR::archive(dialog,path,slice, "dar", *read_options); 
 
-//    my_arch->init_catalogue(dialog); // not avalible in libdar v5.3.2
     return 0;
 }
-
-/*int Mydar::list() {
-    my_arch->op_listing(dialog_custom_listing, archive_options_listing());
-    return 0;
-}*/
 
 int Mydar::list_children(const char *dir) {
     my_arch->get_children_of(dialog_custom_listing, dir);
@@ -104,7 +89,6 @@ int Mydar::count_files_in_dir(const char *dir) {
 /* load statistics of an already open archive */
 void Mydar::get_stats() {
     LIBDAR::entree_stats my_stats = my_arch->get_stats();
-//    std::cout << "[+] total: " << LIBDAR::deci(my_stats.total).human() << std::endl;
 }
 
 /* 
@@ -112,7 +96,6 @@ void Mydar::get_stats() {
  */
 bool Mydar::test() {
     LIBDAR::archive_options_test test_options;
-//    LIBDAR::statistics test_stats;
     if (my_statistic != NULL) {
         delete my_statistic;
     }
@@ -128,18 +111,3 @@ std::vector<LIBDAR::list_entry> Mydar::get_children_in_table(const std::string &
     return children_table;
 }
 #endif
-
-/*
-void Mydar::set_crypto_size(int size) {
-    block_size = size;
-}
-
-void Mydar::set_crypto_pass(Glib::ustring pass) {
-    this->pass = pass;
-}
-
-void Mydar::set_crypto_algo(LIBDAR::crypto_algo algo) {
-    crypt_algo = algo;
-}
-
-*/

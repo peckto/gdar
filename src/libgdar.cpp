@@ -48,7 +48,7 @@ GdarOpenWindow::GdarOpenWindow(GdarApplication *application) : Window()
     extract_stats = NULL;
     gdarApp = application;
     gdarApp->myTheme = Gtk::IconTheme::get_default(); // In older gtkmm versions it seems like 
-						      // the IconTheme can only be fetched inside the Window
+                                                      // the IconTheme can only be fetched inside the Window
 
     //init Window
     set_title("Gdar");
@@ -81,7 +81,6 @@ GdarOpenWindow::GdarOpenWindow(GdarApplication *application) : Window()
     int column_count;
     Gtk::TreeViewColumn *column;
     Gtk::CellRendererText *coloureCell;
-//    grey.set_rgb(0xffff,0xffff,0x0000);
     grey.set_grey_p(0.7);
     white.set_grey_p(1);
     // Name
@@ -89,7 +88,6 @@ GdarOpenWindow::GdarOpenWindow(GdarApplication *application) : Window()
     Gtk::CellRendererPixbuf iconCell;
     column = new Gtk::TreeViewColumn();
     column->set_title(_("Name"));
-//    column->pack_start(cols.file_icon,false); // create a cell for the icon in the Name column
     column->pack_start(iconCell,false);
     column->add_attribute(iconCell.property_pixbuf(), cols.file_icon);
     column->add_attribute(iconCell.property_cell_background_gdk(), cols.file_colour);
@@ -101,12 +99,6 @@ GdarOpenWindow::GdarOpenWindow(GdarApplication *application) : Window()
     column_count = treeView.append_column(_("Size"), *coloureCell);
     column = treeView.get_column(column_count -1);
     column->add_attribute(coloureCell->property_text(), cols.file_size);
-/*    // Type
-    coloureCell = new Gtk::CellRendererText;
-    column_count = treeView.append_column("Type", *coloureCell);
-    column = treeView.get_column(column_count -1);
-    column->add_attribute(coloureCell->property_text(), cols.file_type);
-    column->add_attribute(coloureCell->property_background_gdk(), cols.file_colour); */
     // Date
     coloureCell = new Gtk::CellRendererText;
     column_count = treeView.append_column(_("Changed"), *coloureCell);
@@ -114,7 +106,6 @@ GdarOpenWindow::GdarOpenWindow(GdarApplication *application) : Window()
     column->add_attribute(coloureCell->property_text(), cols.file_changed);
     // layout
     Gtk::TreeViewColumn *firstCol = treeView.get_column(0);
-//    firstCol->set_sizing(Gtk::TREE_VIEW_COLUMN_GROW_ONLY);
     firstCol->set_min_width(200);
     firstCol->set_max_width(400);
     firstCol->set_expand(true);
@@ -356,7 +347,6 @@ int GdarOpenWindow::list_children() {
 void GdarOpenWindow::on_active_row(const Gtk::TreeModel::Path& path, Gtk::TreeViewColumn* column) {
     string parent;
     lastScroll = scrollAdjust->get_value();
-//    cout << "get_vadjustment: " << lastScroll << endl;
     Glib::RefPtr<Gtk::TreeView::Selection> selection = treeView.get_selection();
     Gtk::TreeModel::iterator itr = selection->get_selected();
     Gtk::TreeModel::Row activeRow = *itr;
@@ -452,11 +442,6 @@ void GdarOpenWindow::open(string &filename, EncSettings *encSettins) {
         read_options->set_crypto_size(encSettins->get_block_size());
         read_options->set_crypto_pass(encSettins->get_pass());
         read_options->set_crypto_algo(encSettins->get_crypt_algo());
-    } else {
-    //    read_options->set_crypto_algo(LIBDAR::crypto_none);
-//	read_options->set_crypto_pass(tmp_pass);
- //       read_options->set_crypto_size(crypto_size);
-
     }
 
     int i = filename.find_last_of("/");
@@ -543,13 +528,9 @@ void GdarOpenWindow::on_extract_finish() {
     std::map<std::string, std::string> stats;
 
     stats[_("Treated files")] = LIBDAR::deci(extract_stats->get_treated()).human();
-//    stats[_("Hard links")] = LIBDAR::deci(extract_stats->get_hard_links()).human();
     stats[_("Skipped files")] = LIBDAR::deci(extract_stats->get_skipped()).human();
     stats[_("Ignored files")] = LIBDAR::deci(extract_stats->get_ignored()).human();
-//    stats[_("tooold")] = LIBDAR::deci(extract_stats->get_tooold()).human();
     stats[_("Errored files")] = LIBDAR::deci(extract_stats->get_errored()).human();
-//    stats[_("ea_treated")] = LIBDAR::deci(extract_stats->get_ea_treated()).human();
-//    stats[_("Processed bytes")] = LIBDAR::deci(extract_stats->get_byte_amount()).human();
 
     string msg = ext_src;
     msg += " => ";
@@ -562,7 +543,6 @@ void GdarOpenWindow::on_extract_finish() {
 void GdarOpenWindow::on_info() {
     if ( not is_open )
         return;
-//    m_spinner.start();
     std::map<std::string, std::string> stats;
     LIBDAR::entree_stats my_stats = newDar->my_arch->get_stats();
     stats[_("Total numer of inodes")] = LIBDAR::deci(my_stats.total).human();
@@ -573,8 +553,6 @@ void GdarOpenWindow::on_info() {
     TableDialog dlg("",stats);
     dlg.set_title(_("About ") + slice);
     dlg.run();
-//    cout << newDar->stats_total << endl;
-//    m_spinner.stop();
 }
 
 void GdarOpenWindow::on_swh_hide() {
@@ -608,8 +586,6 @@ TableDialog::TableDialog(Glib::ustring msg, std::map<std::string, std::string> &
         labels[first] = second;
         table.attach(*first,0,1,i,i+1);
         table.attach(*second,2,3,i,i+1);
-//        first->set_size_request(200,-1);
-//        second->set_size_request(40,-1);
         i++;
     }
     table.attach(tt,1,2,0,1);
