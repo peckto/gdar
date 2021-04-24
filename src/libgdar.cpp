@@ -172,6 +172,12 @@ GdarOpenWindow::~GdarOpenWindow() {
 
     if ( extract_stats != NULL )
         delete extract_stats;
+    if (newDar != NULL) {
+        delete newDar;
+    }
+    if (read_options != NULL) {
+        delete read_options;
+    }
 }
 
 bool GdarOpenWindow::openDar() {
@@ -438,7 +444,6 @@ void GdarOpenWindow::on_button_open() {
 void GdarOpenWindow::open(string &filename, EncSettings *encSettins) {
     create_mydar();
     LIBDAR::secu_string tmp_pass;
-    LIBDAR::U_32 crypto_size = DEFAULT_CRYPTO_SIZE;
 
     if (encSettins != NULL ) {
         read_options->set_crypto_size(encSettins->get_block_size());
