@@ -175,9 +175,7 @@ GdarOpenWindow::~GdarOpenWindow() {
     if (newDar != NULL) {
         delete newDar;
     }
-    if (read_options != NULL) {
-        delete read_options;
-    }
+    // TODO: how to delete read_options?
 }
 
 bool GdarOpenWindow::openDar() {
