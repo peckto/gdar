@@ -69,7 +69,7 @@ void Mydar::setListingBuffer(std::list<File> *buffer) {
     dialog_custom_listing.setListingBuffer(buffer);
 }
 
-int Mydar::extract(const char *dir, const char *dest,LIBDAR::statistics *stats) {
+int Mydar::extract(const char *dir, const char *dest,LIBDAR::statistics *stats, bool flat) {
     string dir2 = dest;
     dir2 +=dir; // libdar expects the full path to where the dir will be extracted
     if (my_statistic != NULL) {
@@ -79,6 +79,7 @@ int Mydar::extract(const char *dir, const char *dest,LIBDAR::statistics *stats) 
     LIBDAR::archive_options_extract options;
     options.set_subtree(LIBDAR::simple_path_mask(dir2, true));
     options.set_display_skipped(true);
+    options.set_flat(flat);
     my_arch->op_extract(dialog,std::string(dest),options,stats);
 
     return 0;

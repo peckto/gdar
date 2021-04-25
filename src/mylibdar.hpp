@@ -56,7 +56,7 @@ public:
 #ifdef GET_CHILDREN_IN_TABLE
     std::vector<LIBDAR::list_entry> get_children_in_table ( const std::string & dir) const;
 #endif
-    int extract(const char *dir,const char *dest,LIBDAR::statistics *stats);
+    int extract(const char *dir,const char *dest,LIBDAR::statistics *stats, bool flat = false);
     int count_files_in_dir(const char *dir);
     void get_stats();
     bool test();
