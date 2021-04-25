@@ -98,7 +98,7 @@ protected:
     std::string get_treePath();
     bool openTreadActive;
     bool extractThreadActive;
-    void extractThread();
+    void extractThread(bool flat = false);
     int sort_func(const Gtk::TreeModel::iterator &col1, const Gtk::TreeModel::iterator col2);
     std::string get_human_readable(int size);
     std::string get_readable_date(time_t date);

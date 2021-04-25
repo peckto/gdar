@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: de\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-05-09 16:00+0200\n"
+"POT-Creation-Date: 2021-05-16 09:33+0200\n"
 "PO-Revision-Date: 2014-03-15 17:58+0100\n"
 "Last-Translator: Tobias Specht <specht.tobias@gmx.de>\n"
 "Language-Team: Deutsch\n"
@@ -17,132 +17,140 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../src/libgdar.cpp:71 ../src/libgdar.cpp:423
+#: ../src/libgdar.cpp:72 ../src/libgdar.cpp:435
 msgid "Please choose a Dar file to open"
 msgstr "Bitte eine Dar Datei zum öffnen wählen"
 
-#: ../src/libgdar.cpp:73
+#: ../src/libgdar.cpp:76
 msgid "Open archive"
 msgstr "Archiv öffnen"
 
-#: ../src/libgdar.cpp:74
-msgid "Show hidden files"
-msgstr "Zeige versteckte Dateien"
-
-#: ../src/libgdar.cpp:75
-msgid "Show information about archive"
-msgstr "Informationen zu Archiv anzeigen"
-
-#: ../src/libgdar.cpp:76
+#: ../src/libgdar.cpp:80
 msgid "Extract selected file or folder"
 msgstr "Ausgewählte Datei oder Ordner entpacken"
 
-#: ../src/libgdar.cpp:77
+#: ../src/libgdar.cpp:84
+msgid "Show information about archive"
+msgstr "Informationen zu Archiv anzeigen"
+
+#: ../src/libgdar.cpp:88
+msgid "Show hidden files"
+msgstr "Zeige versteckte Dateien"
+
+#: ../src/libgdar.cpp:92
 msgid "Change to parent directory"
 msgstr "Wechsel zu übergeordnetem Verzeichnis"
 
-#: ../src/libgdar.cpp:101
+#: ../src/libgdar.cpp:116
 msgid "Name"
 msgstr "Name"
 
-#: ../src/libgdar.cpp:110
+#: ../src/libgdar.cpp:125
 msgid "Size"
 msgstr "Größe"
 
-#: ../src/libgdar.cpp:115
+#: ../src/libgdar.cpp:130
 msgid "Changed"
 msgstr "Geändert"
 
-#: ../src/libgdar.cpp:224 ../src/libgdar.cpp:225 ../src/libgdar.cpp:312
-#: ../src/libgdar.cpp:314
+#: ../src/libgdar.cpp:236 ../src/libgdar.cpp:237 ../src/libgdar.cpp:324
+#: ../src/libgdar.cpp:326
 msgid "Folder"
 msgstr "Ordner"
 
-#: ../src/libgdar.cpp:316
+#: ../src/libgdar.cpp:328
 msgid "File"
 msgstr "Datei"
 
-#: ../src/libgdar.cpp:380
+#: ../src/libgdar.cpp:392
 msgid "Reading catalogue"
 msgstr "Lese Catalogue"
 
-#: ../src/libgdar.cpp:386 ../src/libgdar.cpp:569
+#: ../src/libgdar.cpp:398 ../src/libgdar.cpp:593
 msgid "Ready"
 msgstr "Fertig"
 
-#: ../src/libgdar.cpp:428
+#: ../src/libgdar.cpp:440
 msgid "Backup is encrypted"
 msgstr "Backup ist verschlüsselt"
 
-#: ../src/libgdar.cpp:440
+#: ../src/libgdar.cpp:452
 msgid "Dar files"
 msgstr "Dar Datein"
 
-#: ../src/libgdar.cpp:485
+#: ../src/libgdar.cpp:497
 msgid "File not found: "
 msgstr "Datei nicht gefunden: "
 
-#: ../src/libgdar.cpp:486 ../src/libgdar.cpp:492 ../src/libgdar.cpp:526
+#: ../src/libgdar.cpp:498 ../src/libgdar.cpp:504 ../src/libgdar.cpp:538
 msgid "Error"
 msgstr "Fehler"
 
-#: ../src/libgdar.cpp:491
+#: ../src/libgdar.cpp:503
 msgid "Invalid dar archive: "
 msgstr "Ungültiges dar Archiv: "
 
-#: ../src/libgdar.cpp:525
+#: ../src/libgdar.cpp:537
 msgid "Extracting is still running"
 msgstr "Entpacken läuft noch"
 
-#: ../src/libgdar.cpp:531
+#: ../src/libgdar.cpp:543
 msgid "Please choole a destination folder"
 msgstr "Bitte einen Ziel Ordner wählen"
 
-#: ../src/libgdar.cpp:535
+#: ../src/libgdar.cpp:547
 msgid "OK"
 msgstr "OK"
 
-#: ../src/libgdar.cpp:556
+#: ../src/libgdar.cpp:550
+msgid "Flat extract"
+msgstr "Flach entpacken"
+
+#: ../src/libgdar.cpp:551
+msgid "Ignore folder structure when restoring files"
+msgstr "Ignoriere Ordnerstruktur beim Entpacken von Dateien"
+
+#: ../src/libgdar.cpp:580
 msgid "Extracting files"
 msgstr "Entpacke Dateien"
 
-#: ../src/libgdar.cpp:578
+#: ../src/libgdar.cpp:602
 msgid "Treated files"
 msgstr "Verarbeitete Dateien"
 
-#: ../src/libgdar.cpp:579
+#: ../src/libgdar.cpp:603
 msgid "Skipped files"
 msgstr "Übersprungene Dateien"
 
-#: ../src/libgdar.cpp:580
+#: ../src/libgdar.cpp:604
 msgid "Ignored files"
 msgstr "Ignorierte Dateien"
 
-#: ../src/libgdar.cpp:581
+#: ../src/libgdar.cpp:605
 msgid "Errored files"
 msgstr "Fehlgeschlagene Dateien"
 
-#: ../src/libgdar.cpp:587
+#: ../src/libgdar.cpp:611
 msgid "Extract successfully"
 msgstr "Entpacken erfolgreich"
 
-#: ../src/libgdar.cpp:596
+#: ../src/libgdar.cpp:620
 msgid "Total numer of inodes"
 msgstr "Gesamte Anzahl von Inodes"
 
-#: ../src/libgdar.cpp:597
+#: ../src/libgdar.cpp:621
 msgid "Number of directories"
 msgstr "Anzahl von Ordnern"
 
-#: ../src/libgdar.cpp:598
+#: ../src/libgdar.cpp:622
 msgid "Number of files"
 msgstr "Anzahl von Dateien"
 
-#: ../src/libgdar.cpp:599
+#: ../src/libgdar.cpp:623
 msgid "Saved inodes in this backup"
 msgstr "Gespeicherte Inodes in diesem Backup"
 
-#: ../src/libgdar.cpp:602
+#: ../src/libgdar.cpp:626
 msgid "About "
 msgstr "Über "
 
