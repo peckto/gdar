@@ -540,7 +540,7 @@ void GdarOpenWindow::on_extract_finish() {
     string msg = ext_src;
     msg += " => ";
     msg += ext_dest;
-    TableDialog dlg(msg,stats);
+    TableDialog dlg(*this, msg,stats);
     dlg.set_title(_("Extract successfully"));
     dlg.run();
 }
@@ -555,7 +555,7 @@ void GdarOpenWindow::on_info() {
     stats[_("Number of files")] = LIBDAR::deci(my_stats.num_f).human();
     stats[_("Saved inodes in this backup")] = LIBDAR::deci(my_stats.saved).human();
 
-    TableDialog dlg("",stats);
+    TableDialog dlg(*this, "",stats);
     dlg.set_title(_("About ") + slice);
     dlg.run();
 }
@@ -575,8 +575,8 @@ bool GdarOpenWindow::filter_func(Gtk::TreeModel::const_iterator it) {
     return true;
 }
 
-TableDialog::TableDialog(Glib::ustring msg, std::map<std::string, std::string> &cont) :
-    Gtk::MessageDialog(msg, false, Gtk::MESSAGE_INFO, Gtk::BUTTONS_OK, true ),
+TableDialog::TableDialog(Gtk::Window& parent, Glib::ustring msg, std::map<std::string, std::string> &cont) :
+    Gtk::MessageDialog(parent, msg, false, Gtk::MESSAGE_INFO, Gtk::BUTTONS_OK, true ),
     table(cont.size(),3,false),
     tt("\t")
 {

@@ -121,7 +121,7 @@ private:
 
 class TableDialog : public Gtk::MessageDialog {
 public:
-    TableDialog(Glib::ustring msg, std::map<std::string, std::string> &cont);
+    TableDialog(Gtk::Window& parent, Glib::ustring msg, std::map<std::string, std::string> &cont);
     virtual ~TableDialog();
 protected:
     typedef std::map<Gtk::Label*, Gtk::Label*> labelMap;
