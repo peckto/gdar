@@ -53,10 +53,10 @@ GdarOpenWindow::GdarOpenWindow(GdarApplication *application) : Window()
     //init Window
     set_title("Gdar");
     set_icon(gdarApp->myTheme->load_icon("emblem-package",50));
-    m_box = Gtk::manage(new Gtk::Box(Gtk::ORIENTATION_VERTICAL,0));
-    i_box = Gtk::manage(new Gtk::Box(Gtk::ORIENTATION_HORIZONTAL,0));
-    n_box = Gtk::manage(new Gtk::Box(Gtk::ORIENTATION_HORIZONTAL,0));
-    a_box = Gtk::manage(new Gtk::Box(Gtk::ORIENTATION_HORIZONTAL,0));
+    m_box = Gtk::make_managed<Gtk::Box>(Gtk::ORIENTATION_VERTICAL,0);
+    i_box = Gtk::make_managed<Gtk::Box>(Gtk::ORIENTATION_HORIZONTAL,0);
+    n_box = Gtk::make_managed<Gtk::Box>(Gtk::ORIENTATION_HORIZONTAL,0);
+    a_box = Gtk::make_managed<Gtk::Box>(Gtk::ORIENTATION_HORIZONTAL,0);
     m_statusbar.push(_("Please choose a Dar file to open"));
 
     a_open.set_tooltip_text(_("Open archive"));
@@ -84,9 +84,9 @@ GdarOpenWindow::GdarOpenWindow(GdarApplication *application) : Window()
     grey.set_grey_p(0.7);
     white.set_grey_p(1);
     // Name
-    coloureCell = new Gtk::CellRendererText;
+    coloureCell = Gtk::make_managed<Gtk::CellRendererText>();
     Gtk::CellRendererPixbuf iconCell;
-    column = new Gtk::TreeViewColumn();
+    column = Gtk::make_managed<Gtk::TreeViewColumn>();
     column->set_title(_("Name"));
     column->pack_start(iconCell,false);
     column->add_attribute(iconCell.property_pixbuf(), cols.file_icon);
@@ -95,12 +95,12 @@ GdarOpenWindow::GdarOpenWindow(GdarApplication *application) : Window()
     column->add_attribute(coloureCell->property_text(), cols.file_name);
     treeView.append_column(*column);
     // Size
-    coloureCell = new Gtk::CellRendererText;
+    coloureCell = Gtk::make_managed<Gtk::CellRendererText>();
     column_count = treeView.append_column(_("Size"), *coloureCell);
     column = treeView.get_column(column_count -1);
     column->add_attribute(coloureCell->property_text(), cols.file_size);
     // Date
-    coloureCell = new Gtk::CellRendererText;
+    coloureCell = Gtk::make_managed<Gtk::CellRendererText>();
     column_count = treeView.append_column(_("Changed"), *coloureCell);
     column = treeView.get_column(column_count -1);
     column->add_attribute(coloureCell->property_text(), cols.file_changed);
@@ -586,8 +586,8 @@ TableDialog::TableDialog(Gtk::Window& parent, Glib::ustring msg, std::map<std::s
     Gtk::Label *first, *second;
     int i = 0;
     for (it=cont.begin(); it!=cont.end(); it++) {
-        first = new Gtk::Label(it->first,Gtk::ALIGN_END,Gtk::ALIGN_START);
-        second = new Gtk::Label(it->second,Gtk::ALIGN_START,Gtk::ALIGN_START);
+        first = Gtk::make_managed<Gtk::Label>(it->first,Gtk::ALIGN_END,Gtk::ALIGN_START);
+        second = Gtk::make_managed<Gtk::Label>(it->second,Gtk::ALIGN_START,Gtk::ALIGN_START);
         labels[first] = second;
         table.attach(*first,0,1,i,i+1);
         table.attach(*second,2,3,i,i+1);
