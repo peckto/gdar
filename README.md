@@ -3,7 +3,7 @@ Gdar
 
 ![GitHub Workflow Status](https://img.shields.io/github/workflow/status/peckto/gdar/cpp)
 
-A graphical user interface for Linux to browse and extract dar archives
+A graphical user interface for Linux to browse and extract dar archives.
 
 The GUI is written in gtkmm, as backend libdar is used. 
 You can use Gdar not only on Gnome desktop but also on KDE or any other Linux desktop environment.
@@ -63,6 +63,3 @@ You can also edit the path in the entry widget. Use the switch to display hidden
 To extract a file or folder select it and click the button Extract and choose a destination.
 The info button (light bulb) gives you a brief overview of the archive.
 
-Known bugs
-----------
-* when running in a KDE environment the icons in the TreeView widget are hardly visible because of a gray background
