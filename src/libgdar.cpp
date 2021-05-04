@@ -412,11 +412,16 @@ void GdarOpenWindow::on_button_open() {
     dialog.add_button(Gtk::Stock::CANCEL, Gtk::RESPONSE_CANCEL);
     dialog.add_button(Gtk::Stock::OPEN, Gtk::RESPONSE_OK);
     Gtk::CheckButton enc_check;
-    Gtk::ButtonBox *action_aria;
     enc_check.set_label(_("Backup is encrypted"));
     enc_check.show();
-    action_aria = dialog.get_action_area();
-    action_aria->pack_end(enc_check);
+
+    if (dialog.property_use_header_bar()) {
+        Gtk::HeaderBar *header_bar = dialog.get_header_bar();
+        header_bar->pack_end(enc_check);
+    } else {
+        Gtk::ButtonBox *action_aria = dialog.get_action_area();
+        action_aria->pack_end(enc_check);
+    }
 
     Glib::RefPtr<Gtk::FileFilter> filter = Gtk::FileFilter::create();
     filter->set_name(_("Dar files"));
