@@ -444,16 +444,7 @@ void GdarOpenWindow::on_button_open() {
     }
 }
 
-void GdarOpenWindow::open(string &filename, EncSettings *encSettins) {
-    create_mydar();
-    LIBDAR::secu_string tmp_pass;
-
-    if (encSettins != NULL ) {
-        read_options->set_crypto_size(encSettins->get_block_size());
-        read_options->set_crypto_pass(encSettins->get_pass());
-        read_options->set_crypto_algo(encSettins->get_crypt_algo());
-    }
-
+void GdarOpenWindow::parseDarFileName(std::string &filename) {
     int i = filename.find_last_of("/");
     path = filename.substr(0,i);
     slice = filename.substr(i+1,filename.length());
@@ -462,7 +453,18 @@ void GdarOpenWindow::open(string &filename, EncSettings *encSettins) {
     i = slice.find_last_of(".");
     i = slice.find_last_of(".", i-1);
     slice = slice.substr(0,i);
-    // start thread
+}
+
+void GdarOpenWindow::open(string &filename, EncSettings *encSettins) {
+    create_mydar();
+
+    if (encSettins != NULL ) {
+        read_options->set_crypto_size(encSettins->get_block_size());
+        read_options->set_crypto_pass(encSettins->get_pass());
+        read_options->set_crypto_algo(encSettins->get_crypt_algo());
+    }
+    GdarOpenWindow::parseDarFileName(filename);
+    // load archive as background task
     openThreadPtr = Glib::Thread::create(sigc::mem_fun(*this,&GdarOpenWindow::openDarThread),true);
 }
 
