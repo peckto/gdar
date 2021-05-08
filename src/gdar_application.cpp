@@ -60,7 +60,7 @@ void GdarApplication::on_startup() {
 }
 
 void GdarApplication::create_window() {
-    window = new GdarOpenWindow(Glib::RefPtr<GdarApplication>(this));
+    window = new GdarOpenWindow(this);
     window->set_default_size(400, 550);
     add_window(*window);
 

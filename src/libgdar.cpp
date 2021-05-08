@@ -39,7 +39,7 @@ FileColumns::FileColumns() {
 FileColumns::~FileColumns() {
 }
  
-GdarOpenWindow::GdarOpenWindow(Glib::RefPtr<GdarApplication> application) : Window()
+GdarOpenWindow::GdarOpenWindow(GdarApplication *application) : Window()
 {
     newDar = NULL;
     openTreadActive = false;
