@@ -10,8 +10,6 @@ AC_CONFIG_HEADERS([config.h])
 AC_LANG([C++])
 AX_CXX_COMPILE_STDCXX([11], [noext], [optional])
 
-AM_CXXFLAGS="$AM_CXXFLAGS -Wall -Werror"
-AC_SUBST([AM_CXXFLAGS])
 
 AC_CHECK_PROG(MAKE_CHECK,make,yes)
 if test x"$MAKE_CHECK" != x"yes" ; then
@@ -20,6 +18,25 @@ fi
 
 # Internationalization
 IT_PROG_INTLTOOL([0.35.0])
+
+AC_ARG_ENABLE(debug,
+AS_HELP_STRING([--enable-debug],
+               [enable debugging, default: no]),
+[case "${enableval}" in
+             yes) debug="yes" ;;
+             no)  debug="no" ;;
+             *)   AC_MSG_ERROR([bad value ${enableval} for --enable-debug]) ;;
+esac],
+[debug="no"])
+
+AM_CXXFLAGS="-Wall -Wextra -Werror"
+if test "$debug" == "yes"
+then
+AM_CXXFLAGS="$AM_CXXFLAGS -O0 -g -fstack-protector-all -fsanitize=undefined"
+else
+AM_CXXFLAGS="$AM_CXXFLAGS -O2"
+fi
+AC_SUBST([AM_CXXFLAGS])
 
 GETTEXT_PACKAGE=gdar
 AC_SUBST(GETTEXT_PACKAGE)
@@ -30,6 +47,8 @@ AM_GLIB_GNU_GETTEXT
 GDAR_LOCALEDIR=["${datadir}/locale"]
 AC_SUBST(GDAR_LOCALEDIR)
 
+# do not use default compiler options (-g -O2)
+CXXFLAGS=""
 # Checks for programs.
 AC_PROG_CXX
 
@@ -102,6 +121,7 @@ AC_CHECK_HEADER_STDBOOL
 
 AC_CONFIG_FILES([Makefile
                  src/Makefile
+                 test/Makefile
 		 po/Makefile.in
 		])
 
@@ -113,3 +133,4 @@ echo "    libdar children in table: $get_children_in_table"
 echo "    libdar support date_s: $libdar_with_date_as_time"
 echo "    use libdar API v5: $use_libdar_api5"
 echo "    gtk always show image: $set_always_show_image"
+echo "    debug build: $debug"

@@ -16,10 +16,13 @@ jobs:
     - name: prepare
       run: |
         sudo apt-get update 
-        sudo apt-get install make gcc g++ libgtkmm-3.0-dev libgcrypt20-dev libtool intltool libattr1-dev libdar-dev libbz2-1.0 libbz2-dev libbz2-ocaml libbz2-ocaml-dev liblzo2-dev gnome-icon-theme-symbolic libgpgme-dev
+        sudo apt-get install make gcc g++ libgtkmm-3.0-dev libgcrypt20-dev libtool intltool libattr1-dev libdar-dev libbz2-1.0 libbz2-dev libbz2-ocaml libbz2-ocaml-dev liblzo2-dev gnome-icon-theme-symbolic libgpgme-dev libboost-dev xvfb
     - name: autogen
       run: ./autogen.sh
     - name: configure
-      run: ./configure --enable-libdar64
+      run: ./configure --enable-libdar64 --enable-debug
     - name: make
       run: make
+    - name: test
+      run: xvfb-run --auto-servernum make check
+
