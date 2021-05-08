@@ -57,12 +57,18 @@ GdarOpenWindow::GdarOpenWindow(GdarApplication *application) : Window()
     i_box = Gtk::make_managed<Gtk::Box>(Gtk::ORIENTATION_HORIZONTAL,0);
     n_box = Gtk::make_managed<Gtk::Box>(Gtk::ORIENTATION_HORIZONTAL,0);
     a_box = Gtk::make_managed<Gtk::Box>(Gtk::ORIENTATION_HORIZONTAL,0);
+    a_box->set_halign(Gtk::Align::ALIGN_START);
     m_statusbar.push(_("Please choose a Dar file to open"));
 
+    int button_width = 100;
     a_open.set_tooltip_text(_("Open archive"));
+    a_open.set_size_request(button_width, -1);
     sw_hide.set_tooltip_text(_("Show hidden files"));
+    sw_hide.set_size_request(button_width, -1);
     a_info.set_tooltip_text(_("Show information about archive"));
+    a_info.set_size_request(button_width, -1);
     a_extract.set_tooltip_text(_("Extract selected file or folder"));
+    a_extract.set_size_request(button_width, -1);
     n_button_up.set_tooltip_text(_("Change to parent directory"));
 
     treeView.signal_row_activated().connect(sigc::mem_fun(*this,&GdarOpenWindow::on_active_row));
