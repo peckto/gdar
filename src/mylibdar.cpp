@@ -32,6 +32,7 @@ Mydar::Mydar(Window *parentWindow): dialog(parentWindow) , dialog_custom_listing
 Mydar::Mydar(Window *parentWindow, std::string path, std::string slice) : Mydar(parentWindow) {
     this->path = path;
     this->slice = slice;
+    this->my_arch = NULL;
 }
 
 Mydar::~Mydar() {

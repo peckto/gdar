@@ -182,7 +182,7 @@ bool GdarOpenWindow::openDar() {
     try {
         newDar->init();
         newDar->setListingBuffer(&listingBuffer);
-        newDar->open(path,slice,read_options); 
+        newDar->open(path,slice,read_options);
     } catch (LIBDAR::Egeneric &e) {
         {
             Glib::Mutex::Lock lock(errorMutex);
@@ -190,6 +190,8 @@ bool GdarOpenWindow::openDar() {
             errorPipe.push(emsg);
             show_error_dialog_disp();
         }
+        // TODO: This might leak memory from not fully initialized archive
+        newDar->my_arch = NULL;
         return false;
     }
     extract_stats = new LIBDAR::statistics(true);
