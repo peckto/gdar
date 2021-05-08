@@ -65,9 +65,10 @@ public:
     std::list<File> listingBuffer;
     Mydar *newDar;
  
-    GdarOpenWindow(GdarApplication *application);
+    GdarOpenWindow(Glib::RefPtr<GdarApplication> application);
     ~GdarOpenWindow();
 
+    void parseDarFileName(std::string &filename);
     void open(std::string &filename, EncSettings *encSettins);
     bool openDar();
     void openDarThread();
@@ -78,8 +79,9 @@ public:
     void on_active_row(const Gtk::TreeModel::Path& path, Gtk::TreeViewColumn* column);
     void list_children_v();
     int list_children();
+    void create_mydar();
 
-    GdarApplication *gdarApp;
+    Glib::RefPtr<GdarApplication> gdarApp;
 
 protected:
     //Signal handlers
@@ -108,7 +110,6 @@ protected:
     void show_error_dialog();
     Glib::Mutex errorMutex;
     Glib::Dispatcher show_error_dialog_disp;
-    void create_mydar();
 
 private:
     LIBDAR::statistics *extract_stats;
@@ -121,7 +122,7 @@ private:
 
 class TableDialog : public Gtk::MessageDialog {
 public:
-    TableDialog(Glib::ustring msg, std::map<std::string, std::string> &cont);
+    TableDialog(Gtk::Window& parent, Glib::ustring msg, std::map<std::string, std::string> &cont);
     virtual ~TableDialog();
 protected:
     typedef std::map<Gtk::Label*, Gtk::Label*> labelMap;

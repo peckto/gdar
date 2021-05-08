@@ -39,7 +39,7 @@ FileColumns::FileColumns() {
 FileColumns::~FileColumns() {
 }
  
-GdarOpenWindow::GdarOpenWindow(GdarApplication *application) : Window()
+GdarOpenWindow::GdarOpenWindow(Glib::RefPtr<GdarApplication> application) : Window()
 {
     newDar = NULL;
     openTreadActive = false;
@@ -53,10 +53,10 @@ GdarOpenWindow::GdarOpenWindow(GdarApplication *application) : Window()
     //init Window
     set_title("Gdar");
     set_icon(gdarApp->myTheme->load_icon("emblem-package",50));
-    m_box = Gtk::manage(new Gtk::Box(Gtk::ORIENTATION_VERTICAL,0));
-    i_box = Gtk::manage(new Gtk::Box(Gtk::ORIENTATION_HORIZONTAL,0));
-    n_box = Gtk::manage(new Gtk::Box(Gtk::ORIENTATION_HORIZONTAL,0));
-    a_box = Gtk::manage(new Gtk::Box(Gtk::ORIENTATION_HORIZONTAL,0));
+    m_box = Gtk::make_managed<Gtk::Box>(Gtk::ORIENTATION_VERTICAL,0);
+    i_box = Gtk::make_managed<Gtk::Box>(Gtk::ORIENTATION_HORIZONTAL,0);
+    n_box = Gtk::make_managed<Gtk::Box>(Gtk::ORIENTATION_HORIZONTAL,0);
+    a_box = Gtk::make_managed<Gtk::Box>(Gtk::ORIENTATION_HORIZONTAL,0);
     m_statusbar.push(_("Please choose a Dar file to open"));
 
     a_open.set_tooltip_text(_("Open archive"));
@@ -84,9 +84,9 @@ GdarOpenWindow::GdarOpenWindow(GdarApplication *application) : Window()
     grey.set_grey_p(0.7);
     white.set_grey_p(1);
     // Name
-    coloureCell = new Gtk::CellRendererText;
+    coloureCell = Gtk::make_managed<Gtk::CellRendererText>();
     Gtk::CellRendererPixbuf iconCell;
-    column = new Gtk::TreeViewColumn();
+    column = Gtk::make_managed<Gtk::TreeViewColumn>();
     column->set_title(_("Name"));
     column->pack_start(iconCell,false);
     column->add_attribute(iconCell.property_pixbuf(), cols.file_icon);
@@ -95,12 +95,12 @@ GdarOpenWindow::GdarOpenWindow(GdarApplication *application) : Window()
     column->add_attribute(coloureCell->property_text(), cols.file_name);
     treeView.append_column(*column);
     // Size
-    coloureCell = new Gtk::CellRendererText;
+    coloureCell = Gtk::make_managed<Gtk::CellRendererText>();
     column_count = treeView.append_column(_("Size"), *coloureCell);
     column = treeView.get_column(column_count -1);
     column->add_attribute(coloureCell->property_text(), cols.file_size);
     // Date
-    coloureCell = new Gtk::CellRendererText;
+    coloureCell = Gtk::make_managed<Gtk::CellRendererText>();
     column_count = treeView.append_column(_("Changed"), *coloureCell);
     column = treeView.get_column(column_count -1);
     column->add_attribute(coloureCell->property_text(), cols.file_changed);
@@ -168,21 +168,21 @@ GdarOpenWindow::GdarOpenWindow(GdarApplication *application) : Window()
 }
 
 GdarOpenWindow::~GdarOpenWindow() { 
-    LIBDAR::close_and_clean();
-
     if ( extract_stats != NULL )
         delete extract_stats;
     if (newDar != NULL) {
         delete newDar;
     }
-    // TODO: how to delete read_options?
+    if (read_options != NULL)
+        delete read_options;
+    LIBDAR::close_and_clean();
 }
 
 bool GdarOpenWindow::openDar() {
     try {
         newDar->init();
         newDar->setListingBuffer(&listingBuffer);
-        newDar->open(path,slice,read_options); 
+        newDar->open(path,slice,read_options);
     } catch (LIBDAR::Egeneric &e) {
         {
             Glib::Mutex::Lock lock(errorMutex);
@@ -190,6 +190,8 @@ bool GdarOpenWindow::openDar() {
             errorPipe.push(emsg);
             show_error_dialog_disp();
         }
+        // TODO: This might leak memory from not fully initialized archive
+        newDar->my_arch = NULL;
         return false;
     }
     extract_stats = new LIBDAR::statistics(true);
@@ -412,11 +414,16 @@ void GdarOpenWindow::on_button_open() {
     dialog.add_button(Gtk::Stock::CANCEL, Gtk::RESPONSE_CANCEL);
     dialog.add_button(Gtk::Stock::OPEN, Gtk::RESPONSE_OK);
     Gtk::CheckButton enc_check;
-    Gtk::ButtonBox *action_aria;
     enc_check.set_label(_("Backup is encrypted"));
     enc_check.show();
-    action_aria = dialog.get_action_area();
-    action_aria->pack_end(enc_check);
+
+    if (dialog.property_use_header_bar()) {
+        Gtk::HeaderBar *header_bar = dialog.get_header_bar();
+        header_bar->pack_end(enc_check);
+    } else {
+        Gtk::ButtonBox *action_aria = dialog.get_action_area();
+        action_aria->pack_end(enc_check);
+    }
 
     Glib::RefPtr<Gtk::FileFilter> filter = Gtk::FileFilter::create();
     filter->set_name(_("Dar files"));
@@ -439,16 +446,7 @@ void GdarOpenWindow::on_button_open() {
     }
 }
 
-void GdarOpenWindow::open(string &filename, EncSettings *encSettins) {
-    create_mydar();
-    LIBDAR::secu_string tmp_pass;
-
-    if (encSettins != NULL ) {
-        read_options->set_crypto_size(encSettins->get_block_size());
-        read_options->set_crypto_pass(encSettins->get_pass());
-        read_options->set_crypto_algo(encSettins->get_crypt_algo());
-    }
-
+void GdarOpenWindow::parseDarFileName(std::string &filename) {
     int i = filename.find_last_of("/");
     path = filename.substr(0,i);
     slice = filename.substr(i+1,filename.length());
@@ -457,7 +455,18 @@ void GdarOpenWindow::open(string &filename, EncSettings *encSettins) {
     i = slice.find_last_of(".");
     i = slice.find_last_of(".", i-1);
     slice = slice.substr(0,i);
-    // start thread
+}
+
+void GdarOpenWindow::open(string &filename, EncSettings *encSettins) {
+    create_mydar();
+
+    if (encSettins != NULL ) {
+        read_options->set_crypto_size(encSettins->get_block_size());
+        read_options->set_crypto_pass(encSettins->get_pass());
+        read_options->set_crypto_algo(encSettins->get_crypt_algo());
+    }
+    GdarOpenWindow::parseDarFileName(filename);
+    // load archive as background task
     openThreadPtr = Glib::Thread::create(sigc::mem_fun(*this,&GdarOpenWindow::openDarThread),true);
 }
 
@@ -540,7 +549,7 @@ void GdarOpenWindow::on_extract_finish() {
     string msg = ext_src;
     msg += " => ";
     msg += ext_dest;
-    TableDialog dlg(msg,stats);
+    TableDialog dlg(*this, msg,stats);
     dlg.set_title(_("Extract successfully"));
     dlg.run();
 }
@@ -555,7 +564,7 @@ void GdarOpenWindow::on_info() {
     stats[_("Number of files")] = LIBDAR::deci(my_stats.num_f).human();
     stats[_("Saved inodes in this backup")] = LIBDAR::deci(my_stats.saved).human();
 
-    TableDialog dlg("",stats);
+    TableDialog dlg(*this, "",stats);
     dlg.set_title(_("About ") + slice);
     dlg.run();
 }
@@ -575,8 +584,8 @@ bool GdarOpenWindow::filter_func(Gtk::TreeModel::const_iterator it) {
     return true;
 }
 
-TableDialog::TableDialog(Glib::ustring msg, std::map<std::string, std::string> &cont) :
-    Gtk::MessageDialog(msg, false, Gtk::MESSAGE_INFO, Gtk::BUTTONS_OK, true ),
+TableDialog::TableDialog(Gtk::Window& parent, Glib::ustring msg, std::map<std::string, std::string> &cont) :
+    Gtk::MessageDialog(parent, msg, false, Gtk::MESSAGE_INFO, Gtk::BUTTONS_OK, true ),
     table(cont.size(),3,false),
     tt("\t")
 {
@@ -586,8 +595,8 @@ TableDialog::TableDialog(Glib::ustring msg, std::map<std::string, std::string> &
     Gtk::Label *first, *second;
     int i = 0;
     for (it=cont.begin(); it!=cont.end(); it++) {
-        first = new Gtk::Label(it->first,Gtk::ALIGN_END,Gtk::ALIGN_START);
-        second = new Gtk::Label(it->second,Gtk::ALIGN_START,Gtk::ALIGN_START);
+        first = Gtk::make_managed<Gtk::Label>(it->first,Gtk::ALIGN_END,Gtk::ALIGN_START);
+        second = Gtk::make_managed<Gtk::Label>(it->second,Gtk::ALIGN_START,Gtk::ALIGN_START);
         labels[first] = second;
         table.attach(*first,0,1,i,i+1);
         table.attach(*second,2,3,i,i+1);

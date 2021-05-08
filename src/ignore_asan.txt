@@ -1,0 +1,10 @@
+#g_malloc
+#FcPatternObjectInsertElt
+#FcPatternObjectAddWithBinding
+#FcConfigValues
+#FcValueSave
+#FcConfigEvaluate
+#FcValueListDuplicate
+#FcFontRenderPrepare
+#FcLangSetCopy
+#src:/lib64/*

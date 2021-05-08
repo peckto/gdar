@@ -10,6 +10,9 @@ AC_CONFIG_HEADERS([config.h])
 AC_LANG([C++])
 AX_CXX_COMPILE_STDCXX([11], [noext], [optional])
 
+AM_CXXFLAGS="$AM_CXXFLAGS -Wall -Werror"
+AC_SUBST([AM_CXXFLAGS])
+
 AC_CHECK_PROG(MAKE_CHECK,make,yes)
 if test x"$MAKE_CHECK" != x"yes" ; then
     AC_MSG_ERROR([Please install make before installing.])
