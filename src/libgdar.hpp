@@ -79,6 +79,7 @@ public:
     void on_active_row(const Gtk::TreeModel::Path& path, Gtk::TreeViewColumn* column);
     void list_children_v();
     int list_children();
+    void create_mydar();
 
     Glib::RefPtr<GdarApplication> gdarApp;
 
@@ -109,7 +110,6 @@ protected:
     void show_error_dialog();
     Glib::Mutex errorMutex;
     Glib::Dispatcher show_error_dialog_disp;
-    void create_mydar();
 
 private:
     LIBDAR::statistics *extract_stats;
