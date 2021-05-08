@@ -1,4 +1,4 @@
-SUBDIRS = src po
+SUBDIRS = src po test
 dist_doc_DATA = README.md
 
 desktopdir = $(datadir)/applications
