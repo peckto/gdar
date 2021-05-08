@@ -168,14 +168,14 @@ GdarOpenWindow::GdarOpenWindow(Glib::RefPtr<GdarApplication> application) : Wind
 }
 
 GdarOpenWindow::~GdarOpenWindow() { 
-    LIBDAR::close_and_clean();
-
     if ( extract_stats != NULL )
         delete extract_stats;
     if (newDar != NULL) {
         delete newDar;
     }
-    // TODO: how to delete read_options?
+    if (read_options != NULL)
+        delete read_options;
+    LIBDAR::close_and_clean();
 }
 
 bool GdarOpenWindow::openDar() {

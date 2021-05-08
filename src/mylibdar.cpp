@@ -38,7 +38,8 @@ Mydar::~Mydar() {
     if (my_statistic != NULL) {
         delete my_statistic;
     }
-//    LIBDAR::close_and_clean();
+    if (my_arch != NULL)
+        delete my_arch;
 }
 
 int Mydar::init() {
@@ -53,7 +54,7 @@ int Mydar::open(std::string path, std::string slice, LIBDAR::archive_options_rea
     this->path = path;
     this->slice = slice;
 
-    my_arch = new LIBDAR::archive(dialog,path,slice, "dar", *read_options); 
+    my_arch = new LIBDAR::archive(dialog,path,slice, "dar", *read_options);
 
     return 0;
 }
