@@ -31,7 +31,7 @@ namespace utf = boost::unit_test;
 
 BOOST_AUTO_TEST_CASE(hello_world, *utf::timeout(2))  {
     Glib::RefPtr<GdarApplication> application = GdarApplication::create(0, NULL);
-    GdarOpenWindow window(application);
+    GdarOpenWindow window(application.get());
     string path("./foo.1.dar");
     window.parseDarFileName(path);
     window.create_mydar();

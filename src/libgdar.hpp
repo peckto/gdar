@@ -65,7 +65,7 @@ public:
     std::list<File> listingBuffer;
     Mydar *newDar;
  
-    GdarOpenWindow(Glib::RefPtr<GdarApplication> application);
+    GdarOpenWindow(GdarApplication *application);
     ~GdarOpenWindow();
 
     void parseDarFileName(std::string &filename);
@@ -81,7 +81,7 @@ public:
     int list_children();
     void create_mydar();
 
-    Glib::RefPtr<GdarApplication> gdarApp;
+    GdarApplication *gdarApp;
 
 protected:
     //Signal handlers

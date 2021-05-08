@@ -26,6 +26,7 @@
 using namespace std;
 
 int main(int argc, char **argv) {
+
     Glib::RefPtr<GdarApplication> application = GdarApplication::create(argc, argv);
 
     bindtextdomain(GETTEXT_PACKAGE, GDAR_LOCALEDIR);
