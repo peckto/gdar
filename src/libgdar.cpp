@@ -72,14 +72,23 @@ GdarOpenWindow::GdarOpenWindow(GdarApplication *application) : Window()
     m_statusbar.push(_("Please choose a Dar file to open"));
 
     int button_width = 100;
+    int button_margin = 10;
     a_open.set_tooltip_text(_("Open archive"));
     a_open.set_size_request(button_width, -1);
-    sw_hide.set_tooltip_text(_("Show hidden files"));
-    sw_hide.set_size_request(button_width, -1);
-    a_info.set_tooltip_text(_("Show information about archive"));
-    a_info.set_size_request(button_width, -1);
+    a_open.set_margin_end(button_margin);
+
     a_extract.set_tooltip_text(_("Extract selected file or folder"));
     a_extract.set_size_request(button_width, -1);
+    a_extract.set_margin_end(button_margin);
+
+    a_info.set_tooltip_text(_("Show information about archive"));
+    a_info.set_size_request(button_width, -1);
+    a_info.set_margin_end(button_margin);
+
+    sw_hide.set_tooltip_text(_("Show hidden files"));
+    sw_hide.set_size_request(70, -1);
+    sw_hide.set_margin_end(button_margin);
+
     n_button_up.set_tooltip_text(_("Change to parent directory"));
 
     treeView.signal_row_activated().connect(sigc::mem_fun(*this,&GdarOpenWindow::on_active_row));
