@@ -21,11 +21,22 @@
 
 #include <iostream>
 #include <iomanip>
+#include <sys/stat.h>
 #include "libgdar.hpp"
 #include "mylibdar.hpp"
 #include "enc_dialog.hpp"
 
 using namespace std;
+
+bool fileExists(const std::string& filename)
+{
+    struct stat buf;
+    if (stat(filename.c_str(), &buf) != -1)
+    {
+        return true;
+    }
+    return false;
+}
 
 FileColumns::FileColumns() {
     add(file_name);
@@ -458,6 +469,12 @@ void GdarOpenWindow::parseDarFileName(std::string &filename) {
 }
 
 void GdarOpenWindow::open(string &filename, EncSettings *encSettins) {
+    if (!fileExists(filename)) {
+        Gtk::MessageDialog dlg(_("File not found: ") + filename, false, Gtk::MESSAGE_INFO, Gtk::BUTTONS_OK, true );
+        dlg.set_title(_("Error"));
+        dlg.run();
+        return;
+    }
     create_mydar();
 
     if (encSettins != NULL ) {
