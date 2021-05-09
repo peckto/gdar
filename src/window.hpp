@@ -57,7 +57,7 @@ protected:
     Gtk::Separator a_separator3;
     Gtk::Button a_info;
     Gtk::Image a_info_img;
-    Gtk::Switch sw_hide;
+    Gtk::CheckButton cb_hide;
     // Main widgets
     Gtk::VBox topBox;
     Gtk::Box *n_box; //navigation Box
