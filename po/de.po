@@ -27,7 +27,7 @@ msgstr "Archiv öffnen"
 
 #: ../src/libgdar.cpp:74
 msgid "Show hidden files"
-msgstr "Anzeigen von versteckten Dateien"
+msgstr "Zeige versteckte Dateien"
 
 #: ../src/libgdar.cpp:75
 msgid "Show information about archive"
