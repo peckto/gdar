@@ -40,6 +40,8 @@ public:
     Window();
     ~Window();
 
+    std::string path,slice;
+
 protected:
     //Signal handlers
     void on_show_pwd_dialog();
@@ -81,7 +83,6 @@ protected:
     // color
     Gdk::Color grey,white;
 
-    std::string path,slice;
     std::string ext_src, ext_dest;
     std::list<std::string> treePath;
 

@@ -68,7 +68,7 @@ public:
     GdarOpenWindow(GdarApplication *application);
     ~GdarOpenWindow();
 
-    void parseDarFileName(std::string &filename);
+    bool parse_dar_file_name(std::string &filename);
     void open(std::string &filename, EncSettings *encSettins);
     bool openDar();
     void openDarThread();

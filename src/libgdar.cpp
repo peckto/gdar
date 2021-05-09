@@ -457,20 +457,38 @@ void GdarOpenWindow::on_button_open() {
     }
 }
 
-void GdarOpenWindow::parseDarFileName(std::string &filename) {
-    int i = filename.find_last_of("/");
-    path = filename.substr(0,i);
-    slice = filename.substr(i+1,filename.length());
+bool GdarOpenWindow::parse_dar_file_name(std::string &filename) {
+    if (filename.substr(filename.length() - 4) != ".dar") {
+        return false;
+    }
+    size_t i = filename.find_last_of("/");
+    if (i == string::npos) {
+        path = ".";
+        slice = filename;
+    } else {
+        path = filename.substr(0,i);
+        slice = filename.substr(i+1,filename.length());
+    }
     // archive name like: <name>.<slice>.dar (home-2014-09-14.1.dar)
     // be aware of dots occurring inside name!
     i = slice.find_last_of(".");
     i = slice.find_last_of(".", i-1);
+    if (i == string::npos) {
+        return false;
+    }
     slice = slice.substr(0,i);
+    return true;
 }
 
 void GdarOpenWindow::open(string &filename, EncSettings *encSettins) {
     if (!fileExists(filename)) {
         Gtk::MessageDialog dlg(_("File not found: ") + filename, false, Gtk::MESSAGE_INFO, Gtk::BUTTONS_OK, true );
+        dlg.set_title(_("Error"));
+        dlg.run();
+        return;
+    }
+    if (!GdarOpenWindow::parse_dar_file_name(filename)) {
+        Gtk::MessageDialog dlg(_("Invalid dar archive: ") + filename, false, Gtk::MESSAGE_INFO, Gtk::BUTTONS_OK, true );
         dlg.set_title(_("Error"));
         dlg.run();
         return;
@@ -482,7 +500,6 @@ void GdarOpenWindow::open(string &filename, EncSettings *encSettins) {
         read_options->set_crypto_pass(encSettins->get_pass());
         read_options->set_crypto_algo(encSettins->get_crypt_algo());
     }
-    GdarOpenWindow::parseDarFileName(filename);
     // load archive as background task
     openThreadPtr = Glib::Thread::create(sigc::mem_fun(*this,&GdarOpenWindow::openDarThread),true);
 }
