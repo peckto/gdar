@@ -85,9 +85,9 @@ GdarOpenWindow::GdarOpenWindow(GdarApplication *application) : Window()
     a_info.set_size_request(button_width, -1);
     a_info.set_margin_end(button_margin);
 
-    sw_hide.set_tooltip_text(_("Show hidden files"));
-    sw_hide.set_size_request(70, -1);
-    sw_hide.set_margin_end(button_margin);
+    cb_hide.set_label(_("Show hidden files"));
+    //sw_hide.set_size_request(70, -1);
+    cb_hide.set_margin_end(button_margin);
 
     n_button_up.set_tooltip_text(_("Change to parent directory"));
 
@@ -96,7 +96,7 @@ GdarOpenWindow::GdarOpenWindow(GdarApplication *application) : Window()
     a_open.signal_clicked().connect(sigc::mem_fun(*this, &GdarOpenWindow::on_button_open));
     a_extract.signal_clicked().connect(sigc::mem_fun(*this, &GdarOpenWindow::on_extract));
     a_info.signal_clicked().connect(sigc::mem_fun(*this, &GdarOpenWindow::on_info));
-    sw_hide.property_active().signal_changed().connect(sigc::mem_fun(*this, &GdarOpenWindow::on_swh_hide));
+    cb_hide.property_active().signal_changed().connect(sigc::mem_fun(*this, &GdarOpenWindow::on_swh_hide));
     n_entry_path.signal_activate().connect(sigc::mem_fun(*this, &GdarOpenWindow::on_entry_path_activate));
 
     list_children_disp.connect(sigc::mem_fun(*this,&GdarOpenWindow::list_children_v));
@@ -178,7 +178,7 @@ GdarOpenWindow::GdarOpenWindow(GdarApplication *application) : Window()
     a_box->pack_start(a_separator2);
     a_box->pack_start(a_info);
     a_box->pack_start(a_separator3);
-    a_box->pack_start(sw_hide);
+    a_box->pack_start(cb_hide);
 
     show_all_children();
 
@@ -624,7 +624,7 @@ void GdarOpenWindow::on_swh_hide() {
 }
 
 bool GdarOpenWindow::filter_func(Gtk::TreeModel::const_iterator it) {
-    if (sw_hide.get_active())
+    if (cb_hide.get_active())
         return true;
     std::string value;
     it->get_value(0,value);
