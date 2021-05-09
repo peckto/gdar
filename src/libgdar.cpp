@@ -173,11 +173,8 @@ GdarOpenWindow::GdarOpenWindow(GdarApplication *application) : Window()
 #endif
     a_info.set_image(a_info_img);
     a_box->pack_start(a_open);
-    a_box->pack_start(a_separator1);
     a_box->pack_start(a_extract);
-    a_box->pack_start(a_separator2);
     a_box->pack_start(a_info);
-    a_box->pack_start(a_separator3);
     a_box->pack_start(cb_hide);
 
     show_all_children();

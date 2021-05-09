@@ -52,9 +52,6 @@ protected:
     Gtk::Box *a_box;
     Gtk::Button a_open;
     Gtk::Button a_extract;
-    Gtk::Separator a_separator1;
-    Gtk::Separator a_separator2;
-    Gtk::Separator a_separator3;
     Gtk::Button a_info;
     Gtk::Image a_info_img;
     Gtk::CheckButton cb_hide;
