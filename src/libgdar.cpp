@@ -204,7 +204,6 @@ GdarOpenWindow::~GdarOpenWindow() {
 bool GdarOpenWindow::openDar() {
     try {
         newDar->init();
-        newDar->setListingBuffer(&listingBuffer);
         newDar->open(path,slice,read_options);
     } catch (LIBDAR::Egeneric &e) {
         {
@@ -222,7 +221,6 @@ bool GdarOpenWindow::openDar() {
     return true;
 }
 
-#ifdef GET_CHILDREN_IN_TABLE
 void GdarOpenWindow::populate(std::vector<LIBDAR::list_entry> *children_table) {
     Gtk::TreeModel::Row row;
     listStore->clear();
@@ -250,7 +248,6 @@ void GdarOpenWindow::populate(std::vector<LIBDAR::list_entry> *children_table) {
     }
     treeView.columns_autosize();
 }
-#endif
 
 /*
  * converts a size given in bytes to a human readable string like 10.4 MB
@@ -351,14 +348,8 @@ void GdarOpenWindow::list_children_v() {
 int GdarOpenWindow::list_children() {
     string s_treePath = get_treePath();
     try {
-#ifdef GET_CHILDREN_IN_TABLE
         std::vector<LIBDAR::list_entry> children_table = newDar->get_children_in_table(s_treePath);
         populate(&children_table);
-#else
-        listingBuffer.clear();
-        newDar->list_children(s_treePath.c_str());
-        populate();
-#endif
     } catch (LIBDAR::Egeneric &e) {
         {
             Glib::Mutex::Lock lock(errorMutex);

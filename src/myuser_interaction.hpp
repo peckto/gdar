@@ -30,39 +30,26 @@
 
 
 class Dialog : public LIBDAR::user_interaction {
+protected:
+        // display of informational message
+    virtual void inherited_message(const std::string & message) override;
+
+        // display of a question and returns the answer from user as true/false
+    virtual bool inherited_pause(const std::string & message) override;
+
+        // display the message and returns a string from the user,
+        // with or without display what the user typed (echo)
+    virtual std::string inherited_get_string(const std::string & message, bool echo) override;
+
+        // same as the previous be the user provided string is returned as secu_string
+    virtual libdar::secu_string inherited_get_secu_string(const std::string & message, bool echo) override;
+
 public:
-    std::list<File> *listingBuffer;
-    void pause(const std::string & message);
-    void warning(const std::string & message);
-    std::string get_string(const std::string & message, bool echo);
-    LIBDAR::secu_string get_secu_string(const std::string &message, bool echo);
-    void warning_callback(const std::string &x, void *context);
-    bool answer_callback(const std::string &x, void *context);
-    std::string string_callback(const std::string &x, bool echo, void *context);
-    LIBDAR::secu_string sec_string_callback(const std::string &x, bool echo, void *context);
     Dialog(Window *parentWindow);
     ~Dialog();
     Dialog *clone() const;
-    void setListingBuffer(std::list<File> *buffer);
 protected:
-    void inherited_warning(const std::string& message);
     Window *parentWindow;
-};
-
-class Dialog_custom_listing : public Dialog {
-public:
-    void listing(const std::string & flag,
-                            const std::string & perm,
-                            const std::string & uid,
-                            const std::string & gid,
-                            const std::string & size,
-                            const std::string & date,
-                            const std::string & filename,
-                            bool is_dir,
-                            bool has_children);
-    Dialog_custom_listing(Window *parentWindow);
-    ~Dialog_custom_listing();
-    Dialog_custom_listing *clone() const;
 };
 
 #endif // MYUSER_INTERACTION_HPP

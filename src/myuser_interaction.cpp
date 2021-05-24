@@ -26,21 +26,22 @@ using namespace std;
 using namespace LIBDAR;
 
 
-void Dialog::pause(const std::string & message) {
+bool Dialog::inherited_pause(const std::string & message) {
     cout << "pause: " << message << endl;
+    return false;
 }
 
-void Dialog::warning(const std::string & message) {
+void Dialog::inherited_message(const std::string & message) {
     cout << "warning: " << message << endl;
 }
 
-std::string Dialog::get_string(const std::string & message, bool echo) {
+std::string Dialog::inherited_get_string(const std::string & message, bool echo) {
     (void)echo;
     cout << "get_string: " << message << endl;
     return "";
 }
 
-LIBDAR::secu_string Dialog::get_secu_string(const std::string &message, bool echo) {
+LIBDAR::secu_string Dialog::inherited_get_secu_string(const std::string &message, bool echo) {
     (void)message;
     (void)echo;
     //cout << "get_secu_string: " << message << endl;
@@ -53,57 +54,11 @@ LIBDAR::secu_string Dialog::get_secu_string(const std::string &message, bool ech
     return s;
 }
 
-void Dialog::warning_callback(const std::string &x, void *context) {
-    (void)context;
-    cout << "WARNING: " << x << endl;
-}
-
-bool Dialog::answer_callback(const std::string &x, void *context) {
-    (void)context;
-    cout << "ANSWER: " << x << endl;
-    return false;
-}
-
-string Dialog::string_callback(const std::string &x, bool echo, void *context) {
-    (void)echo;
-    (void)context;
-    cout << "string_callback: " << x << endl;
-    return string("");
-}
-
-secu_string Dialog::sec_string_callback(const std::string &x, bool echo, void *context) {
-    (void)echo;
-    (void)context;
-    cout << "string_callback: " << x << endl;
-    return secu_string("",0);
-}
-
-void Dialog_custom_listing::listing(const std::string & flag,
-                        const std::string & perm,
-                        const std::string & uid,
-                        const std::string & gid,
-                        const std::string & size,
-                        const std::string & date,
-                        const std::string & filename,
-                        bool is_dir,
-                        bool has_children) {
-    if (listingBuffer) {
-        listingBuffer->push_back(File(flag,perm,uid,gid,size,date,filename,is_dir,has_children));
-    }
-}
-
 Dialog::Dialog(Window *parentWindow) {
-    listingBuffer = 0;
     this->parentWindow = parentWindow;
 }
 
-Dialog_custom_listing::Dialog_custom_listing(Window *parentWindow) : Dialog(parentWindow) {
-    listingBuffer = 0;
-    set_use_listing(true);
-}
-
 Dialog::~Dialog() {}
-Dialog_custom_listing::~Dialog_custom_listing() {}
 
 Dialog *Dialog::clone() const
 {
@@ -113,22 +68,3 @@ Dialog *Dialog::clone() const
     else
     return ret;
 }
-
-Dialog_custom_listing *Dialog_custom_listing::clone() const
-{
-    Dialog_custom_listing *ret = new Dialog_custom_listing(*this);
-    if(ret == NULL)
-        throw Ememory("user_interaction_callback::clone");
-    else
-    return ret;
-}
-
-void Dialog::inherited_warning(const string& message) {
-    (void)message;
-//    cout << "inherited_warning: " << message << endl;
-}
-
-void Dialog::setListingBuffer(std::list<File> *buffer) {
-    listingBuffer = buffer;
-}
-
