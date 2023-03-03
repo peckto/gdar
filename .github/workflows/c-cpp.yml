@@ -11,8 +11,8 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [debian-latest, fedora-latest, opensuse-latest, ubuntu-latest]
-    steps:
+        os: [debian-latest, fedora-latest, opensuse-latest]
+    steps
     - uses: actions/checkout@v3
     - name: prepare
       run: |
