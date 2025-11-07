@@ -3,7 +3,7 @@ Required development packages on various systems
 
 Fedora
 # dnf install intltool make gcc-c++ gtkmm30-devel libattr-devel libdar-devel \
-              libgcrypt-devel lzo-devel bzip2-devel zlib-devel
+              libgcrypt-devel lzo-devel bzip2-devel zlib-devel libargon2-devel libcurl-devel
 
 openSUSE
 # zypper install intltool make gcc-c++ gtkmm3-devel libattr-devel \
