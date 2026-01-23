@@ -26,8 +26,8 @@
 using namespace std;
 using namespace libdar;
 
-Mydar::Mydar(Window *parentWindow): dialog(parentWindow) , dialog_custom_listing(parentWindow) {
-    crypt_algo = LIBDAR::crypto_none;
+Mydar::Mydar(Window *parentWindow): dialog(parentWindow) {
+    crypt_algo = LIBDAR::crypto_algo::none;
 }
 Mydar::Mydar(Window *parentWindow, std::string path, std::string slice) : Mydar(parentWindow) {
     this->path = path;
@@ -55,18 +55,9 @@ int Mydar::open(std::string path, std::string slice, LIBDAR::archive_options_rea
     this->path = path;
     this->slice = slice;
 
-    my_arch = new LIBDAR::archive(dialog,path,slice, "dar", *read_options);
+    my_arch = new LIBDAR::archive(std::make_shared<Dialog>(dialog),path,slice, "dar", *read_options);
 
     return 0;
-}
-
-int Mydar::list_children(const char *dir) {
-    my_arch->get_children_of(dialog_custom_listing, dir);
-    return 0;
-}
-
-void Mydar::setListingBuffer(std::list<File> *buffer) {
-    dialog_custom_listing.setListingBuffer(buffer);
 }
 
 int Mydar::extract(const char *dir, const char *dest,LIBDAR::statistics *stats, bool flat) {
@@ -80,7 +71,7 @@ int Mydar::extract(const char *dir, const char *dest,LIBDAR::statistics *stats, 
     options.set_subtree(LIBDAR::simple_path_mask(dir2, true));
     options.set_display_skipped(true);
     options.set_flat(flat);
-    my_arch->op_extract(dialog,std::string(dest),options,stats);
+    my_arch->op_extract(std::string(dest),options,stats);
 
     return 0;
 }
@@ -98,15 +89,13 @@ bool Mydar::test() {
     if (my_statistic != NULL) {
         delete my_statistic;
     }
-    LIBDAR::statistics test_stats = my_arch->op_test(dialog, test_options, NULL);
+    LIBDAR::statistics test_stats = my_arch->op_test(test_options, NULL);
 
     return true;
 }
 
-#ifdef GET_CHILDREN_IN_TABLE
 std::vector<LIBDAR::list_entry> Mydar::get_children_in_table(const std::string &dir) const {
     std::vector<LIBDAR::list_entry> children_table;
     children_table = my_arch->get_children_in_table(dir);
     return children_table;
 }
-#endif

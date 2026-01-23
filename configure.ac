@@ -77,11 +77,6 @@ AS_VERSION_COMPARE([`pkg-config --modversion ${libdar}`],[5.5.0],
 	[libdar_with_date_as_time="no"],
 	[libdar_with_date_as_time="yes"]
 )
-AS_VERSION_COMPARE([`pkg-config --modversion ${libdar}`],[5.4.0],
-	[get_children_in_table="no"],
-	[get_children_in_table="yes"],
-	[get_children_in_table="yes"]
-)
 AS_VERSION_COMPARE([`pkg-config --modversion ${libdar}`],[6.0.0],
         [use_libdar_api5="no"],
         [use_libdar_api5="yes"],
@@ -98,18 +93,14 @@ if test "$libdar_with_date_as_time" = "yes"
 then
     AC_DEFINE([LIBDAR_WITH_DATE_AS_TIME],[1],[LIBDAR_WITH_DATE_AS_TIME])
 fi
-if test "$get_children_in_table" = "yes"
-then
-    AC_DEFINE([GET_CHILDREN_IN_TABLE],[1],[GET_CHILDREN_IN_TABLE])
-fi
 if test "$set_always_show_image" = "yes"
 then
     AC_DEFINE([SET_ALWAYS_SHOW_IMAGE],[1],[SET_ALWAYS_SHOW_IMAGE])
 fi
-if test "$use_libdar_api5" = "yes"
-then
-    AC_DEFINE([LIBDAR5],[1],[LIBDAR5])
-fi
+#if test "$use_libdar_api5" = "yes"
+#then
+#    AC_DEFINE([LIBDAR5],[1],[LIBDAR5])
+#fi
 
 
 # Checks for typedefs, structures, and compiler characteristics.
@@ -129,7 +120,6 @@ AC_OUTPUT
 
 echo
 echo "Enabled features:"
-echo "    libdar children in table: $get_children_in_table"
 echo "    libdar support date_s: $libdar_with_date_as_time"
 echo "    use libdar API v5: $use_libdar_api5"
 echo "    gtk always show image: $set_always_show_image"

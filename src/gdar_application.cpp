@@ -90,7 +90,6 @@ void GdarApplication::on_action_quit() {
 void GdarApplication::on_action_info() {
     Gtk::AboutDialog aboutDialog;
 
-    aboutDialog.set_logo(myTheme->load_icon("emblem-package",100));
     aboutDialog.set_program_name("Gdar");
     aboutDialog.set_version(VERSION);
     aboutDialog.set_copyright("Tobias Specht");

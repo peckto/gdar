@@ -37,7 +37,6 @@ class Mydar {
 public:
     LIBDAR::archive *my_arch;
     Dialog dialog;
-    Dialog_custom_listing dialog_custom_listing;
     LIBDAR::U_16 exception;
     std::string except_msg;
     std::string stats_total;
@@ -51,17 +50,12 @@ public:
     int init();
     // open dar archive
     int open(std::string path, std::string slice, LIBDAR::archive_options_read *read_options);
-    // list only children of parent dir
-    int list_children(const char *dir);
-#ifdef GET_CHILDREN_IN_TABLE
     std::vector<LIBDAR::list_entry> get_children_in_table ( const std::string & dir) const;
-#endif
     int extract(const char *dir,const char *dest,LIBDAR::statistics *stats, bool flat = false);
     int count_files_in_dir(const char *dir);
     void get_stats();
     bool test();
 
-    void setListingBuffer(std::list<File> *buffer);
 private:
     LIBDAR::statistics *my_statistic;
     // security

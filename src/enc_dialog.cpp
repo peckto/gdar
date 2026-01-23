@@ -74,15 +74,15 @@ int EncSettings::get_block_size() {
 
 LIBDAR::crypto_algo EncSettings::get_crypt_algo() {
     if (blowfish_check.get_active())
-        return LIBDAR::crypto_blowfish;
+        return LIBDAR::crypto_algo::blowfish;
     if (aes_check.get_active())
-        return LIBDAR::crypto_aes256 ;
+        return LIBDAR::crypto_algo::aes256 ;
     if (twofish_check.get_active())
-        return LIBDAR::crypto_twofish256;
+        return LIBDAR::crypto_algo::twofish256;
     if (serpent_check.get_active())
-        return LIBDAR::crypto_serpent256;
+        return LIBDAR::crypto_algo::serpent256;
     if (camellia_check.get_active())
-        return LIBDAR::crypto_camellia256;
-    return LIBDAR::crypto_none;
+        return LIBDAR::crypto_algo::camellia256;
+    return LIBDAR::crypto_algo::none;
 }
 

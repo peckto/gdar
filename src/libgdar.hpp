@@ -73,9 +73,7 @@ public:
     bool openDar();
     void openDarThread();
     void populate();
-#ifdef GET_CHILDREN_IN_TABLE
     void populate(std::vector<LIBDAR::list_entry> *children_table);
-#endif
     void on_active_row(const Gtk::TreeModel::Path& path, Gtk::TreeViewColumn* column);
     void list_children_v();
     int list_children();
